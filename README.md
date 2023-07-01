@@ -19,3 +19,6 @@ Steps after cloning from github:
 3. Run node server.js for both frontend folder and backend folder in 2 different terminal/consoles.
 
 ** ALWAYS hv a backup before you push and pull just in case it fks up when u try to resolve a conflict or u overwrite someones code
+
+Wireframe link: https://www.figma.com/file/zuoyCpjDnOFwrtxNaL64uQ/MeetnGo?type=design&node-id=4-6&mode=design&t=WjtzAKiS5iyajR77-0
+Google folder link: https://drive.google.com/drive/folders/1d6CA3nD4tObctO-d_Uqgg_Prw7Q5aQmf?usp=drive_link
