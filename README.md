@@ -17,3 +17,5 @@ Steps after cloning from github:
     - npm install express --save
 2. Run the database setup in your mysql to create the tables and contents.
 3. Run node server.js for both frontend folder and backend folder in 2 different terminal/consoles.
+
+** ALWAYS hv a backup before you push and pull just in case it fks up when u try to resolve a conflict or u overwrite someones code
