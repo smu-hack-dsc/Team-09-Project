@@ -1,5 +1,5 @@
 body {
-    background-image: url(./bg/signin_bg.png);
+    background-image: url(../bg/signin_bg.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 .logo {
-    background: url(./logo/logo.gif) center center;
+    background: url(../logo/logo.gif) center center;
     background-repeat: no-repeat;
     background-size: contain;
     overflow: hidden;
@@ -43,7 +43,7 @@ body {
 }
 
 .btn-logo {
-    background-image: url(./icons/google-white.png);
+    background-image: url(../icons/google-white.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 3.5vh;
