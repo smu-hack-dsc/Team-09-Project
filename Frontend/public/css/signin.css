@@ -79,7 +79,7 @@ body {
 }
 
 .signin-btn:hover .btn-logo {
-    background-image: url(./icons/google-orange.png);
+    background-image: url(../icons/google-orange.png);
 }
 
 .signin-btn:hover .btn-text {
