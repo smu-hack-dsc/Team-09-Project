@@ -1,0 +1,40 @@
+@font-face {
+    font-family: Gilroy-ExtraBold;
+    src: url("./fonts/Gilroy-ExtraBold.otf") format("otf");
+}
+
+@font-face {
+    font-family: Gilroy-Light;
+    src: url("./fonts/Gilroy-Light.otf") format("otf");
+}
+
+@font-face {
+    font-family: Gilroy-Regular;
+    src: url("./fonts/gilroy-regular.ttf") format("ttf");
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: var(--linear, linear-gradient(134deg, #FCEED5 6.17%, #FCEED5 75.14%, #FFE7BA 100%));
+    font-family: "Gilroy-Reguar";
+}
+
+a {
+    text-decoration: none;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+footer > p {
+    font-family: "Gilroy-Light";
+    font-size: 10px;
+    margin: 2px;
+}

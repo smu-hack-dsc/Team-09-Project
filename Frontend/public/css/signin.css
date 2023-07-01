@@ -1,0 +1,103 @@
+body {
+    background-image: url(./bg/signin_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.signin-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.logo {
+    background: url(./logo/logo.gif) center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    height: 26vh;
+}
+
+.signin-btn {
+    width: 38vh;
+    height: 7vh;
+    border-radius: 15px;
+    background: #DF9234;
+    filter: drop-shadow(0px 6px 30px #FDD284);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    margin: 1em;
+}
+
+.btn-logo {
+    background-image: url(./icons/google-white.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 3.5vh;
+    height: 3.5vh;
+}
+
+.btn-text {
+    color: #fff;
+    font-size: 18px;
+    padding-left: 10px;
+    font-family: "Gilroy-ExtraBold";
+}
+
+.signin-btn span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: #fff;
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+.signin-btn:hover {
+    color: black;
+}
+
+.signin-btn:hover span {
+    transform: translateY(0) scale(2);
+}
+
+.signin-btn:hover .btn-logo {
+    background-image: url(./icons/google-orange.png);
+}
+
+.signin-btn:hover .btn-text {
+    color: #DF9234;
+}
+
+.signin-btn span:nth-child(1) {
+    --n: 1;
+}
+
+.signin-btn span:nth-child(2) {
+    --n: 2;
+}
+
+.signin-btn span:nth-child(3) {
+    --n: 3;
+}
+
+.signin-btn span:nth-child(4) {
+    --n: 4;
+}
