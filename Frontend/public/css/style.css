@@ -26,7 +26,7 @@ body {
     position: relative;
     max-width: 100%;
     overflow-x: hidden;
-    background-color: var(--linear, linear-gradient(134deg, #FCEED5 6.17%, #FCEED5 75.14%, #FFE7BA 100%));
+    background: linear-gradient(102.87deg, #FCEED5 6.43%, #FCEED5 78.33%, #FFE7BA 104.24%);
 }
 
 h1 {
