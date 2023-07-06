@@ -1,16 +1,16 @@
 @font-face {
     font-family: Gilroy-ExtraBold;
-    src: url("./fonts/Gilroy-ExtraBold.otf") format("otf");
+    src: url('../fonts/Gilroy-ExtraBold.ttf') format('truetype'), url('../fonts/Gilroy-ExtraBold.woff') format('woff'), url('../fonts/Gilroy-ExtraBold.woff2') format('woff2');
 }
 
 @font-face {
     font-family: Gilroy-Light;
-    src: url("./fonts/Gilroy-Light.otf") format("otf");
+    src: url('../fonts/Gilroy-Light.ttf') format('truetype'), url('../fonts/Gilroy-Light.woff') format('woff'), url('../fonts/Gilroy-Light.woff2') format('woff2');
 }
 
 @font-face {
     font-family: Gilroy-Regular;
-    src: url("./fonts/gilroy-regular.ttf") format("ttf");
+    src: url('../fonts/gilroy-reguar.ttf') format('truetype'), url('../fonts/gilroy-reguar.woff') format('woff'), url('../fonts/gilroy-reguar.woff2') format('woff2');
 }
 
 html, body {

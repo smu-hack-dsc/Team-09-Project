@@ -93,12 +93,19 @@ header {
 
 .dates_outer {
   display: flex;
-  margin: 10px;
+  /* margin: 10px;
   justify-content: space-evenly;
   padding-left: 6%;
-  padding-right: 6%;
+  padding-right: 6%; */
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
+  justify-content: center;
+  margin: 10px auto;
+  width: 88%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
 }
 
 button {
@@ -117,6 +124,7 @@ button {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   transition: all 0.3s ease 0s;
+  margin: 12px;
 }
 
 button:hover{
