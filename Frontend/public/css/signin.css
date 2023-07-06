@@ -102,6 +102,10 @@ body {
     --n: 4;
 }
 
+footer {
+    position: fixed;
+}
+
 @media only screen and (min-width: 700px) {
     .logo {
         height: 150px;

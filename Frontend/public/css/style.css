@@ -10,7 +10,7 @@
 
 @font-face {
     font-family: Gilroy-Regular;
-    src: url('../fonts/gilroy-reguar.ttf') format('truetype'), url('../fonts/gilroy-reguar.woff') format('woff'), url('../fonts/gilroy-reguar.woff2') format('woff2');
+    src: url('../fonts/gilroy-regular.ttf') format('truetype'), url('../fonts/gilroy-regular.woff') format('woff'), url('../fonts/gilroy-regular.woff2') format('woff2');
 }
 
 html, body {
@@ -18,7 +18,7 @@ html, body {
     height: 100%;
     padding: 0px;
     margin: 0px;
-    font-family: "Gilroy-Reguar";
+    font-family: "Gilroy-Regular";
     color: #213052;
 }
 
@@ -73,7 +73,7 @@ a {
 }
 
 footer {
-    position: fixed;
+    position: relative;
     width: 100%;
     text-align: center;
     bottom: 6px;
