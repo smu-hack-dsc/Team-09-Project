@@ -1,0 +1,155 @@
+@font-face {
+    font-family: Gilroy-ExtraBold;
+    src: url("./fonts/Gilroy-ExtraBold.otf") format("otf");
+}
+
+@font-face {
+    font-family: Gilroy-Light;
+    src: url("./fonts/Gilroy-Light.otf") format("otf");
+}
+
+@font-face {
+    font-family: Gilroy-Regular;
+    src: url("./fonts/gilroy-regular.ttf") format("ttf");
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Gilroy-Reguar";
+    color: #213052;
+}
+
+body {
+    position: relative;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: linear-gradient(102.87deg, #FCEED5 6.43%, #FCEED5 78.33%, #FFE7BA 104.24%);
+}
+
+h1 {
+    font-family: "Gilroy-ExtraBold";
+    font-size: 34px;
+    line-height: 1em;
+    line-height: 1.2em;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 18px;
+    letter-spacing: normal;
+    font-weight: normal;
+}
+
+h4 {
+    font-weight: normal;
+}
+
+p, li {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: normal;
+}
+
+li {
+    text-align: left;
+}
+
+ul, ol {
+    margin: 0px;
+    padding: 0px;
+    list-style-position: outside;
+}
+
+a {
+    text-decoration: none;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    bottom: 6px;
+}
+
+footer > p {
+    font-family: "Gilroy-Light";
+    font-size: 10px;
+    margin: 2px;
+}
+
+@media screen and (min-width: 1024px) {
+    h1 {
+        font-size: 46px;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+    footer > p {
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    h1 {
+        font-size: 42px;
+    }
+
+    p, li {
+        font-size: 15px;
+    }
+
+    footer > p {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    h1 {
+        font-size: 2.625vw;
+    }
+
+    h2 {
+        font-size: 2vw;
+    }
+
+    h3 {
+        font-size: 1.125vw;
+    }
+
+    
+
+    p, li {
+        font-size: 0.938vw;
+        line-height: 1.5vw;
+    }
+
+    footer > p {
+        font-size: 0.75vw;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    h1 {
+        font-size: 32px;
+        line-height: 1em;
+        line-height: 1.2em;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+}
