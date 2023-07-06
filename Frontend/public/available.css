@@ -1,0 +1,173 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fcefd6;
+}
+
+li,
+a{
+  font-family: Gilroy-Regular;
+  font-size: 1.3125rem;
+  color: #213052;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: capitalize;
+  line-height: normal;
+}
+
+header {
+  background-color: #fcefd6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  height: 146px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  padding: 0px 100px;
+}
+
+.logo_box {
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  height: inherit;
+}
+
+.nav_links {
+  list-style: none;
+}
+
+.nav_links li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+  color: #1a87d8;
+}
+
+.logout {
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  justify-self: flex-end;
+}
+
+.title {
+  color: #000;
+  font-size: 36px;
+  font-family: Gilroy;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Navs */
+
+.date_text{
+  color: #213052;
+  font-size: 2rem;
+  font-family: Gilroy-Regular;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 6.5%;
+}
+
+
+.dates_outer {
+  display: flex;
+  margin: 10px;
+  justify-content: space-evenly;
+  padding-left: 6%;
+  padding-right: 6%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-bottom: 100px;
+}
+
+button {
+  border: 1px solid black;
+  width: 14.375rem;
+  height: 7.0625rem;
+  color: #FFFFFF;
+  background-color: #213052;
+  border-radius: 30px;
+  font-size: 2.25rem;
+  font-family: Gilroy-Regular;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+button:hover{
+  background-color: #FFFFFF;
+  color: #213052;
+}
+
+.date_selected {
+  color: #213052;
+  font-size: 1.8125rem;
+  font-family: Gilroy-Regular;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  justify-content: space-around;
+}
+
+.time_display{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.time_input{
+  color: #000;
+  font-size: 1.5rem;
+  font-family: Gilroy-Regular;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.avail_bar{
+  width: 49.1875rem;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #F6F6F6;
+  background: #D9D9D9;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.tick{
+  width: 2.0625rem;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 2.0625rem;
+  border: 3px solid #213052;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
