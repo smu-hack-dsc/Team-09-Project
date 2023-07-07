@@ -14,7 +14,46 @@
 
     <div class="home-container">
         <div class="events">
-
+            <div class="events-header">
+                <img src="icons/calendar.png" class="events-header-icon" />
+                <h3 class="events-header-text">ALL EVENTS</h3>
+            </div>
+            <div class="select-box">
+                <div class="select-box__current" tabindex="1">
+                  <div class="select-box__value">
+                    <input class="select-box__input" type="radio" id="0" value="1" name="event" checked="checked"/>
+                    <p class="select-box__input-text">All Events</p>
+                  </div>
+                  <div class="select-box__value">
+                    <input class="select-box__input" type="radio" id="1" value="2" name="event" checked="checked"/>
+                    <p class="select-box__input-text">My Created Events</p>
+                  </div>
+                  <div class="select-box__value">
+                    <input class="select-box__input" type="radio" id="2" value="3" name="event" checked="checked"/>
+                    <p class="select-box__input-text">Other Events</p>
+                  </div>
+                  <img class="select-box__icon" src="icons/down.png" alt="Arrow Icon" aria-hidden="true"/>
+                </div>
+                <ul class="select-box__list">
+                  <li>
+                    <label class="select-box__option" for="0" aria-hidden="aria-hidden">All Events</label>
+                  </li>
+                  <li>
+                    <label class="select-box__option" for="1" aria-hidden="aria-hidden">My Created Events</label>
+                  </li>
+                  <li>
+                    <label class="select-box__option" for="2" aria-hidden="aria-hidden">Other Events</label>
+                  </li>
+                </ul>
+            </div>
+            <div class="events-item">
+                <ol>
+                    <li>bjkjsbsdfj</li>
+                    <li>bjkjsbsdfj</li>
+                    <li>bjkjsbsdfj</li>
+                    <li>bjkjsbsdfj</li>
+                </ol>
+            </div>
         </div>
 
         <div class="calendar">
@@ -226,7 +265,7 @@
             });
         }
 
-        document.getElementsByClassName('events').style.height=document.getElementsByClassName('calendar').style.height;
+        document.getElementsByClassName('events').style.maxheight=document.getElementsByClassName('calendar').style.height;
 
 	</script>
 </body>

@@ -43,7 +43,7 @@ h2 {
 }
 
 h3 {
-    font-size: 18px;
+    font-size: 21px;
     letter-spacing: normal;
     font-weight: normal;
 }
@@ -92,6 +92,10 @@ footer > p {
 
     h2 {
         font-size: 32px;
+    }
+
+    h3 {
+        font-size: 26px;
     }
 
     footer > p {
