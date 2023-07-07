@@ -4,11 +4,14 @@
 //     console.log("App hosted at localhost:" + port);
 // });
 
-const express = require('express');
-const app = express();
+const app = require('express')();
 const PORT = 3000;
+
+app.listen(
+    PORT,() => console.log(`It's alive on http://localhost:${PORT}`)
+);
  
-app.listen(PORT, function(err){
-    if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", PORT);
-})
+// app.listen(PORT, function(err){
+//     if (err) console.log("Error in server setup")
+//     console.log("Server listening on Port", PORT);
+// })
