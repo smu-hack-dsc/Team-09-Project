@@ -237,3 +237,16 @@ width: 50%;
 padding: 10px;
 text-align: center;
 }
+
+.create_event_button > button{
+    width: 11.6875rem;
+    height: 3.375rem;
+    border-radius: 0.9375rem;
+    background: #376CC8;
+    color: #FFF;
+    font-size: 1.4375rem;
+    font-family: Gilroy-Regular;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }

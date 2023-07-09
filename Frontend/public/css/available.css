@@ -135,3 +135,21 @@ button:hover{
   background: #FFF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
 }
+
+.submit_button {
+  display: flex;
+  justify-content: center;
+}
+
+.submit_button > button{
+  width: 11.6875rem;
+  height: 3.375rem;
+  border-radius: 0.9375rem;
+  background: #376CC8;
+  color: #FFF;
+  font-size: 1.4375rem;
+  font-family: Gilroy-Regular;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
