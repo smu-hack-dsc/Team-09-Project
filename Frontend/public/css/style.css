@@ -157,3 +157,83 @@ footer > p {
         font-size: 16px;
     }
 }
+
+* {
+padding: 0;
+margin: 0;
+text-decoration: none;
+list-style: none;
+box-sizing: border-box;
+}
+
+body {
+background-color: #fcefd6;
+}
+
+li,
+a{
+font-family: Gilroy-Regular;
+font-size: 1.3125rem;
+color: #213052;
+font-style: normal;
+font-weight: 400;
+text-transform: capitalize;
+line-height: normal;
+}
+
+header {
+background-color: #fcefd6;
+border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+height: 146px;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+align-items: center;
+padding: 0px 100px;
+}
+
+.logo_box {
+height: inherit;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.logo {
+height: inherit;
+}
+
+.nav_links {
+list-style: none;
+}
+
+.nav_links li {
+display: inline-block;
+padding: 0px 20px;
+}
+
+.nav_links li a {
+transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+color: #1a87d8;
+}
+
+.logout {
+cursor: pointer;
+transition: all 0.3s ease 0s;
+justify-self: flex-end;
+}
+
+.title {
+color: #000;
+font-size: 36px;
+font-family: Gilroy;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: auto;
+width: 50%;
+padding: 10px;
+text-align: center;
+}
