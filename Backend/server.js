@@ -25,11 +25,9 @@ function isLoggedIn(req,res,next) {
     req.user ? next() : res.sendStatus(401);
 };
 
-app.get('/',(req,res) => {
-    res.send('<a href="/auth/google">Authenticate with Google</a>');
-});
 
-app.get('/auth/google',
+
+app.get('/',
     passport.authenticate('google',{scope:['email','profile']})
 );    
 
@@ -40,13 +38,13 @@ app.get('/google/callback',
     }));
 
 app.get('/auth/failure', (req,res) => {
-    res.send('Authentication failed');
+    res.redirect('http://localhost:3001');
 });
 
 // adding isLoggedIn middleware function is called before the res is sent.
 app.get('/protected',isLoggedIn, (req,res) => {
     console.log(req.user);
-    res.send(`Hello ${req.user.displayName}`);
+    res.redirect('http://localhost:3001/home.html');
 });
 
 app.get('/logout', (req,res) => {
