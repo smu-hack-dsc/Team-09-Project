@@ -114,6 +114,7 @@
     opacity: 0;
     border-radius: 8px;
     box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.20);
+    z-index:9;
     -webkit-animation-name: HideList;
     animation-name: HideList;
     -webkit-animation-duration: 0.5s;
@@ -130,7 +131,14 @@
     display: block;
     padding: 16px;
     background-color: #fff;
-    border-radius: 8px;
+}
+
+.select-box__list > li:first-child .select-box__option {
+    border-radius: 8px 8px 0 0;
+}
+
+.select-box__list > li:last-child .select-box__option {
+    border-radius: 0 0 8px 8px;
 }
 
 .select-box__option:hover,
@@ -173,6 +181,7 @@
     display: block;
     width: 85%;
     margin: 0 auto 24px;
+    padding: 4px 8px;
     font-size: 18px;
     color: #252525;
     overflow: scroll;
