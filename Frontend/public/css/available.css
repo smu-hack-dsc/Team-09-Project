@@ -35,7 +35,7 @@ button {
   color: #FFFFFF;
   background-color: #213052;
   border-radius: 30px;
-  font-size: 2.25rem;
+  font-size: 28px;
   font-family: Gilroy-Regular;
   font-style: normal;
   font-weight: 400;
@@ -63,11 +63,19 @@ button:hover{
   justify-content: space-around;
 }
 
+.time_slots{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .time_display{
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 15px;
+  flex-grow: 1;
+  flex-basis: calc(25% - 20px);
 }
 
 .time_input{
@@ -88,6 +96,32 @@ button:hover{
   background-color: #D9D9D9;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+@media (max-width: 930px) {
+  .avail_bar{
+    width: 40rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Adjust the max-width value based on your desired breakpoint */
+  .avail_bar {
+    width: 30rem; /* Change the width for screens up to 768px */
+  }
+}
+
+@media (max-width: 620px) {
+  .avail_bar{
+    width: 20rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust the max-width value based on your desired breakpoint */
+  .avail_bar {
+    width: 15rem; /* Change the width for screens up to 480px */
+  }
 }
 
 .shaded_bar_1{
