@@ -1,77 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <link rel="stylesheet" type="text/css" href="./css/available.css" />
-    <title>Availability</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul class="nav_links">
-          <li><a href="#"> Home </a></li>
-          <li><a href="create.html"> Create Event </a></li>
-        </ul>
-      </nav>
-      <div class="logo_box">
-        <img class="logo" src="./logo/logo.png" alt="logo" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" type="text/css" href="./css/available.css" />
+  <title>Availability</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="#"> Home </a></li>
+        <li><a href="create.html"> Create Event </a></li>
+      </ul>
+    </nav>
+    <div class="logo_box">
+      <img class="logo" src="./logo/logo.png" alt="logo" />
+    </div>
+    <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
+  </header>
+
+  <div class="title">Your selected Dates</div>
+
+  <div class='date_text'>Date</div>
+
+  <div class="dates_outer">
+    <button> 14 Sep <br /> 14 Available </button>
+    <button> 15 Sep <br /> 1 Available </button>
+    <button> 16 Sep <br /> 18 Available </button>
+    <button> 17 Sep <br /> 23 Available </button>
+    <button> 18 Sep <br /> 8 Available </button>
+  </div>
+
+  <div class='date_selected'>14 September</div>
+
+  <div class='time_slots'>
+    <form action="###">
+
+      <div class="time_display 1">
+        <div class='time_input'>00:00</div>
+        <div class='avail_bar'>
+          <div class='shaded_bar_1'></div>
+        </div>
+        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
       </div>
-      <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
-    </header>
 
-    <div class="title">Your selected Dates</div>
-
-    <div class = 'date_text'>Date</div>
-
-    <div class = "dates_outer">
-      <button> 14 Sep <br/> 14 Available </button>
-      <button> 15 Sep <br/> 1 Available </button>
-      <button> 16 Sep <br/> 18 Available </button>
-      <button> 17 Sep <br/> 23 Available </button>
-      <button> 18 Sep <br/> 8 Available </button>
-    </div>
-
-    <div class = 'date_selected'>14 September</div>
-
-    <div class = 'time_slots'>
-      <form action="###">
-
-        <div class = "time_display 1">
-          <div class = 'time_input'>00:00</div>
-          <div class = 'avail_bar'> <div class = 'shaded_bar_1'></div> </div>
-          <div class = 'tick'><input type="checkbox" name = "time_input" value = "00:00"></div>
+      <div class="time_display 2">
+        <div class='time_input'>01:00</div>
+        <div class='avail_bar'>
+          <div class='shaded_bar_2'></div>
         </div>
+        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
+      </div>
 
-        <div class = "time_display 2">
-          <div class = 'time_input'>01:00</div>
-          <div class = 'avail_bar'> <div class = 'shaded_bar_2'></div> </div>
-          <div class = 'tick'><input type="checkbox" name = "time_input" value = "00:00"></div>
+      <div class="time_display 3">
+        <div class='time_input'>02:00</div>
+        <div class='avail_bar'>
+          <div class='shaded_bar_3'></div>
         </div>
+        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
+      </div>
 
-        <div class = "time_display 3">
-          <div class = 'time_input'>02:00</div>
-          <div class = 'avail_bar'> <div class = 'shaded_bar_3'></div> </div>
-          <div class = 'tick'><input type="checkbox" name = "time_input" value = "00:00"></div>
+      <div class="time_display 4">
+        <div class='time_input'>03:00</div>
+        <div class='avail_bar'>
+          <div class='shaded_bar_4'></div>
         </div>
+        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
+      </div>
 
-        <div class = "time_display 4">
-          <div class = 'time_input'>03:00</div>
-          <div class = 'avail_bar'> <div class = 'shaded_bar_4'></div> </div>
-          <div class = 'tick'><input type="checkbox" name = "time_input" value = "00:00"></div>
-        </div>
-        
-        <div class = 'submit_button'>
-          <button type = 'submit'>
-            Submit
-          </button>
-        </div>
+      <div class='submit_button'>
+        <button type='submit'>
+          Submit
+        </button>
+      </div>
 
-      </form>
-    </div>
+    </form>
+  </div>
 
-  </body>
+  <footer>
+    <p>© 2023 MeetnGo. All rights reserved.</p>
+  </footer>
+
+</body>
 
 </html>

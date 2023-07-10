@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <link rel="stylesheet" type="text/css" href="./css/create.css" />
-    <title>Create Event</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" type="text/css" href="./css/create.css" />
+  <title>Create Event</title>
 </head>
+
 <body>
-    <header>
-        <nav>
-          <ul class="nav_links">
-            <li><a href="home.html"> Home </a></li>
-            <li><a href="create.html"> Create Event </a></li>
-          </ul>
-        </nav>
-        <div class="logo_box">
-          <img class="logo" src="./logo/logo.png" alt="logo" />
-        </div>
-        <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
-      </header>
+  <header>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="home.html"> Home </a></li>
+        <li><a href="create.html"> Create Event </a></li>
+      </ul>
+    </nav>
+    <div class="logo_box">
+      <img class="logo" src="./logo/logo.png" alt="logo" />
+    </div>
+    <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
+  </header>
 
-      <div class = 'outer_box'>
-        <div class = 'create_event_title'>Create Event</div>
-        <form action="#">
-            <div class = 'event_name_div'>
-                <label for="event_name">Event Name:</label><br>
-                <input type="text" id="event_name" name="event_name"><br>
-            </div>
-
-            <div class = 'calendar_div'>
-                <input type="text" id = 'calendar_input_start' placeholder="START">
-                <input type="text" id = 'calendar_input_end' placeholder = 'END'>
-            </div>
-
-            <div class = 'create_event_button'>
-                <button type = 'submit'>
-                  Create Event
-                </button>
-            </div>
-        </form>
+  <div class='outer_box'>
+    <h2 class='create_event_title'>Create Event</h2>
+    <form action="#">
+      <div class='event_name_div'>
+        <label for="event_name">Event Name:</label>
+        <input type="text" id="event_name" name="event_name">
       </div>
+
+      <div class='calendar_div'>
+        <input type="text" id='calendar_input_start' placeholder="START">
+        <input type="text" id='calendar_input_end' placeholder='END'>
+      </div>
+
+      <div class='create_event_button'>
+        <button type='submit'>
+          Create Event
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <p>© 2023 MeetnGo. All rights reserved.</p>
+  </footer>
 </body>
+
 </html>

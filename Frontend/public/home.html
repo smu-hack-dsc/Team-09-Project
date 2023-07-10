@@ -11,6 +11,18 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="home.html"> Home </a></li>
+                <li><a href="create.html"> Create Event </a></li>
+            </ul>
+        </nav>
+        <div class="logo_box">
+            <img class="logo" src="./logo/logo.png" alt="logo" />
+        </div>
+        <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
+    </header>
 
     <div class="home-container">
         <div class="events">
@@ -20,30 +32,30 @@
             </div>
             <div class="select-box">
                 <div class="select-box__current" tabindex="1">
-                  <div class="select-box__value">
-                    <input class="select-box__input" type="radio" id="0" value="1" name="event" checked="checked"/>
-                    <p class="select-box__input-text">All Events</p>
-                  </div>
-                  <div class="select-box__value">
-                    <input class="select-box__input" type="radio" id="1" value="2" name="event" checked="checked"/>
-                    <p class="select-box__input-text">My Created Events</p>
-                  </div>
-                  <div class="select-box__value">
-                    <input class="select-box__input" type="radio" id="2" value="3" name="event" checked="checked"/>
-                    <p class="select-box__input-text">Other Events</p>
-                  </div>
-                  <img class="select-box__icon" src="icons/down.png" alt="Arrow Icon" aria-hidden="true"/>
+                    <div class="select-box__value">
+                        <input class="select-box__input" type="radio" id="0" value="1" name="event" checked="checked" />
+                        <p class="select-box__input-text">All Events</p>
+                    </div>
+                    <div class="select-box__value">
+                        <input class="select-box__input" type="radio" id="1" value="2" name="event" checked="checked" />
+                        <p class="select-box__input-text">My Created Events</p>
+                    </div>
+                    <div class="select-box__value">
+                        <input class="select-box__input" type="radio" id="2" value="3" name="event" checked="checked" />
+                        <p class="select-box__input-text">Other Events</p>
+                    </div>
+                    <img class="select-box__icon" src="icons/down.png" alt="Arrow Icon" aria-hidden="true" />
                 </div>
                 <ul class="select-box__list">
-                  <li>
-                    <label class="select-box__option" for="0" aria-hidden="aria-hidden">All Events</label>
-                  </li>
-                  <li>
-                    <label class="select-box__option" for="1" aria-hidden="aria-hidden">My Created Events</label>
-                  </li>
-                  <li>
-                    <label class="select-box__option" for="2" aria-hidden="aria-hidden">Other Events</label>
-                  </li>
+                    <li>
+                        <label class="select-box__option" for="0" aria-hidden="aria-hidden">All Events</label>
+                    </li>
+                    <li>
+                        <label class="select-box__option" for="1" aria-hidden="aria-hidden">My Created Events</label>
+                    </li>
+                    <li>
+                        <label class="select-box__option" for="2" aria-hidden="aria-hidden">Other Events</label>
+                    </li>
                 </ul>
             </div>
             <div class="events-item">
@@ -65,9 +77,15 @@
         <p>© 2023 MeetnGo. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/dayjs.min.js" integrity="sha512-q4Xn+ZU2K+dqJPL8a3TiyGsDa31IkR/rLt/w+fy8jLrx8TdXj0dLM1Aq4aPXnOOKxHEya/bD9DePDB2DHm4jJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/plugin/weekOfYear.min.js" integrity="sha512-s8tCeGMT//gKa3EU34LbIuHN/3EXUMUNYcELdPiAY4pm90ujxmmzgMrnjnSjXKfKSGGQIuL/m3iHAcZhRixP1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/plugin/weekday.min.js" integrity="sha512-+EJ/Ed/UbhfSypwkMnTIxgJ3izeQNc5655zPTlVqcgJ4Zd4K++JYUyg4Jy5rnKX9MfoIyfXJsu5N30MRHnShYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/dayjs.min.js"
+        integrity="sha512-q4Xn+ZU2K+dqJPL8a3TiyGsDa31IkR/rLt/w+fy8jLrx8TdXj0dLM1Aq4aPXnOOKxHEya/bD9DePDB2DHm4jJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/plugin/weekOfYear.min.js"
+        integrity="sha512-s8tCeGMT//gKa3EU34LbIuHN/3EXUMUNYcELdPiAY4pm90ujxmmzgMrnjnSjXKfKSGGQIuL/m3iHAcZhRixP1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/plugin/weekday.min.js"
+        integrity="sha512-+EJ/Ed/UbhfSypwkMnTIxgJ3izeQNc5655zPTlVqcgJ4Zd4K++JYUyg4Jy5rnKX9MfoIyfXJsu5N30MRHnShYw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script>
         dayjs.extend(window.dayjs_plugin_weekday);
@@ -114,160 +132,159 @@
         const daysOfWeekElement = document.getElementById("days-of-week");
 
         WEEKDAYS.forEach((weekday) => {
-        const weekDayElement = document.createElement("li");
-        daysOfWeekElement.appendChild(weekDayElement);
-        weekDayElement.innerText = weekday;
+            const weekDayElement = document.createElement("li");
+            daysOfWeekElement.appendChild(weekDayElement);
+            weekDayElement.innerText = weekday;
         });
 
         createCalendar();
         initMonthSelectors();
 
         function createCalendar(year = INITIAL_YEAR, month = INITIAL_MONTH) {
-        const calendarDaysElement = document.getElementById("calendar-days");
+            const calendarDaysElement = document.getElementById("calendar-days");
 
-        document.getElementById("selected-month").innerText = dayjs(
-            new Date(year, month - 1)
-        ).format("MMMM YYYY");
+            document.getElementById("selected-month").innerText = dayjs(
+                new Date(year, month - 1)
+            ).format("MMMM YYYY");
 
-        removeAllDayElements(calendarDaysElement);
+            removeAllDayElements(calendarDaysElement);
 
-        currentMonthDays = createDaysForCurrentMonth(
-            year,
-            month,
-            dayjs(`${year}-${month}-01`).daysInMonth()
-        );
+            currentMonthDays = createDaysForCurrentMonth(
+                year,
+                month,
+                dayjs(`${year}-${month}-01`).daysInMonth()
+            );
 
-        previousMonthDays = createDaysForPreviousMonth(year, month);
+            previousMonthDays = createDaysForPreviousMonth(year, month);
 
-        nextMonthDays = createDaysForNextMonth(year, month);
+            nextMonthDays = createDaysForNextMonth(year, month);
 
-        const days = [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
+            const days = [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
 
-        days.forEach((day) => {
-            appendDay(day, calendarDaysElement);
-        });
+            days.forEach((day) => {
+                appendDay(day, calendarDaysElement);
+            });
         }
 
         function appendDay(day, calendarDaysElement) {
-        const dayElement = document.createElement("li");
-        const dayElementClassList = dayElement.classList;
-        dayElementClassList.add("calendar-day");
-        const dayOfMonthElement = document.createElement("span");
-        dayOfMonthElement.innerText = day.dayOfMonth;
-        dayElement.appendChild(dayOfMonthElement);
-        calendarDaysElement.appendChild(dayElement);
+            const dayElement = document.createElement("li");
+            const dayElementClassList = dayElement.classList;
+            dayElementClassList.add("calendar-day");
+            const dayOfMonthElement = document.createElement("span");
+            dayOfMonthElement.innerText = day.dayOfMonth;
+            dayElement.appendChild(dayOfMonthElement);
+            calendarDaysElement.appendChild(dayElement);
 
-        if (!day.isCurrentMonth) {
-            dayElementClassList.add("calendar-day--not-current");
-        }
+            if (!day.isCurrentMonth) {
+                dayElementClassList.add("calendar-day--not-current");
+            }
 
-        if (day.date === TODAY) {
-            dayElementClassList.add("calendar-day--today");
-        }
+            if (day.date === TODAY) {
+                dayElementClassList.add("calendar-day--today");
+            }
         }
 
         function removeAllDayElements(calendarDaysElement) {
-        let first = calendarDaysElement.firstElementChild;
+            let first = calendarDaysElement.firstElementChild;
 
-        while (first) {
-            first.remove();
-            first = calendarDaysElement.firstElementChild;
-        }
+            while (first) {
+                first.remove();
+                first = calendarDaysElement.firstElementChild;
+            }
         }
 
         function getNumberOfDaysInMonth(year, month) {
-        return dayjs(`${year}-${month}-01`).daysInMonth();
+            return dayjs(`${year}-${month}-01`).daysInMonth();
         }
 
         function createDaysForCurrentMonth(year, month) {
-        return [...Array(getNumberOfDaysInMonth(year, month))].map((day, index) => {
-            return {
-            date: dayjs(`${year}-${month}-${index + 1}`).format("YYYY-MM-DD"),
-            dayOfMonth: index + 1,
-            isCurrentMonth: true
-            };
-        });
+            return [...Array(getNumberOfDaysInMonth(year, month))].map((day, index) => {
+                return {
+                    date: dayjs(`${year}-${month}-${index + 1}`).format("YYYY-MM-DD"),
+                    dayOfMonth: index + 1,
+                    isCurrentMonth: true
+                };
+            });
         }
 
         function createDaysForPreviousMonth(year, month) {
-        const firstDayOfTheMonthWeekday = getWeekday(currentMonthDays[0].date);
+            const firstDayOfTheMonthWeekday = getWeekday(currentMonthDays[0].date);
 
-        const previousMonth = dayjs(`${year}-${month}-01`).subtract(1, "month");
+            const previousMonth = dayjs(`${year}-${month}-01`).subtract(1, "month");
 
-        // Cover first day of the month being sunday (firstDayOfTheMonthWeekday === 0)
-        const visibleNumberOfDaysFromPreviousMonth = firstDayOfTheMonthWeekday
-            ? firstDayOfTheMonthWeekday - 1
-            : 6;
+            // Cover first day of the month being sunday (firstDayOfTheMonthWeekday === 0)
+            const visibleNumberOfDaysFromPreviousMonth = firstDayOfTheMonthWeekday
+                ? firstDayOfTheMonthWeekday - 1
+                : 6;
 
-        const previousMonthLastMondayDayOfMonth = dayjs(currentMonthDays[0].date)
-            .subtract(visibleNumberOfDaysFromPreviousMonth, "day")
-            .date();
+            const previousMonthLastMondayDayOfMonth = dayjs(currentMonthDays[0].date)
+                .subtract(visibleNumberOfDaysFromPreviousMonth, "day")
+                .date();
 
-        return [...Array(visibleNumberOfDaysFromPreviousMonth)].map((day, index) => {
-            return {
-            date: dayjs(
-                `${previousMonth.year()}-${previousMonth.month() + 1}-${
-                previousMonthLastMondayDayOfMonth + index
-                }`
-            ).format("YYYY-MM-DD"),
-            dayOfMonth: previousMonthLastMondayDayOfMonth + index,
-            isCurrentMonth: false
-            };
-        });
+            return [...Array(visibleNumberOfDaysFromPreviousMonth)].map((day, index) => {
+                return {
+                    date: dayjs(
+                        `${previousMonth.year()}-${previousMonth.month() + 1}-${previousMonthLastMondayDayOfMonth + index
+                        }`
+                    ).format("YYYY-MM-DD"),
+                    dayOfMonth: previousMonthLastMondayDayOfMonth + index,
+                    isCurrentMonth: false
+                };
+            });
         }
 
         function createDaysForNextMonth(year, month) {
-        const lastDayOfTheMonthWeekday = getWeekday(
-            `${year}-${month}-${currentMonthDays.length}`
-        );
+            const lastDayOfTheMonthWeekday = getWeekday(
+                `${year}-${month}-${currentMonthDays.length}`
+            );
 
-        const nextMonth = dayjs(`${year}-${month}-01`).add(1, "month");
+            const nextMonth = dayjs(`${year}-${month}-01`).add(1, "month");
 
-        const visibleNumberOfDaysFromNextMonth = lastDayOfTheMonthWeekday
-            ? 7 - lastDayOfTheMonthWeekday
-            : lastDayOfTheMonthWeekday;
+            const visibleNumberOfDaysFromNextMonth = lastDayOfTheMonthWeekday
+                ? 7 - lastDayOfTheMonthWeekday
+                : lastDayOfTheMonthWeekday;
 
-        return [...Array(visibleNumberOfDaysFromNextMonth)].map((day, index) => {
-            return {
-            date: dayjs(
-                `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`
-            ).format("YYYY-MM-DD"),
-            dayOfMonth: index + 1,
-            isCurrentMonth: false
-            };
-        });
+            return [...Array(visibleNumberOfDaysFromNextMonth)].map((day, index) => {
+                return {
+                    date: dayjs(
+                        `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`
+                    ).format("YYYY-MM-DD"),
+                    dayOfMonth: index + 1,
+                    isCurrentMonth: false
+                };
+            });
         }
 
         function getWeekday(date) {
-        return dayjs(date).weekday();
+            return dayjs(date).weekday();
         }
 
         function initMonthSelectors() {
-        document
-            .getElementById("previous-month-selector")
-            .addEventListener("click", function () {
-            selectedMonth = dayjs(selectedMonth).subtract(1, "month");
-            createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
-            });
+            document
+                .getElementById("previous-month-selector")
+                .addEventListener("click", function () {
+                    selectedMonth = dayjs(selectedMonth).subtract(1, "month");
+                    createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
+                });
 
-        document
-            .getElementById("present-month-selector")
-            .addEventListener("click", function () {
-            selectedMonth = dayjs(new Date(INITIAL_YEAR, INITIAL_MONTH - 1, 1));
-            createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
-            });
+            document
+                .getElementById("present-month-selector")
+                .addEventListener("click", function () {
+                    selectedMonth = dayjs(new Date(INITIAL_YEAR, INITIAL_MONTH - 1, 1));
+                    createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
+                });
 
-        document
-            .getElementById("next-month-selector")
-            .addEventListener("click", function () {
-            selectedMonth = dayjs(selectedMonth).add(1, "month");
-            createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
-            });
+            document
+                .getElementById("next-month-selector")
+                .addEventListener("click", function () {
+                    selectedMonth = dayjs(selectedMonth).add(1, "month");
+                    createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
+                });
         }
 
-        document.getElementsByClassName('events').style.maxheight=document.getElementsByClassName('calendar').style.height;
+        document.getElementsByClassName('events').style.maxheight = document.getElementsByClassName('calendar').style.height;
 
-	</script>
+    </script>
 </body>
 
 </html>

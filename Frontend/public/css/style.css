@@ -13,16 +13,21 @@
     src: url('../fonts/gilroy-regular.ttf') format('truetype'), url('../fonts/gilroy-regular.woff') format('woff'), url('../fonts/gilroy-regular.woff2') format('woff2');
 }
 
-html, body {
-    width: 100%;
+html {
     height: 100%;
+}
+
+html,
+body {
+    width: 100%;
     padding: 0px;
     margin: 0px;
     font-family: "Gilroy-Regular";
     color: #213052;
 }
 
-body {
+body {  
+    min-height: 100%;
     position: relative;
     max-width: 100%;
     overflow-x: hidden;
@@ -52,7 +57,8 @@ h4 {
     font-weight: normal;
 }
 
-p, li {
+p,
+li {
     font-size: 14px;
     line-height: 24px;
     letter-spacing: normal;
@@ -62,7 +68,8 @@ li {
     text-align: left;
 }
 
-ul, ol {
+ul,
+ol {
     margin: 0px;
     padding: 0px;
     list-style-position: outside;
@@ -72,14 +79,108 @@ a {
     text-decoration: none;
 }
 
-footer {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    bottom: 6px;
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
 }
 
-footer > p {
+li,
+a {
+    font-family: Gilroy-Regular;
+    font-size: 1.1rem;
+    color: #213052;
+    text-transform: capitalize;
+    line-height: normal;
+}
+
+header {
+    background-color: #fcefd6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding: 12px 100px;
+}
+
+.logo_box {
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    height: 84px;
+}
+
+.nav_links {
+    list-style: none;
+}
+
+.nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a {
+    transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+    color: #1a87d8;
+}
+
+.logo {
+    height: 84px;
+}
+
+.logout {
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    justify-self: flex-end;
+}
+
+.logout > img {
+    height: 21px;
+}
+
+.title {
+    color: #000;
+    font-size: 36px;
+    font-family: Gilroy;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+.create_event_button>button {
+    width: 11.6875rem;
+    height: 3.375rem;
+    border-radius: 0.9375rem;
+    background: #376CC8;
+    color: #FFF;
+    font-size: 1.4375rem;
+    font-family: Gilroy-Regular;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+footer {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+}
+
+footer>p {
     font-family: "Gilroy-Light";
     font-size: 10px;
     margin: 2px;
@@ -98,7 +199,7 @@ footer > p {
         font-size: 26px;
     }
 
-    footer > p {
+    footer>p {
         font-size: 11px;
     }
 }
@@ -108,11 +209,12 @@ footer > p {
         font-size: 42px;
     }
 
-    p, li {
+    p,
+    li {
         font-size: 15px;
     }
 
-    footer > p {
+    footer>p {
         font-size: 12px;
     }
 }
@@ -130,14 +232,15 @@ footer > p {
         font-size: 1.125vw;
     }
 
-    
 
-    p, li {
+
+    p,
+    li {
         font-size: 0.938vw;
         line-height: 1.5vw;
     }
 
-    footer > p {
+    footer>p {
         font-size: 0.75vw;
     }
 }
@@ -157,96 +260,3 @@ footer > p {
         font-size: 16px;
     }
 }
-
-* {
-padding: 0;
-margin: 0;
-text-decoration: none;
-list-style: none;
-box-sizing: border-box;
-}
-
-body {
-background-color: #fcefd6;
-}
-
-li,
-a{
-font-family: Gilroy-Regular;
-font-size: 1.3125rem;
-color: #213052;
-font-style: normal;
-font-weight: 400;
-text-transform: capitalize;
-line-height: normal;
-}
-
-header {
-background-color: #fcefd6;
-border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-height: 146px;
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-align-items: center;
-padding: 0px 100px;
-}
-
-.logo_box {
-height: inherit;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-
-.logo {
-height: inherit;
-}
-
-.nav_links {
-list-style: none;
-}
-
-.nav_links li {
-display: inline-block;
-padding: 0px 20px;
-}
-
-.nav_links li a {
-transition: all 0.3s ease 0s;
-}
-
-.nav_links li a:hover {
-color: #1a87d8;
-}
-
-.logout {
-cursor: pointer;
-transition: all 0.3s ease 0s;
-justify-self: flex-end;
-}
-
-.title {
-color: #000;
-font-size: 36px;
-font-family: Gilroy;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin: auto;
-width: 50%;
-padding: 10px;
-text-align: center;
-}
-
-.create_event_button > button{
-    width: 11.6875rem;
-    height: 3.375rem;
-    border-radius: 0.9375rem;
-    background: #376CC8;
-    color: #FFF;
-    font-size: 1.4375rem;
-    font-family: Gilroy-Regular;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
