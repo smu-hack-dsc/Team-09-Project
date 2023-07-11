@@ -1,11 +1,12 @@
-// const express = require('express');
+const express = require('express');
+const verifyToken = require('../auth/verifyToken')
 
-// const app = express();
+const app = express();
 
-// const bodyParser = require('body-parser'); 
-// const urlencodedParser = bodyParser.urlencoded({ 
-//     extended:false 
-// }); 
+const bodyParser = require('body-parser'); 
+const urlencodedParser = bodyParser.urlencoded({ 
+    extended:false 
+}); 
 
-// app.use(bodyParser.json);
-// app.use(urlencodedParser);
+app.use(bodyParser.json);
+app.use(urlencodedParser);
