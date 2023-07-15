@@ -7,7 +7,7 @@
 const express = require('express');
 const app = express();
 
-const passport = require('passport');
+const passport = require('./auth');
 const PORT = 3000; //change to .env variable
 
 const session = require('express-session');
@@ -19,10 +19,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./auth');
  
 function isLoggedIn(req,res,next) {
-    req.user ? next() : res.sendStatus(401);
+    const accessToken = req.user && req.user.accessToken;
+    if (accessToken) {
+        return next();
+    }
+
+    res.sendStatus(401);
 };
 
 
@@ -44,7 +48,8 @@ app.get('/auth/failure', (req,res) => {
 // adding isLoggedIn middleware function is called before the res is sent.
 app.get('/protected',isLoggedIn, (req,res) => {
     console.log(req.user);
-    res.redirect('http://localhost:3001/home.html');
+    const accessToken = req.user.accessToken;
+    res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
 });
 
 app.get('/logout', (req,res) => {
