@@ -11,7 +11,12 @@ passport.use(new GoogleStrategy({
   },
   // function is used to create user / find user in db
   function(request,accessToken, refreshToken, profile, done) {
-    return done(null,profile);
+    const user = {
+      profile,
+      accessToken
+    };
+    
+    return done(null, user);
   }
 ));
 
@@ -22,3 +27,5 @@ passport.serializeUser(function (user,done) {
 passport.deserializeUser(function (user,done) {
     done(null,user);
 });
+
+module.exports = passport;
