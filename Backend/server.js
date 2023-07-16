@@ -59,7 +59,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
     db.query(sql_check, [Email], (err, result) => {
         if (err) {
           console.error('Error executing SQL query:', err);
-          // Handle the error accordingly
+          // if error redirect to login
           res.redirect('http://localhost:3001')
         }
       
@@ -67,15 +67,15 @@ app.get('/protected',isLoggedIn, (req,res) => {
         const count = result[0].count;
       
         if (count > 0) {
-          // Email already exists, do not create another instance
+          // Email already exists, do not create another instance in db
           res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken))
         } 
         else {
-          // Email doesn't exist, create a new instance
+          // Email doesn't exist, create a new instance in db
           db.query(sql_insert, [],function (err, result) {
             if (err) {
               console.error('Error executing SQL query:', err);
-              // Handle the error accordingly
+              // if error redirect to login
               res.redirect('http://localhost:3001')
             }
             else{
