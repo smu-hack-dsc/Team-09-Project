@@ -86,46 +86,8 @@ app.get('/protected',isLoggedIn, (req,res) => {
         }
       });
     })
-    //Checks if users email is already registered in database
-    /*
-    db.query(sql_check, [],function (err, result) {
-        if (err) {
-          console.error('Error executing SQL query:', err);
-          // Handle the error accordingly
-          res.redirect('http://localhost:3001')
-        }
-        return;
-        }
-        const count= result[0].count;
-        
-        if (result>0){
-            //if email already exists in database:
-        res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken))
-        ;}
-        
-        else if (result==0){
-            // if email does not exist in database:
-            db.query(sql_insert, [],function (err, result) {
-                if (err) {
-                  console.error('Error executing SQL query:', err);
-                  // Handle the error accordingly
-                  res.redirect('http://localhost:3001')
-                }
-                else{
-                res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
-                ;}
-                
-            })
-
-        }
-        })
-        
+  
     
-    
-   
-
-});
-*/
 app.get('/logout', (req,res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
