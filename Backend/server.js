@@ -11,6 +11,7 @@ const passport = require('./auth');
 const PORT = 3000; //change to .env variable
 
 const session = require('express-session');
+const db = require('./model/databaseconfig')
 app.use(session({
     secret:'cats', // change to .env variable
     resave: false,
@@ -49,9 +50,82 @@ app.get('/auth/failure', (req,res) => {
 app.get('/protected',isLoggedIn, (req,res) => {
     console.log(req.user);
     const accessToken = req.user.accessToken;
-    res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
-});
+    var Username = req.user.profile.given_name
+    var Email = req.user.profile.email
+    var sql_check=`SELECT COUNT(*) AS count FROM user WHERE Email = "${Email}";`
+    var sql_insert = `INSERT INTO user (Email,Username) VALUES ("${Email}", "${Username}");`
 
+    //check if user exists in our databse:
+    db.query(sql_check, [Email], (err, result) => {
+        if (err) {
+          console.error('Error executing SQL query:', err);
+          // Handle the error accordingly
+          res.redirect('http://localhost:3001')
+        }
+      
+        // Access the count value from the result object
+        const count = result[0].count;
+      
+        if (count > 0) {
+          // Email already exists, do not create another instance
+          res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken))
+        } 
+        else {
+          // Email doesn't exist, create a new instance
+          db.query(sql_insert, [],function (err, result) {
+            if (err) {
+              console.error('Error executing SQL query:', err);
+              // Handle the error accordingly
+              res.redirect('http://localhost:3001')
+            }
+            else{
+            res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
+            ;}
+            
+        })
+        }
+      });
+    })
+    //Checks if users email is already registered in database
+    /*
+    db.query(sql_check, [],function (err, result) {
+        if (err) {
+          console.error('Error executing SQL query:', err);
+          // Handle the error accordingly
+          res.redirect('http://localhost:3001')
+        }
+        return;
+        }
+        const count= result[0].count;
+        
+        if (result>0){
+            //if email already exists in database:
+        res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken))
+        ;}
+        
+        else if (result==0){
+            // if email does not exist in database:
+            db.query(sql_insert, [],function (err, result) {
+                if (err) {
+                  console.error('Error executing SQL query:', err);
+                  // Handle the error accordingly
+                  res.redirect('http://localhost:3001')
+                }
+                else{
+                res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
+                ;}
+                
+            })
+
+        }
+        })
+        
+    
+    
+   
+
+});
+*/
 app.get('/logout', (req,res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
