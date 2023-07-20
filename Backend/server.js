@@ -6,12 +6,18 @@
 
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const axios = require('axios');
 
 const passport = require('./auth');
 const PORT = 3000; //change to .env variable
 
 const session = require('express-session');
 const db = require('./model/databaseconfig')
+const apikey=process.env.API_KEY;
+const { google } = require('googleapis');
+
+app.use(cors());
 app.use(session({
     secret:'cats', // change to .env variable
     resave: false,
@@ -33,7 +39,7 @@ function isLoggedIn(req,res,next) {
 
 
 app.get('/',
-    passport.authenticate('google',{scope:['email','profile']})
+    passport.authenticate('google',{scope:['email','profile','https://www.googleapis.com/auth/calendar.readonly']})
 );    
 
 app.get('/google/callback',
@@ -50,11 +56,28 @@ app.get('/auth/failure', (req,res) => {
 app.get('/protected',isLoggedIn, (req,res) => {
     console.log(req.user);
     const accessToken = req.user.accessToken;
-    var Username = req.user.profile.given_name
-    var Email = req.user.profile.email
+    var Username = req.user.profile.given_name;
+    var Email = req.user.profile.email;
+    //var url = 'https://www.googleapis.com/calendar/v3/users/me/calendarList/primary'
+    var url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events'
+    axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        // Handle the response data here
+        console.log('Calendar Data:', response.data);
+      })
+      .catch(error => {
+        // Handle errors here
+        console.error('Error fetching calendar data:', error);
+      });
     var sql_check=`SELECT COUNT(*) AS count FROM user WHERE Email = "${Email}";`
     var sql_insert = `INSERT INTO user (Email,Username) VALUES ("${Email}", "${Username}");`
 
+    
     //check if user exists in our databse:
     db.query(sql_check, [Email], (err, result) => {
         if (err) {
@@ -86,6 +109,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
         }
       });
     })
+
   
     
 app.get('/logout', (req,res) => {
