@@ -26,7 +26,11 @@ body {
     color: #213052;
 }
 
-body {  
+body {
+    position: relative;
+  margin: 0;
+  padding-bottom: 1rem;
+  min-height: 100%;
     min-height: 100%;
     position: relative;
     max-width: 100%;
@@ -59,7 +63,7 @@ h4 {
 
 p,
 li {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 24px;
     letter-spacing: normal;
 }
@@ -90,7 +94,7 @@ a {
 li,
 a {
     font-family: Gilroy-Regular;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #213052;
     text-transform: capitalize;
     line-height: normal;
@@ -143,7 +147,7 @@ header {
     justify-self: flex-end;
 }
 
-.logout > img {
+.logout>img {
     height: 21px;
 }
 
@@ -178,12 +182,16 @@ footer {
     width: 100%;
     text-align: center;
     padding: 8px;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 footer>p {
     font-family: "Gilroy-Light";
     font-size: 10px;
     margin: 2px;
+    color: #667479;
 }
 
 @media screen and (min-width: 1024px) {
@@ -196,7 +204,7 @@ footer>p {
     }
 
     h3 {
-        font-size: 26px;
+        font-size: 24px;
     }
 
     footer>p {
@@ -257,6 +265,6 @@ footer>p {
     }
 
     h3 {
-        font-size: 16px;
+        font-size: 24px;
     }
 }
