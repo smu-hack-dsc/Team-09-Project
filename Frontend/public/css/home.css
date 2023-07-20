@@ -129,6 +129,10 @@
     animation-timing-function: step-start;
 }
 
+.select-box__list > li {
+    padding: 0;
+}
+
 .select-box__option {
     display: block;
     padding: 16px;
