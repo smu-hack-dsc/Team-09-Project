@@ -20,13 +20,13 @@ function isLoggedIn() {
         console.log('Logged in with token:', accessToken);
     }
      else {
-        window.location.href = 'http://localhost:3000';
+        window.location.href = 'http://localhost:3001';
      }
 }
 
 function logout() {
     removeAccessToken();
-    window.location.href = 'http://localhost:3000';
+    window.location.href = 'http://localhost:3001';
 }
 
 
