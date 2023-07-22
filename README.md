@@ -12,8 +12,9 @@ To clone project:
 https://www.geeksforgeeks.org/how-to-clone-a-project-from-github-using-vscode/
 
 Steps after cloning from github:
-1. Run the database setup in your mysql to create the tables and contents.
-2. Run node server.js for both frontend folder and backend folder in 2 different terminal/consoles.
+1. Run the database setup in your mysql to create the tables and contents. Check that your SQL server is running on port 3306. If not edit the config under Backend/model/databaseconfig.js
+2. Install nodemon using npm install -g nodemon.
+3. Run npm start for both frontend folder and backend folder in 2 different terminal/consoles.
 
 ** ALWAYS hv a backup before you push and pull just in case it fks up when u try to resolve a conflict or u overwrite someones code
 
