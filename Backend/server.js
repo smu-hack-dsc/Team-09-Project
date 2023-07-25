@@ -152,9 +152,10 @@ app.get('/protected',isLoggedIn, (req,res) => {
 })
 
 
-app.get('/calendar-events', isLoggedIn, (req, res) => {
-  const accessToken = req.user.accessToken;
+app.get('/calendar-events', (req, res) => {
+  const accessToken = req.headers.authorization.replace('Bearer ', '');
   const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
+  
 
   axios.get(url, {
       headers: {
