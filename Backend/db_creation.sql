@@ -4,7 +4,7 @@ use HEAP;
 
 create table USER (
 UserID int not null primary key auto_increment,
-Email varchar(50) not null,
+Email varchar(50) not null unique,
 Username varchar(20) not null
 );
 
@@ -30,4 +30,15 @@ EndTime time not null,
 constraint availability_pk primary key (UserID,EventID),
 constraint availability_fk1 foreign key(UserID) references USER(UserID),
 constraint availability_fk2 foreign key(EventID) references EVENT(EventID)
+);
+
+create table CALANDERDATA (
+Email varchar(50) not null,
+ItemId varchar(50) not null,
+ItemName varchar(50) not null,
+StartDate varchar(50) not null,
+EndDate varchar(50) not null,
+constraint calanderdata_pk primary key (Email,ItemId),
+constraint calanderdata_fk1 foreign key(Email) references USER(Email)
+
 );

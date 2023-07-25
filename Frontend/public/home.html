@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <script src="./js/protect.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    </script>
 </head>
 
 <body>
@@ -78,6 +80,7 @@
     <footer>
         <p>© 2023 MeetnGo. All rights reserved.</p>
     </footer>
+    <script></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/dayjs.min.js"
         integrity="sha512-q4Xn+ZU2K+dqJPL8a3TiyGsDa31IkR/rLt/w+fy8jLrx8TdXj0dLM1Aq4aPXnOOKxHEya/bD9DePDB2DHm4jJQ=="
@@ -89,6 +92,7 @@
         integrity="sha512-+EJ/Ed/UbhfSypwkMnTIxgJ3izeQNc5655zPTlVqcgJ4Zd4K++JYUyg4Jy5rnKX9MfoIyfXJsu5N30MRHnShYw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
+    
     <script>
         dayjs.extend(window.dayjs_plugin_weekday);
         dayjs.extend(window.dayjs_plugin_weekOfYear);
@@ -122,6 +126,7 @@
 
         const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
         const TODAY = dayjs().format("YYYY-MM-DD");
+        console.log('aaaaaaaaaaaaaaa')
 
         const INITIAL_YEAR = dayjs().format("YYYY");
         const INITIAL_MONTH = dayjs().format("M");
@@ -169,6 +174,7 @@
         }
 
         function appendDay(day, calendarDaysElement) {
+            const myBirthday = "2023-06-24";
             const dayElement = document.createElement("li");
             const dayElementClassList = dayElement.classList;
             dayElementClassList.add("calendar-day");
@@ -176,6 +182,32 @@
             dayOfMonthElement.innerText = day.dayOfMonth;
             dayElement.appendChild(dayOfMonthElement);
             calendarDaysElement.appendChild(dayElement);
+            
+            const accessToken = getAccessToken();
+            console.log(accessToken)
+            axios.get('http://localhost:3000/calendar-events', {
+             headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+                 },
+             })
+
+                .then(response => {
+                const eventsData = response.data;
+                console.log('Calendar Events Data:', eventsData);
+                eventsData.forEach(event => {
+                    console.log('Event ID:', event.ItemId);
+                    console.log('Event Name:', event.ItemName);
+                    console.log('Start Date:', event.StartDate);
+                    console.log('End Date:', event.EndDate);
+                    });
+                })
+                .catch(error => {
+                // Handle the error here
+                 console.error('Error fetching calendar events:', error);
+                    });
+
+     
 
             if (!day.isCurrentMonth) {
                 dayElementClassList.add("calendar-day--not-current");
@@ -184,6 +216,11 @@
             if (day.date === TODAY) {
                 dayElementClassList.add("calendar-day--today");
             }
+            if (day.date === myBirthday) {
+        const birthdayText = document.createElement("span");
+        birthdayText.innerText = "My birthday";
+        dayElement.appendChild(birthdayText);
+    }
         }
 
         function removeAllDayElements(calendarDaysElement) {
