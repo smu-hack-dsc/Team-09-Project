@@ -291,8 +291,20 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--day-label-size);
-    height: var(--day-label-size);
+    /* width: var(--day-label-size);
+    height: var(--day-label-size); */
+}
+
+.calendar-event {
+    background: beige;
+    height: 30px;
+    max-width: 100px;
+    padding: 4px 8px;
+    margin: 4px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .calendar-day--not-current {
