@@ -116,7 +116,7 @@
     opacity: 0;
     border-radius: 8px;
     box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.20);
-    z-index:9;
+    z-index: 9;
     -webkit-animation-name: HideList;
     animation-name: HideList;
     -webkit-animation-duration: 0.5s;
@@ -129,7 +129,7 @@
     animation-timing-function: step-start;
 }
 
-.select-box__list > li {
+.select-box__list>li {
     padding: 0;
 }
 
@@ -139,11 +139,11 @@
     background-color: #fff;
 }
 
-.select-box__list > li:first-child .select-box__option {
+.select-box__list>li:first-child .select-box__option {
     border-radius: 8px 8px 0 0;
 }
 
-.select-box__list > li:last-child .select-box__option {
+.select-box__list>li:last-child .select-box__option {
     border-radius: 0 0 8px 8px;
 }
 
@@ -299,17 +299,59 @@ li {
 }
 
 .calendar-event {
-    font-size: 14px;
+    position: relative;
+    display: block;
     background: beige;
     height: 22px;
     max-width: 100px;
     padding: 0px 8px;
     margin: 4px auto;
     border-radius: 12px;
-    overflow: hidden;
+    /* overflow: hidden; */
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 13px;
+    text-align: center;
+}
+
+.calendar-event .calendar-event-desc {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 12px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    word-wrap: break-word;
+    white-space: initial;
+}
+
+.calendar-event .calendar-event-desc p {
+    font-size: 13px;
+    line-height: 1.05rem;
+}
+
+.calendar-event .calendar-event-desc::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.calendar-event:hover .calendar-event-desc {
+    visibility: visible;
+    opacity: 1;
 }
 
 .calendar-day--not-current {
@@ -338,7 +380,7 @@ li {
         margin: 21px auto;
         flex-wrap: nowrap;
     }
-    
+
     #events {
         width: 32%;
         margin: 24px;
@@ -366,16 +408,16 @@ li {
     .calendar-month-header {
         flex-direction: row;
     }
-    
+
     .calendar-month-header-selected-month {
         font-size: 24px;
     }
-    
+
     .calendar-month-header-selectors {
         width: 80px;
         margin: 0;
     }
-    
+
     .calendar-month-header-selectors>* {
         font-size: 16px;
     }
@@ -391,9 +433,6 @@ li {
     }
 }
 
-@media screen and (min-width: 1600px) {
-    
-}
+@media screen and (min-width: 1600px) {}
 
-@media screen and (max-width: 1400px) {
-}
+@media screen and (max-width: 1400px) {}
