@@ -299,6 +299,7 @@ li {
 }
 
 .calendar-event {
+    font-size: 14px;
     background: beige;
     height: 22px;
     max-width: 100px;

@@ -193,18 +193,30 @@
 
                 .then(response => {
                 const eventsData = response.data;
-                console.log('Calendar Events Data:', eventsData);
                 eventsData.forEach(event => {
-                    console.log('Event ID:', event.ItemId);
-                    console.log('Event Name:', event.ItemName);
-                    console.log('Start Date:', event.StartDate);
-                    console.log('End Date:', event.EndDate);
-                    });
-                })
+                    const EventID = event.ItemId
+                    const EventName = event.ItemName
+                    const StartDate = event.StartDate
+                    const EndDate = event.EndDate
+                    const currentDate = new Date(day.date);
+                    const startDate = new Date(StartDate);
+                    const endDate = new Date(EndDate);
+
+                // Check if the current date falls between the event's start and end dates
+                if (currentDate >= startDate && currentDate <= endDate) {
+                // Print out the event in the following format:
+                const eventText = document.createElement("p");
+                eventText.className = "calendar-event";
+                eventText.innerText = `${EventName}`;
+                dayElement.appendChild(eventText);
+                 }
+                });
+                  })
                 .catch(error => {
                 // Handle the error here
                  console.error('Error fetching calendar events:', error);
                     });
+              
 
      
 
@@ -216,10 +228,11 @@
                 dayElementClassList.add("calendar-day--today");
             }
             if (day.date === myBirthday) {
-        const birthdayText = document.createElement("span");
-        birthdayText.innerText = "My birthday";
-        dayElement.appendChild(birthdayText);
-    }
+                const birthdayText = document.createElement("p");
+                birthdayText.className = "calendar-event";
+                birthdayText.innerText = "My birthday";
+                dayElement.appendChild(birthdayText);
+            }
         }
 
         function removeAllDayElements(calendarDaysElement) {
