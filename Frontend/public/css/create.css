@@ -35,6 +35,11 @@
   text-decoration: none;
   font-size: 1.25rem;
   transition: all 0.3s ease 0s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #213052;
 }
 
 .button::after,
@@ -182,4 +187,21 @@ p, li {
     line-height: 24px;
     letter-spacing: normal;
     color: #213052;
+}
+
+@media (max-width: 930px) {
+  /* Reduce the font size by 20% for all elements inside the body */
+  label{
+  font-size: 95%; /* 80% of the original font size (16px) */
+  }
+
+  input[type=text]{
+    padding: 12px 12px
+  }
+}
+
+@media (max-width: 620px){
+  .create_event_title{
+    font-size: 24px;
+  }
 }
