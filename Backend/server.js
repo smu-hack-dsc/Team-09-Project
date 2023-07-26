@@ -27,8 +27,9 @@ app.use(session({
 })); 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
- 
 function isLoggedIn(req,res,next) {
     const accessToken = req.user && req.user.accessToken;
     if (accessToken) {
@@ -97,59 +98,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
         }
       });
     
-            //after getting data:
-           /* console.log('Calendar Data:', response.data)
-            var sql_delete = `DELETE FROM calanderdata WHERE Email = "${Email}";`
-            var sql_email_check=`SELECT COUNT(*) AS count FROM calanderdata WHERE Email = "${Email}";`
-            
-            //check if events exist in our db under the persons email
-            db.query(sql_email_check, [Email], (err, result) => {
-              if (err) {
-                console.error('Error executing google email check query:', err);
-              }
-            
-              // Access the count value from the result object
-              const count = result[0].count;
-              
-              //delete any events from our db under the email 
-              //(Basically everytime they log in to the site, the db will wipe everything under the email and get a fresh set of data from google calander )
-              if (count > 0) {
-                db.query(sql_delete, [],function (err) {
-                  if (err) {
-                    console.error('Error executing SQL delete query:', err);
-              } 
-            })
-          }
-            //for each event in a persons google calander:
-            response.data.items.forEach(event=>{
-            let eventid=event.id;
-            let eventname = event.summary;
-            let startdatetime =event.start.dateTime;
-            let enddatetime=event.end.dateTime;
-
-            //Use day js to convert time format in to year-month-day
-            let startparsedDateTime = dayjs(startdatetime)
-            let endparsedDateTime = dayjs(enddatetime)
-            let startformatted = startparsedDateTime.format('YYYY-MM-DD');
-            let endformatted = endparsedDateTime.format('YYYY-MM-DD');
-            
-            var sql_event_insert = `INSERT INTO calanderdata (Email,ItemId,ItemName,StartDate,EndDate) VALUES ("${Email}", "${eventid}","${eventname}", '${startformatted}', '${endformatted}');`
-            //insert new data into db
-            db.query(sql_event_insert, [],function (err) {
-              if (err) {
-                console.error('Error executing SQL delete query:', err);
-          } 
-        })
-            ;}
-    
-            )
-            
-          })
-    
-    })
-  })
-*/
-})
+});
 
 
 app.get('/calendar-events', (req, res) => {
@@ -176,6 +125,32 @@ app.get('/calendar-events', (req, res) => {
   })
 })
 
+// Set up your route handler for the form submission
+app.post('/create-event', (req, res) => {
+  console.log(req.user);
+  const accessToken = req.user.accessToken;
+  var Username = req.user.profile.given_name;
+  var Email = req.user.profile.email;
+  // console.log(username);
+  // console.log(email)
+
+  // Here, you can access the form data through the 'req.body' object
+  const eventData = req.body;
+  // Process the form data as needed (e.g., store it in a database)
+  // ...
+  console.log(eventData);
+
+  // Access individual form fields using the 'name' attribute as the key
+  const eventName = eventData.event_name;
+  const eventDate = eventData.datePick;
+
+  console.log(eventName);
+  console.log(eventDate);
+
+
+  // Respond to the client (optional)
+  res.send('Event created successfully!');
+});
 
     
 app.get('/logout', (req,res) => {
