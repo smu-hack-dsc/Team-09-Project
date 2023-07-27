@@ -8,6 +8,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const axios = require('axios');
+const cookieParser = require('cookie-parser');
+
 
 const dayjs = require('dayjs'); 
 
@@ -29,6 +31,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 
 function isLoggedIn(req,res,next) {
     const accessToken = req.user && req.user.accessToken;
@@ -57,7 +61,8 @@ app.get('/auth/failure', (req,res) => {
 
 // adding isLoggedIn middleware function is called before the res is sent.
 app.get('/protected',isLoggedIn, (req,res) => {
-    console.log(req.user);
+    res.cookie('userData', JSON.stringify(req.user), { httpOnly: true });
+
     const accessToken = req.user.accessToken;
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
@@ -126,13 +131,17 @@ app.get('/calendar-events', (req, res) => {
 })
 
 // Set up your route handler for the form submission
-app.post('/create-event', (req, res) => {
-  console.log(req.user);
-  const accessToken = req.user.accessToken;
-  var Username = req.user.profile.given_name;
-  var Email = req.user.profile.email;
+app.post('/create-event',(req, res) => {
+  // const accessToken = req.user.accessToken;
+  // var username = req.user.profile.given_name;
+  // var email = req.user.profile.email;
   // console.log(username);
   // console.log(email)
+  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+  console.log(userData);
+
+  // const accessToken = req.headers.authorization;
+  // console.log(accessToken);
 
   // Here, you can access the form data through the 'req.body' object
   const eventData = req.body;

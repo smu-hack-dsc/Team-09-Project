@@ -12,6 +12,11 @@
   <script src="script.js" defer></script>
   <title>Create Event</title>
   <script src="./js/protect.js"></script>
+  <script>
+    const accessToken = getAccessToken();
+    console.log(accessToken);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
   
 </head>
@@ -32,7 +37,7 @@
 
   <div class='outer_box'>
     <h2 class='create_event_title'>Create Event</h2>
-    <form action="http://localhost:3000/create-event" method="POST">
+    <form action="http://localhost:3000/create-event" method="POST" id="eventForm">
       <div class='event_div'>
         <label for="event_name">Event Name:</label>
         <input type="text" id="event_name" name="event_name">
@@ -79,6 +84,40 @@
           </defs>
         </svg>
       </div>
+      <!-- <script>
+        // Get the form element
+        const myForm = document.getElementById('eventForm');
+      
+        // Add event listener to handle form submission
+        myForm.addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent default form submission behavior
+      
+          // Get the form data
+          const formData = new FormData(myForm);
+      
+          // Convert FormData to a plain object
+          const data = {};
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
+      
+          // Send data to the backend using Axios
+          axios.post('http://localhost:3000/create-event', data, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+            }
+          })
+            .then(response => {
+              // Handle the response from the backend if needed
+              console.log(response.data);
+            })
+            .catch(error => {
+              // Handle any errors that occurred during the request
+              console.error(error);
+            });
+        });
+      </script> -->
     </form>
   </div>
 
