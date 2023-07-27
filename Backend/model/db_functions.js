@@ -1,4 +1,4 @@
-const db = require('./model/databaseconfig');   
+const db = require('./databaseconfig');   
     
 //sql scripts
 function check_user_exist(email) {

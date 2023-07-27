@@ -9,17 +9,18 @@ const app = express();
 const cors = require('cors');
 const axios = require('axios');
 const cookieParser = require('cookie-parser');
-
-
-const dayjs = require('dayjs'); 
-
-const passport = require('./auth');
-const PORT = 3000; //change to .env variable
-
+const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
 const db = require('./model/databaseconfig')
-const apikey=process.env.API_KEY;
-const { google } = require('googleapis');
+const dayjs = require('dayjs'); 
+const passport = require('./auth');
+require('./model/db_functions');
+
+const PORT = 3000; //change to .env variable
+
+
+// const apikey=process.env.API_KEY;
+// const { google } = require('googleapis');
 
 app.use(cors());
 app.use(session({
@@ -43,8 +44,6 @@ function isLoggedIn(req,res,next) {
     res.sendStatus(401);
 };
 
-
-
 app.get('/',
     passport.authenticate('google',{scope:['email','profile','https://www.googleapis.com/auth/calendar.readonly']})
 );    
@@ -67,7 +66,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
 
-      //sql scripts
+    //sql scripts
     var sql_check=`SELECT COUNT(*) AS count FROM user WHERE Email = "${Email}";`
     var sql_insert = `INSERT INTO user (Email,Username) VALUES ("${Email}", "${Username}");`
 
@@ -138,7 +137,7 @@ app.post('/create-event',(req, res) => {
   // console.log(username);
   // console.log(email)
   const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-  console.log(userData);
+  let email = userData.profile.email;
 
   // const accessToken = req.headers.authorization;
   // console.log(accessToken);
@@ -148,6 +147,10 @@ app.post('/create-event',(req, res) => {
   // Process the form data as needed (e.g., store it in a database)
   // ...
   console.log(eventData);
+
+  // Generate a unique identifier for the event
+  const eventId = uuidv4();
+  const eventURL = `http://localhost:3001/event/${eventId}`;
 
   // Access individual form fields using the 'name' attribute as the key
   const eventName = eventData.event_name;
@@ -159,6 +162,9 @@ app.post('/create-event',(req, res) => {
 
   // Respond to the client (optional)
   res.send('Event created successfully!');
+
+  // Redirect the user to the unique URL for the created event
+  // res.redirect(`http://localhost:3001/event/${eventId}`);
 });
 
     
