@@ -12,10 +12,6 @@
   <script src="script.js" defer></script>
   <title>Create Event</title>
   <script src="./js/protect.js"></script>
-  <script>
-    const accessToken = getAccessToken();
-    console.log(accessToken);
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
   
@@ -37,7 +33,7 @@
 
   <div class='outer_box'>
     <h2 class='create_event_title'>Create Event</h2>
-    <form action="http://localhost:3000/create-event" method="POST" id="eventForm">
+    <form action="http://localhost:3000/create-event" method="POST">
       <div class='event_div'>
         <label for="event_name">Event Name:</label>
         <input type="text" id="event_name" name="event_name">
