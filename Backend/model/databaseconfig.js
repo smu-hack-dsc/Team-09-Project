@@ -1,4 +1,5 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
+const { promisify } = require('util');
 
 // Create a connection pool
 const pool = mysql.createPool({
@@ -6,34 +7,43 @@ const pool = mysql.createPool({
     port:3306,
     user:"root",
     // CHANGE PASSWORD TO root IF USING MAC or LEAVE IT EMPTY IN WINDOWS
-    password:"",
+    password:"abcde12345",
     database:"HEAP"
 });
 
-// Define the query function
-function query(sql, values, callback) {
-  // Acquire a connection from the pool
-  pool.getConnection(function(err, connection) {
+// Test the database connection
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the database!');
+  connection.release();
+});
+
+// Export a function to execute queries
+const callback_query = (sql, params, callback) => {
+  pool.query(sql, params, (err, results) => {
     if (err) {
-      console.error('Error acquiring database connection:', err);
-      callback(err, null);
-      return;
+      console.error('Error executing query:', err);
+      return callback(err, null);
     }
-
-    // Execute the query with optional values
-    connection.query(sql, values, function(err, results) {
-      // Release the connection back to the pool
-      connection.release();
-
-      if (err) {
-        console.error('Error executing SQL query:', err);
-        callback(err, null);
-        return;
-      }
-
-      callback(null, results);
-    });
+    callback(null, results);
   });
-}
+};
 
-module.exports = { query };
+
+const queryAsync = promisify(pool.query).bind(pool);
+
+// Export a function to execute queries using async/await
+const async_query = async (sql, params) => {
+  try {
+    const results = await queryAsync(sql, params);
+    return results;
+  } catch (err) {
+    console.error('Error executing query:', err);
+    throw err;
+  }
+};
+
+module.exports = { callback_query, async_query };

@@ -11,10 +11,11 @@ const axios = require('axios');
 const cookieParser = require('cookie-parser');
 const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
-const db = require('./model/databaseconfig')
+// const db = require('./model/databaseconfig');
+const db = require('./model/databaseconfig');
 const dayjs = require('dayjs'); 
 const passport = require('./auth');
-require('./model/db_functions');
+const date_func = require('./model/date_func');
 
 const PORT = 3000; //change to .env variable
 
@@ -72,7 +73,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
 
     
     //check if user exists in our databse:
-    db.query(sql_check, [Email], (err, result) => {
+    db.callback_query(sql_check, [Email], (err, result) => {
         if (err) {
           console.error('Error executing SQL query:', err);
           // if error redirect to login
@@ -84,11 +85,11 @@ app.get('/protected',isLoggedIn, (req,res) => {
       
         if (count > 0) {
           // Email already exists, do not create another instance in db
-          res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken))
+          res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
         } 
         else {
           // Email doesn't exist, create a new instance in db
-          db.query(sql_insert, [],function (err, result) {
+          db.callback_query(sql_insert, [],function (err, result) {
             if (err) {
               console.error('Error executing SQL query:', err);
               // if error redirect to login
@@ -130,42 +131,53 @@ app.get('/calendar-events', (req, res) => {
 })
 
 // Set up your route handler for the form submission
-app.post('/create-event',(req, res) => {
-  // const accessToken = req.user.accessToken;
-  // var username = req.user.profile.given_name;
-  // var email = req.user.profile.email;
-  // console.log(username);
-  // console.log(email)
-  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-  let email = userData.profile.email;
-
-  // const accessToken = req.headers.authorization;
-  // console.log(accessToken);
-
-  // Here, you can access the form data through the 'req.body' object
-  const eventData = req.body;
-  // Process the form data as needed (e.g., store it in a database)
-  // ...
-  console.log(eventData);
-
-  // Generate a unique identifier for the event
-  const eventId = uuidv4();
-  const eventURL = `http://localhost:3001/event/${eventId}`;
-
-  // Access individual form fields using the 'name' attribute as the key
-  const eventName = eventData.event_name;
-  const eventDate = eventData.datePick;
-
-  console.log(eventName);
-  console.log(eventDate);
-
-
-  // Respond to the client (optional)
-  res.send('Event created successfully!');
-
-  // Redirect the user to the unique URL for the created event
-  // res.redirect(`http://localhost:3001/event/${eventId}`);
-});
+app.post('/create-event', async (req, res) => {
+    // Access the form data through the 'req.body' object
+    const eventData = req.body;
+  
+    // Generate a unique identifier for the event
+    const eventId = uuidv4();
+    const eventURL = `http://localhost:3001/event/${eventId}`;
+  
+    // Access individual form fields using the 'name' attribute as the key
+    const eventName = eventData.event_name;
+    const date_str = eventData.datePick;
+  
+    // console.log(eventData);
+    // console.log(date_str);
+  
+    const date_lst = date_func.process_date(date_str);
+    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    let email = userData.profile.email;
+  
+    try {
+      // Check for userId
+      const getUserIdSql = `SELECT userId FROM user WHERE email = "${email}"`;
+      const userResult = await db.async_query(getUserIdSql, [email]);
+      const userId = userResult[0].userId;
+  
+      // Create event if userId exists
+      if (userId) {
+        const insertEventSql = `INSERT into EVENT (EventLink, CreatorID, EventName) VALUES ("${eventURL}",${userId},"${eventName}")`;
+        await db.async_query(insertEventSql, [eventURL, userId, eventName]);
+  
+        for (const date of date_lst) {
+          const insertDateSql = `INSERT into eventDate VALUES ("${eventURL}","${date}")`;
+          await db.async_query(insertDateSql, [eventURL, date]);
+        }
+  
+        // Respond to the client
+        res.send('Event created successfully!');
+      } 
+      else {
+        res.status(404).send('User not found');
+      }
+    } 
+    catch (err) {
+      console.error('Error creating event:', err);
+      res.status(500).send('Error creating event');
+    }
+  });
 
     
 app.get('/logout', (req,res) => {
