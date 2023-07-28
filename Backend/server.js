@@ -1,8 +1,3 @@
-// const app = require('./controller/app.js');
-// const port = 3000;
-// const server = app.listen(port,function() {
-//     console.log("App hosted at localhost:" + port);
-// });
 
 const express = require('express');
 const app = express();
