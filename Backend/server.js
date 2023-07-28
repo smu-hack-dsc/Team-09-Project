@@ -132,7 +132,7 @@ app.post('/create-event', async (req, res) => {
   
     // Generate a unique identifier for the event
     const eventId = uuidv4();
-    const eventURL = `http://localhost:3001/event/${eventId}`;
+    
   
     // Access individual form fields using the 'name' attribute as the key
     const eventName = eventData.event_name;
@@ -153,16 +153,18 @@ app.post('/create-event', async (req, res) => {
   
       // Create event if userId exists
       if (userId) {
-        const insertEventSql = `INSERT into EVENT (EventLink, CreatorID, EventName) VALUES ("${eventURL}",${userId},"${eventName}")`;
-        await db.async_query(insertEventSql, [eventURL, userId, eventName]);
+        const insertEventSql = `INSERT into EVENT (EventID, CreatorID, EventName) VALUES ("${eventId}",${userId},"${eventName}")`;
+        await db.async_query(insertEventSql, [eventId, userId, eventName]);
   
         for (const date of date_lst) {
-          const insertDateSql = `INSERT into eventDate VALUES ("${eventURL}","${date}")`;
-          await db.async_query(insertDateSql, [eventURL, date]);
+          const insertDateSql = `INSERT into eventDate VALUES ("${eventId}","${date}")`;
+          await db.async_query(insertDateSql, [eventId, date]);
         }
   
         // Respond to the client
-        res.send('Event created successfully!');
+        // res.send('Event created successfully!');
+        const eventURL = `http://localhost:3001/available/${eventId}`;
+        res.redirect(eventURL);
       } 
       else {
         res.status(404).send('User not found');

@@ -13,7 +13,6 @@ app.get('/',
     app.use(express.static('./public'))
 );
 
-
 app.listen(port, function(err) {
     console.log(`Listening on http://localhost:${port}`)
 });
