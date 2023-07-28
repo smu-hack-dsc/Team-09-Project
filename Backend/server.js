@@ -15,7 +15,7 @@ const session = require('express-session');
 const db = require('./model/databaseconfig');
 const dayjs = require('dayjs'); 
 const passport = require('./auth');
-const date_func = require('./model/date_func');
+const date_func = require('./helper_func/date_func');
 
 const PORT = 3000; //change to .env variable
 
