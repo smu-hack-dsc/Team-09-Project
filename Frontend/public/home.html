@@ -232,6 +232,14 @@
                 birthdayText.className = "calendar-event";
                 birthdayText.innerText = "My birthday";
                 dayElement.appendChild(birthdayText);
+
+                const birthdayDescContainer = document.createElement("div");
+                birthdayDescContainer.className = "calendar-event-desc";
+                birthdayText.appendChild(birthdayDescContainer);
+
+                const birthdayDesc = document.createElement("p");
+                birthdayDesc.innerText = "All day event sdkjfhskdhfskjdhfjhf";
+                birthdayDescContainer.appendChild(birthdayDesc);
             }
         }
 
