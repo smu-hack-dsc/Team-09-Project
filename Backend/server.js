@@ -128,9 +128,9 @@ app.get('/calendar-events', (req, res) => {
       const end =event.end
       const descriptionini=event.description
       
-      const startdatetime = Object.keys(start).length > 1 ? start : 'Whole Day Event';
+      const startdatetime = Object.keys(start).length > 1 ? start : 'Whole Day';
       const enddatetime = Object.keys(end).length > 1 ? end : '';
-      const description = descriptionini || '--------------';
+      const description = descriptionini || '';
       const ItemName = event.summary;
       const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       let StartDate, EndDate;

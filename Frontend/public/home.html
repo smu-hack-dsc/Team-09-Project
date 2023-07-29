@@ -167,8 +167,9 @@
             const description= event.description
             console.log('FRONTNED DESCRIPITOTM')
             console.log(description)
-            const startOfMonth = dayjs(`${year}-${month}-01`).startOf('month').toDate();
-            const endOfMonth = dayjs(`${year}-${month}-01`).endOf('month').toDate();
+            const startOfMonth = dayjs(`${year}-${month}-01`).startOf('month').subtract(1, 'week').toDate();
+            const endOfMonth = dayjs(`${year}-${month}-01`).endOf('month').add(1, 'week').toDate();
+
 
             // Check if the event falls within the selected month
            
@@ -248,11 +249,8 @@ async function fetchAndCreateCalendar(year,month,calendardata) {
             try{
                 
                 if (!calendardata) {
-                const currentYear = dayjs().format("YYYY");
-                const currentMonth = dayjs().format("M");
-                calendardata = await getcalendardata(currentYear, currentMonth);
-             }
-
+                const calanderData = await getcalendardata(year, month);
+                }
             days.forEach((day) => {
                 appendDay(day, calendarDaysElement,calendardata);
             });
@@ -305,25 +303,17 @@ function appendDay(day, calendarDaysElement, calendardata) {
                     const formattedDate = dayjs(enddatetimie.dateTime).format('HH:mm')
                     enddatetimie=' - '+formattedDate
                 }
-                eventDesc.innerHTML = `${eventdescription} <br> ${startdatetimie}  ${enddatetimie}`;
+                var leaveline = ''
+                var descheader=''
+                if (eventdescription!=''){
+                    leaveline='<br>'
+                    descheader='Description: '
+                }
+                eventDesc.innerHTML = `Name: ${eventName.name} <br> <br> ${descheader} ${eventdescription} ${leaveline} ${leaveline} Time: ${startdatetimie}  ${enddatetimie}`;
 
                 eventDescContainer.appendChild(eventDesc)
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                ;
+                    ;
             });
         }  
      }
@@ -367,17 +357,19 @@ function appendDay(day, calendarDaysElement, calendardata) {
                 .subtract(visibleNumberOfDaysFromPreviousMonth, "day")
                 .date();
 
-            return [...Array(visibleNumberOfDaysFromPreviousMonth)].map((day, index) => {
-                return {
-                    date: dayjs(
-                        `${previousMonth.year()}-${previousMonth.month() + 1}-${previousMonthLastMondayDayOfMonth + index
-                        }`
-                    ).format("YYYY-MM-DD"),
-                    dayOfMonth: previousMonthLastMondayDayOfMonth + index,
-                    isCurrentMonth: false
-                };
-            });
-        }
+            
+    return [...Array(visibleNumberOfDaysFromPreviousMonth)].map((day, index) => {
+        const date = dayjs(
+            `${previousMonth.year()}-${previousMonth.month() + 1}-${previousMonthLastMondayDayOfMonth + index}`
+        ).format("YYYY-MM-DD"); // Modify the date format here
+
+        return {
+            date: date,
+            dayOfMonth: previousMonthLastMondayDayOfMonth + index,
+            isCurrentMonth: false
+        };
+    });
+}
 
         function createDaysForNextMonth(year, month) {
             const lastDayOfTheMonthWeekday = getWeekday(
@@ -390,16 +382,18 @@ function appendDay(day, calendarDaysElement, calendardata) {
                 ? 7 - lastDayOfTheMonthWeekday
                 : lastDayOfTheMonthWeekday;
 
-            return [...Array(visibleNumberOfDaysFromNextMonth)].map((day, index) => {
-                return {
-                    date: dayjs(
-                        `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`
-                    ).format("YYYY-MM-DD"),
-                    dayOfMonth: index + 1,
-                    isCurrentMonth: false
-                };
-            });
-        }
+                return [...Array(visibleNumberOfDaysFromNextMonth)].map((day, index) => {
+        const date = dayjs(
+            `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`
+        ).format("YYYY-MM-DD"); // Modify the date format here
+
+        return {
+            date: date,
+            dayOfMonth: index + 1,
+            isCurrentMonth: false
+        };
+    });
+}
 
         function getWeekday(date) {
             return dayjs(date).weekday();
