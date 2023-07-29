@@ -18,13 +18,21 @@
 <body>
   <header>
     <nav>
-        <ul class="nav_links">
-            <li><a href="home.html"> Home </a></li>
-            <li><a href="create.html"> Create Event </a></li>
-        </ul>
+      <ul class="nav_links">
+        <li><a href="home.html"> Home </a></li>
+        <li><a href="create.html"> Create Event </a></li>
+      </ul>
+
+      <div class="hamburger_wrapper">
+        <div class="hamburger" id="hamburger"></div>
+        <div class="hamburger" id="close_popup"></div>
+        <div class="hamburger"></div>
+      </div>
+    </nav>
+
     </nav>
     <div class="logo_box">
-        <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
+      <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
     </div>
     <a class="logout" onclick="logout()" href="http://localhost:3000/logout"> <img src=" ./logo/logout.png " /> </a>
   </header>
