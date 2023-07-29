@@ -18,15 +18,15 @@
 <body>
   <header>
     <nav>
-      <ul class="nav_links">
-        <li><a href="home.html"> Home </a></li>
-        <li><a href="create.html"> Create Event </a></li>
-      </ul>
+        <ul class="nav_links">
+            <li><a href="home.html"> Home </a></li>
+            <li><a href="create.html"> Create Event </a></li>
+        </ul>
     </nav>
     <div class="logo_box">
-      <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
+        <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
     </div>
-    <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
+    <a class="logout" onclick="logout()" href="http://localhost:3000/logout"> <img src=" ./logo/logout.png " /> </a>
   </header>
 
   <div class='outer_box'>
@@ -68,7 +68,14 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script
     src="https://cdn.jsdelivr.net/gh/dubrox/Multiple-Dates-Picker-for-jQuery-UI@master/jquery-ui.multidatespicker.js"></script>
-  <script>
+
+    <script>
+      if (localStorage.getItem("accessToken") == null) {
+        window.location.href = "./index.html";
+      }
+    </script>
+
+    <script>
     $(document).ready(function () {
       $('#datePick').multiDatesPicker({
         dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -108,39 +115,6 @@
       cnt = 0;
     });
   </script>
-
-  <!-- <script>
-    const createEvent = $('#createEvent')
-    const event_name = $('#event_name')
-    const datePick = $('#datePick')
-
-    createEvent.on('submit', function (e) {
-      e.preventDefault()
-      const accessToken = getAccessToken();
-
-      const payload = {
-        title: event_name.val(),
-        image_url: datePick.val(),
-      }
-
-      const headers = {
-        Authorization:
-          'Bearer ' + accessToken,
-      }
-
-      axios
-        .post(`http://localhost:3000/listings/${user.id}`, payload, {
-          headers
-        })
-        .then(function (res) {
-          alert('Successfully created a post')
-          window.location.assign('/home.html')
-        })
-        .catch(function (e) {
-          alert('failed to create post')
-        })
-    })
-  </script> -->
 </body>
 
 </html>
