@@ -22,7 +22,7 @@
             </ul>
         </nav>
         <div class="logo_box">
-            <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
+            <img class="logo" src="./logo/logo.png" alt="logo" />
         </div>
         <a class="logout" onclick="logout()" href="http://localhost:3000/logout"> <img src=" ./logo/logout.png " /> </a>
     </header>
@@ -92,26 +92,36 @@
         integrity="sha512-+EJ/Ed/UbhfSypwkMnTIxgJ3izeQNc5655zPTlVqcgJ4Zd4K++JYUyg4Jy5rnKX9MfoIyfXJsu5N30MRHnShYw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
-
+    
     <script>
         dayjs.extend(window.dayjs_plugin_weekday);
         dayjs.extend(window.dayjs_plugin_weekOfYear);
 
         document.getElementById("calendar").innerHTML = `
-            <div class="calendar-month">
-                <section class="calendar-month-header">
-                    <div id="selected-month" class="calendar-month-header-selected-month"></div>
-                    
-                    <section class="calendar-month-header-selectors">
-                        <span id="previous-month-selector"><</span>
-                        <span id="present-month-selector">Today</span>
-                        <span id="next-month-selector">></span>
-                    </section>
-                </section>
+        <div class="calendar-month">
+        <section class="calendar-month-header">
+            <div
+            id="selected-month"
+            class="calendar-month-header-selected-month"
+            ></div>
+            <section class="calendar-month-header-selectors">
+            <span id="previous-month-selector"><</span>
+            <span id="present-month-selector">Today</span>
+            <span id="next-month-selector">></span>
+            </section>
+        </section>
 
-                <ol id="days-of-week" class="day-of-week"></ol>
-                <ol id="calendar-days" class="days-grid"></ol>
-            </div>
+        <ol
+            id="days-of-week"
+            class="day-of-week"
+        /></ol>
+
+        <ol
+            id="calendar-days"
+            class="days-grid"
+        >
+        </ol>
+        </div>
         `;
 
         const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -254,68 +264,71 @@ async function fetchAndCreateCalendar(year,month,calendardata) {
 
 function appendDay(day, calendarDaysElement, calendardata) {
 
-        function appendDay(day, calendarDaysElement) {
-            const myBirthday = "2023-06-24";
-            const dayElement = document.createElement("li");
-            const dayElementClassList = dayElement.classList;
-            dayElementClassList.add("calendar-day");
-            const dayOfMonthElement = document.createElement("span");
-            dayOfMonthElement.innerText = day.dayOfMonth;
-            dayElement.appendChild(dayOfMonthElement);
-            calendarDaysElement.appendChild(dayElement);
-            
-            const accessToken = getAccessToken();
-            console.log(accessToken)
-            axios.get('http://localhost:3000/calendar-events', {
-             headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-                 },
-             })
+    const dayElement = document.createElement("li");
+    const dayElementClassList = dayElement.classList;
+    dayElementClassList.add("calendar-day");
+    const dayOfMonthElement = document.createElement("span");
+    dayOfMonthElement.innerText = day.dayOfMonth;
+    dayElement.appendChild(dayOfMonthElement);
+    calendarDaysElement.appendChild(dayElement);
 
-                .then(response => {
-                const eventsData = response.data;
-                eventsData.forEach(event => {
-                    const EventID = event.ItemId
-                    const EventName = event.ItemName
-                    const StartDate = event.StartDate
-                    const EndDate = event.EndDate
-                    const currentDate = new Date(day.date);
-                    const startDate = new Date(StartDate);
-                    const endDate = new Date(EndDate);
+    if (!day.isCurrentMonth) {
+        dayElementClassList.add("calendar-day--not-current");
+    }
 
-                // Check if the current date falls between the event's start and end dates
-                if (currentDate >= startDate && currentDate <= endDate) {
-                // Print out the event in the following format:
+    if (day.date === TODAY) {
+        dayElementClassList.add("calendar-day--today");
+    }
+
+
+    if (calendardata) {
+        const eventsForDay = calendardata[day.date];
+
+        if (eventsForDay) {
+            eventsForDay.forEach((eventName) => {
                 const eventText = document.createElement("p");
                 eventText.className = "calendar-event";
-                eventText.innerText = `${EventName}`;
+                eventText.innerText = eventName.name;
                 dayElement.appendChild(eventText);
-                 }
-                });
-                  })
-                .catch(error => {
-                // Handle the error here
-                 console.error('Error fetching calendar events:', error);
-                    });
-              
+                const eventDescContainer = document.createElement("div");
+                eventDescContainer.className = "calendar-event-desc";
+                eventText.appendChild(eventDescContainer);
+                const eventDesc = document.createElement("p");
+                var startdatetimie = eventName.startdatedesc;
+                var enddatetimie= eventName.enddatedesc
+                var eventdescription= eventName.description
+                if (typeof startdatetimie === 'object'){
+                    const formattedDate = dayjs(startdatetimie.dateTime).format('HH:mm')
+                    startdatetimie=formattedDate
+                }
+                if (typeof enddatetimie === 'object'){
+                    const formattedDate = dayjs(enddatetimie.dateTime).format('HH:mm')
+                    enddatetimie=' - '+formattedDate
+                }
+                eventDesc.innerHTML = `${eventdescription} <br> ${startdatetimie}  ${enddatetimie}`;
 
-     
+                eventDescContainer.appendChild(eventDesc)
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                ;
+            });
+        }  
+     }
+}
 
-            if (!day.isCurrentMonth) {
-                dayElementClassList.add("calendar-day--not-current");
-            }
-
-            if (day.date === TODAY) {
-                dayElementClassList.add("calendar-day--today");
-            }
-            if (day.date === myBirthday) {
-                const birthdayText = document.createElement("p");
-                birthdayText.className = "calendar-event";
-                birthdayText.innerText = "My birthday";
-                dayElement.appendChild(birthdayText);
-            }
-        }
 
         function removeAllDayElements(calendarDaysElement) {
             let first = calendarDaysElement.firstElementChild;
@@ -442,11 +455,10 @@ document.getElementById("next-month-selector").addEventListener("click", async f
 
         document.getElementById('events').style.maxheight = document.getElementById('calendar').style.height;
 
-        document.addEventListener("click", event => {
-            if (event.target.className == "calendar-day") {
-                let data = eventsStore.getData(event.target.id);
-                console.log("hi");
-            }
-        });
+      
+     
+
+  
+    
     </script>
 </body>
