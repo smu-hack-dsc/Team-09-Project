@@ -5,7 +5,6 @@ const axios = require('axios');
 const cookieParser = require('cookie-parser');
 const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
-// const db = require('./model/databaseconfig');
 const db = require('./model/databaseconfig');
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
