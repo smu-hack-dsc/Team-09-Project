@@ -106,12 +106,12 @@ label {
 
 input[type=text] {
   width: 100%;
-  padding: 18px 12px;
+  padding: 18px;
   border-radius: 0.9375rem;
   border: 1px solid rgba(161, 161, 161, 0.87);
   background: #FFF;
   margin: 12px 0;
-  font-size: 16px;
+  font-size: 20px;
   font-family: 'Gilroy-Regular';
 }
 

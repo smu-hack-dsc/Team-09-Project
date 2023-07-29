@@ -12,9 +12,7 @@
   <script src="script.js" defer></script>
   <title>Create Event</title>
   <script src="./js/protect.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-  
 </head>
 
 <body>
@@ -26,7 +24,7 @@
       </ul>
     </nav>
     <div class="logo_box">
-      <img class="logo" src="./logo/logo.png" alt="logo" />
+      <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
     </div>
     <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
   </header>
@@ -40,80 +38,25 @@
 
         <label for="datePick">Available dates:</label>
         <input type="text" id="datePick" name="datePick" readonly />
-        <!-- <input type="text" id='calendar_input_start' placeholder="START">
-        <input type="text" id='calendar_input_end' placeholder='END'> -->
       </div>
-
-      <!-- <div class="wrapper">
-        <header class="month_background">
-          <p class="current-date"></p>
-          <div class="icons">
-            <span id="prev" class="material-symbols-rounded">chevron_left</span>
-            <span id="next" class="material-symbols-rounded">chevron_right</span>
-          </div>
-        </header>
-        <div class="calendar">
-          <ul class="weeks">
-            <li class="day">Sun</li>
-            <li class="day">Mon</li>
-            <li class="day">Tue</li>
-            <li class="day">Wed</li>
-            <li class="day">Thu</li>
-            <li class="day">Fri</li>
-            <li class="day">Sat</li>
-          </ul>
-          <ul class="days"></ul>
-        </div>
-      </div> -->
 
       <div class='create_event_button'>
         <button class="button" type='submit'>
           Create Event
         </button>
 
-        <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg"
+          version="1.1">
           <defs>
-              <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-                  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-              </filter>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                result="goo" />
+              <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
           </defs>
         </svg>
       </div>
-      <!-- <script>
-        // Get the form element
-        const myForm = document.getElementById('eventForm');
-      
-        // Add event listener to handle form submission
-        myForm.addEventListener('submit', function(event) {
-          event.preventDefault(); // Prevent default form submission behavior
-      
-          // Get the form data
-          const formData = new FormData(myForm);
-      
-          // Convert FormData to a plain object
-          const data = {};
-          formData.forEach((value, key) => {
-            data[key] = value;
-          });
-      
-          // Send data to the backend using Axios
-          axios.post('http://localhost:3000/create-event', data, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-            }
-          })
-            .then(response => {
-              // Handle the response from the backend if needed
-              console.log(response.data);
-            })
-            .catch(error => {
-              // Handle any errors that occurred during the request
-              console.error(error);
-            });
-        });
-      </script> -->
     </form>
   </div>
 
@@ -131,9 +74,9 @@
         dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         dateFormat: "dd MM yy",
         minDate: 0,
-        onSelect: function (dateText, inst) { 
+        onSelect: function (dateText, inst) {
           inst.settings.defaultDate = dateText;
-          cnt= cnt + 1; 
+          cnt = cnt + 1;
         }
       });
     });
@@ -164,8 +107,40 @@
         j = 0;
       cnt = 0;
     });
-
   </script>
+
+  <!-- <script>
+    const createEvent = $('#createEvent')
+    const event_name = $('#event_name')
+    const datePick = $('#datePick')
+
+    createEvent.on('submit', function (e) {
+      e.preventDefault()
+      const accessToken = getAccessToken();
+
+      const payload = {
+        title: event_name.val(),
+        image_url: datePick.val(),
+      }
+
+      const headers = {
+        Authorization:
+          'Bearer ' + accessToken,
+      }
+
+      axios
+        .post(`http://localhost:3000/listings/${user.id}`, payload, {
+          headers
+        })
+        .then(function (res) {
+          alert('Successfully created a post')
+          window.location.assign('/home.html')
+        })
+        .catch(function (e) {
+          alert('failed to create post')
+        })
+    })
+  </script> -->
 </body>
 
 </html>

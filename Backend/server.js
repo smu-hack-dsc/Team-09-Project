@@ -12,6 +12,8 @@ const dayjs = require('dayjs');
 const passport = require('./auth');
 const date_func = require('./helper_func/date_func');
 
+const availabilityDB = require('./model/availability');
+
 const PORT = 3000; //change to .env variable
 
 
@@ -133,13 +135,9 @@ app.post('/create-event', async (req, res) => {
     // Generate a unique identifier for the event
     const eventId = uuidv4();
     
-  
     // Access individual form fields using the 'name' attribute as the key
     const eventName = eventData.event_name;
     const date_str = eventData.datePick;
-  
-    // console.log(eventData);
-    // console.log(date_str);
   
     const date_lst = date_func.process_date(date_str);
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
@@ -163,7 +161,7 @@ app.post('/create-event', async (req, res) => {
   
         // Respond to the client
         // res.send('Event created successfully!');
-        const eventURL = `http://localhost:3001/available/${eventId}`;
+        const eventURL = `http://localhost:3001/available.html?eventId=${eventId}`;
         res.redirect(eventURL);
       } 
       else {
@@ -174,9 +172,22 @@ app.post('/create-event', async (req, res) => {
       console.error('Error creating event:', err);
       res.status(500).send('Error creating event');
     }
-  });
+});
 
-    
+app.get('/available/:eventId', function (req, res) {
+  const eventId = req.params.eventId;
+
+  availabilityDB.getAvailabilityByEvent(eventId, function (err, results) {
+      if (err) {
+          console.log(results)
+          res.status(500)
+          res.json({ Result: 'Internal Error' })
+      } else {
+          res.json(results)
+      }
+  })
+});
+
 app.get('/logout', (req,res) => {
     req.logout(function(err) {
         if (err) { return next(err); }

@@ -58,6 +58,7 @@ h3 {
 }
 
 h4 {
+    font-size: 18px;
     font-weight: normal;
 }
 
@@ -153,19 +154,6 @@ header {
 
 .logout>img {
     height: 21px;
-}
-
-.title {
-    color: #000;
-    font-size: 36px;
-    font-family: Gilroy;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-    text-align: center;
 }
 
 /* .create_event_button>button {

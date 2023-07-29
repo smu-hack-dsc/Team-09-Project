@@ -25,68 +25,110 @@
     <a class="logout" href="#"> <img src=" ./logo/logout.png " /> </a>
   </header>
 
-  <div class="title">Your selected Dates</div>
+  <div class="availability">
+    <h2 class="title" id="event_name">Event Name: </h2>
+    <h4 class="title" id="event_creator">Created by: </h4>
+    <div class="date_wrap">
+      <div class='date_text'>Date</div>
+      <div class="dates_outer" id="dates"></div>
+    </div>
 
-  <div class='date_text'>Date</div>
+    <div class="time_wrap">
 
-  <div class="dates_outer">
-    <button> 14 Sep <br /> 14 Available </button>
-    <button> 15 Sep <br /> 1 Available </button>
-    <button> 16 Sep <br /> 18 Available </button>
-    <button> 17 Sep <br /> 23 Available </button>
-    <button> 18 Sep <br /> 8 Available </button>
-  </div>
+      <div class='date_selected' id="date_selected">14 September</div>
 
-  <div class='date_selected'>14 September</div>
+      <div class='time_slots'>
+        <form action="###">
 
-  <div class='time_slots'>
-    <form action="###">
+          <div class="time_display 1">
+            <div class='time_input'>00:00</div>
+            <div class='avail_bar'>
+              <div class='shaded_bar_1'></div>
+            </div>
+            <div><input class='tick' type="checkbox" name="time_input" value="00:00"></div>
+          </div>
 
-      <div class="time_display 1">
-        <div class='time_input'>00:00</div>
-        <div class='avail_bar'>
-          <div class='shaded_bar_1'></div>
-        </div>
-        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
+          <div class="time_display 2">
+            <div class='time_input'>01:00</div>
+            <div class='avail_bar'>
+              <div class='shaded_bar_2'></div>
+            </div>
+            <div><input class='tick' type="checkbox" name="time_input" value="00:00"></div>
+          </div>
+
+          <div class="time_display 3">
+            <div class='time_input'>02:00</div>
+            <div class='avail_bar'>
+              <div class='shaded_bar_3'></div>
+            </div>
+            <div><input class='tick' type="checkbox" name="time_input" value="00:00"></div>
+          </div>
+
+          <div class="time_display 4">
+            <div class='time_input'>03:00</div>
+            <div class='avail_bar'>
+              <div class='shaded_bar_4'></div>
+            </div>
+            <div><input class='tick' type="checkbox" name="time_input" value="00:00"></div>
+          </div>
+
+          <div class='submit_button'>
+            <button type='submit'>
+              Submit
+            </button>
+          </div>
+
+        </form>
       </div>
-
-      <div class="time_display 2">
-        <div class='time_input'>01:00</div>
-        <div class='avail_bar'>
-          <div class='shaded_bar_2'></div>
-        </div>
-        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
-      </div>
-
-      <div class="time_display 3">
-        <div class='time_input'>02:00</div>
-        <div class='avail_bar'>
-          <div class='shaded_bar_3'></div>
-        </div>
-        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
-      </div>
-
-      <div class="time_display 4">
-        <div class='time_input'>03:00</div>
-        <div class='avail_bar'>
-          <div class='shaded_bar_4'></div>
-        </div>
-        <div class='tick'><input type="checkbox" name="time_input" value="00:00"></div>
-      </div>
-
-      <div class='submit_button'>
-        <button type='submit'>
-          Submit
-        </button>
-      </div>
-
-    </form>
+    </div>
   </div>
 
   <footer>
     <p>© 2023 MeetnGo. All rights reserved.</p>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="http://www.datejs.com/build/date.js" type="text/javascript"></script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search)
+    var eventId = params.get("eventId");
+      axios
+        .get(
+          `http://localhost:3000/available/${eventId}`)
+        .then(function (res) {
+          const event = res.data[0];
+          
+          $("#event_name").append(event.EventName);
+          $("#event_creator").append(event.Username);
+
+          const datesArray = event.Dates.split(',');
+          datesArray.forEach((dateString) => {
+            const date = new Date(dateString);
+
+            const options = { day: 'numeric', month: 'long', weekday: 'long' };
+            const eventDate = date.toLocaleDateString('en-US', options);
+
+            console.log(eventDate)
+
+            const datesHTML = `
+              <button>
+                <h3> ${eventDate} <br /> ? Available </h3>
+              </button>
+            `;
+
+            $("#dates").append(datesHTML);
+          });
+        })
+    
+  </script>
 </body>
 
 </html>

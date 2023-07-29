@@ -1,55 +1,99 @@
 /* Navs */
+.availability {
+  margin: 36px auto;
+}
+
+.title {
+  font-family: "gilroy-regular";
+  margin: 21px;
+  text-align: center;
+}
+
+.date_wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.date-wrap:after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  margin: 0 auto;
+  display: block;
+  height: 2px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06);
+}
 
 .date_text{
   color: #213052;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-family: Gilroy-Regular;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-left: 6.5%;
+  /* margin-left: 6.5%; */
 }
-
 
 .dates_outer {
   display: flex;
-  /* margin: 10px;
+  margin: 12px 0 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-around;
+  /* display: flex;
+  margin: 10px;
   justify-content: space-evenly;
   padding-left: 6%;
-  padding-right: 6%; */
+  padding-right: 6%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  /* padding-bottom: 100px; */
+  padding-bottom: 100px; 
   justify-content: center;
   margin: 10px auto;
   width: 88%;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 button {
   border: 1px solid black;
-  width: 14.375rem;
-  height: 7.0625rem;
+  /* width: 14.375rem;
+  height: 7.0625rem; */
   color: #FFFFFF;
   background-color: #213052;
   border-radius: 30px;
-  font-size: 28px;
+  /* font-size: 28px;
   font-family: Gilroy-Regular;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: normal; */
   text-align: center;
   transition: all 0.3s ease 0s;
   cursor: pointer;
   transition: all 0.3s ease 0s;
   margin: 12px;
+  padding: 21px 32px;
 }
 
 button:hover{
   background-color: #FFFFFF;
   color: #213052;
+}
+
+button:first-child {
+  margin-left: 0px;
+}
+
+button:last-child {
+  margin-right: 0px;
+}
+
+.time_wrap {
+  margin: 36px auto;
 }
 
 .date_selected {
@@ -163,11 +207,17 @@ button:hover{
 .tick{
   width: 2.0625rem;
   height: 2.0625rem;
-  flex-shrink: 0;
-  border-radius: 2.0625rem;
-  border: 3px solid #213052;
   background: #FFF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 3px solid #213052;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  clip-path: circle(46% at 50% 50%);
 }
 
 .submit_button {
