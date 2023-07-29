@@ -8,7 +8,13 @@ const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
 // const db = require('./model/databaseconfig');
 const db = require('./model/databaseconfig');
-const dayjs = require('dayjs'); 
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+dayjs.extend(timezone);
+dayjs.extend(utc);
+
+
 const passport = require('./auth');
 const date_func = require('./helper_func/date_func');
 
@@ -109,24 +115,52 @@ app.get('/calendar-events', (req, res) => {
   
 
   axios.get(url, {
-      headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-      },
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
   })
   .then(response => {
-      const events = response.data.items.map(event => ({
-          ItemId: event.id,
-          ItemName: event.summary,
-          StartDate: dayjs(event.start.dateTime).format('YYYY-MM-DD'),
-          EndDate: dayjs(event.end.dateTime).format('YYYY-MM-DD'),
-      }));
-
-      // Send the events data to the frontend as JSON
-      res.json(events);
+    console.log(response.data)
+    const events = response.data.items.map(event => {
+      const ItemId = event.id;
+      const start = event.start;
+      const end =event.end
+      const descriptionini=event.description
+      
+      const startdatetime = Object.keys(start).length > 1 ? start : 'Whole Day Event';
+      const enddatetime = Object.keys(end).length > 1 ? end : '';
+      const description = descriptionini || '--------------';
+      const ItemName = event.summary;
+      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      let StartDate, EndDate;
+  
+      if (startdatetime && startdatetime.dateTime) {
+        // Use dateTime if available (format: "2023-07-27T15:00:00Z")
+        StartDate = dayjs(startdatetime.dateTime).utc().tz(userTimezone).format('YYYY-MM-DD');
+        const eventDuration = dayjs(event.end.dateTime).diff(dayjs(startdatetime.dateTime), 'day');
+        EndDate = dayjs(StartDate).add(eventDuration, 'day').format('YYYY-MM-DD');
+      } else {
+        // Fall back to date property (format: "2023-07-27")
+        StartDate = dayjs(event.start.date).tz('Asia/Singapore').format('YYYY-MM-DD');
+        // Subtract one day for events without time
+        EndDate = dayjs(event.end.date).tz('Asia/Singapore').subtract(1, 'day').format('YYYY-MM-DD');
+      }
+  
+      return {
+        ItemId,
+        ItemName,
+        StartDate,
+        EndDate,
+        startdatetime,
+        enddatetime,
+        description
+      };
+    });
+    // Send the events data to the frontend as JSON
+    res.json(events);
   })
 })
-
 // Set up your route handler for the form submission
 app.post('/create-event', async (req, res) => {
     // Access the form data through the 'req.body' object

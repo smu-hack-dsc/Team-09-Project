@@ -31,8 +31,7 @@
 
         <div id="events">
             <div class="events-header">
-                <h3 class="events-header-text"><img src="icons/calendar.png" class="events-header-icon" />ALL EVENTS
-                </h3>
+                <h3 class="events-header-text"><img src="icons/calendar.png" class="events-header-icon" />ALL EVENTS</h3>
             </div>
             <div class="select-box">
                 <div class="select-box__current" tabindex="1">
@@ -133,12 +132,91 @@
             daysOfWeekElement.appendChild(weekDayElement);
             weekDayElement.innerText = weekday;
         });
+        
+        async function getcalendardata(year, month) {
+    try {
+        const accessToken = getAccessToken();
+        console.log(accessToken);
+        const response = await axios.get('http://localhost:3000/calendar-events', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
 
-        createCalendar();
+        console.log('Response data:', response.data);
+        const eventsData = response.data;
+        var calendardict = {};
+        eventsData.forEach(event => {
+            const EventID = event.ItemId;
+            const EventName = event.ItemName;
+            const startDate = new Date(event.StartDate);
+            const endDate = new Date(event.EndDate);
+            const calanderstartdatedesc = event.startdatetime
+            const calanderenddatedesc= event.enddatetime
+            const description= event.description
+            console.log('FRONTNED DESCRIPITOTM')
+            console.log(description)
+            const startOfMonth = dayjs(`${year}-${month}-01`).startOf('month').toDate();
+            const endOfMonth = dayjs(`${year}-${month}-01`).endOf('month').toDate();
+
+            // Check if the event falls within the selected month
+           
+                // Loop through each day between the start and end dates
+                let currentDate = startDate;
+                if(startDate<=endOfMonth && startDate>=startOfMonth){
+                while (currentDate<=endDate) {
+                    const dateKey = dayjs(currentDate).format("YYYY-MM-DD");
+
+                    // Create the date entry in the calendarDict if it doesn't exist
+                    if (!calendardict[dateKey]) {
+                        calendardict[dateKey] = [];
+                    }
+                    const eventInfo = {
+                     name: EventName,
+                     description: description,
+                     startdatedesc: calanderstartdatedesc,
+                     enddatedesc: calanderenddatedesc
+
+                    };
+                    // Add the event name to the array of events on this date
+                    calendardict[dateKey].push(eventInfo);
+                    currentDate.setDate(currentDate.getDate() + 1); // Move to the next date
+                }
+            }
+        }
+        );
+        console.log('Calander dict test')
+        console.log(calendardict);
+        return calendardict;
+    } catch (error) {
+        console.error('Error fetching calendar events when fetching from google calendar:', error);
+        return {};
+    }
+}
+async function fetchAndCreateCalendar(year,month,calendardata) {
+        try {
+            const calendardata = await getcalendardata(year,month);
+            console.log("fetchandcreatecalander test")
+            console.log(calendardata)
+
+            if (calendardata) {
+                createCalendar(year, month, calendardata);
+                console.log(calendardata)
+            } else {
+                console.error("Error fetching calendar data. Calendar data is undefined.");
+            }
+        } catch (error) {
+            console.error("Error fetching calendar data:", error);
+        }
+    }
+    fetchAndCreateCalendar(INITIAL_YEAR,INITIAL_MONTH);
+        
         initMonthSelectors();
 
-        function createCalendar(year = INITIAL_YEAR, month = INITIAL_MONTH) {
-            const calendarDaysElement = document.getElementById("calendar-days");
+       async function createCalendar(year = INITIAL_YEAR, month = INITIAL_MONTH,calendardata) {
+         
+        const calendarDaysElement = document.getElementById("calendar-days");
 
             document.getElementById("selected-month").innerText = dayjs(
                 new Date(year, month - 1)
@@ -157,11 +235,24 @@
             nextMonthDays = createDaysForNextMonth(year, month);
 
             const days = [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
+            try{
+                
+                if (!calendardata) {
+                const currentYear = dayjs().format("YYYY");
+                const currentMonth = dayjs().format("M");
+                calendardata = await getcalendardata(currentYear, currentMonth);
+             }
 
             days.forEach((day) => {
-                appendDay(day, calendarDaysElement);
+                appendDay(day, calendarDaysElement,calendardata);
             });
         }
+        catch (error) {
+        console.error('Error fetching calendar data in create calander loop:', error);
+    }
+}
+
+function appendDay(day, calendarDaysElement, calendardata) {
 
         function appendDay(day, calendarDaysElement) {
             const myBirthday = "2023-06-24";
@@ -172,18 +263,17 @@
             dayOfMonthElement.innerText = day.dayOfMonth;
             dayElement.appendChild(dayOfMonthElement);
             calendarDaysElement.appendChild(dayElement);
-
+            
             const accessToken = getAccessToken();
-            console.log(accessToken);
+            console.log(accessToken)
+            axios.get('http://localhost:3000/calendar-events', {
+             headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+                 },
+             })
 
-            axios
-            .get('http://localhost:3000/calendar-events', {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
+                .then(response => {
                 const eventsData = response.data;
                 eventsData.forEach(event => {
                     const EventID = event.ItemId
@@ -194,20 +284,23 @@
                     const startDate = new Date(StartDate);
                     const endDate = new Date(EndDate);
 
-                    // Check if the current date falls between the event's start and end dates
-                    if (currentDate >= startDate && currentDate <= endDate) {
-                        // Print out the event in the following format:
-                        const eventText = document.createElement("p");
-                        eventText.className = "calendar-event";
-                        eventText.innerText = `${EventName}`;
-                        dayElement.appendChild(eventText);
-                    }
+                // Check if the current date falls between the event's start and end dates
+                if (currentDate >= startDate && currentDate <= endDate) {
+                // Print out the event in the following format:
+                const eventText = document.createElement("p");
+                eventText.className = "calendar-event";
+                eventText.innerText = `${EventName}`;
+                dayElement.appendChild(eventText);
+                 }
                 });
-            })
-            .catch(error => {
+                  })
+                .catch(error => {
                 // Handle the error here
-                console.error('Error fetching calendar events:', error);
-            });
+                 console.error('Error fetching calendar events:', error);
+                    });
+              
+
+     
 
             if (!day.isCurrentMonth) {
                 dayElementClassList.add("calendar-day--not-current");
@@ -221,14 +314,6 @@
                 birthdayText.className = "calendar-event";
                 birthdayText.innerText = "My birthday";
                 dayElement.appendChild(birthdayText);
-
-                const birthdayDescContainer = document.createElement("div");
-                birthdayDescContainer.className = "calendar-event-desc";
-                birthdayText.appendChild(birthdayDescContainer);
-
-                const birthdayDesc = document.createElement("p");
-                birthdayDesc.innerText = "All day event sdkjfhskdhfskjdhfjhf";
-                birthdayDescContainer.appendChild(birthdayDesc);
             }
         }
 
@@ -308,30 +393,60 @@
         }
 
         function initMonthSelectors() {
-            document
-                .getElementById("previous-month-selector")
-                .addEventListener("click", function () {
-                    selectedMonth = dayjs(selectedMonth).subtract(1, "month");
-                    createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
-                });
+            document.getElementById("previous-month-selector").addEventListener("click", async function () {
+    const previousMonthDate = selectedMonth.subtract(1, "month");
+    const previousYear = previousMonthDate.year();
+    const previousMonth = previousMonthDate.month() + 1; // Month is 0-indexed, so add 1
 
-            document
-                .getElementById("present-month-selector")
-                .addEventListener("click", function () {
-                    selectedMonth = dayjs(new Date(INITIAL_YEAR, INITIAL_MONTH - 1, 1));
-                    createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
-                });
+    // Fetch calendar data for the previous month
+    const calendardata = await getcalendardata(previousYear, previousMonth);
 
-            document
-                .getElementById("next-month-selector")
-                .addEventListener("click", function () {
-                    selectedMonth = dayjs(selectedMonth).add(1, "month");
-                    createCalendar(selectedMonth.format("YYYY"), selectedMonth.format("M"));
-                });
+    // Update selectedMonth to the previous month
+    selectedMonth = previousMonthDate;
+
+    // Create the calendar with the fetched data
+    fetchAndCreateCalendar(previousYear, previousMonth, calendardata);
+});
+
+// Function to change to the current month (Today)
+document.getElementById("present-month-selector").addEventListener("click", async function () {
+    const currentYear = dayjs().format("YYYY");
+    const currentMonth = dayjs().format("M");
+
+    // Fetch calendar data for the current month
+    const calendardata = await getcalendardata(currentYear, currentMonth);
+
+    // Update selectedMonth to the current month
+    selectedMonth = dayjs(new Date(currentYear, currentMonth - 1, 1));
+
+    // Create the calendar with the fetched data
+    fetchAndCreateCalendar(currentYear, currentMonth, calendardata);
+});
+
+// Function to change to the next month
+document.getElementById("next-month-selector").addEventListener("click", async function () {
+    const nextMonthDate = selectedMonth.add(1, "month");
+    const nextYear = nextMonthDate.year();
+    const nextMonth = nextMonthDate.month() + 1; // Month is 0-indexed, so add 1
+
+    // Fetch calendar data for the next month
+    const calendardata = await getcalendardata(nextYear, nextMonth);
+
+    // Update selectedMonth to the next month
+    selectedMonth = nextMonthDate;
+
+    // Create the calendar with the fetched data
+    fetchAndCreateCalendar(nextYear, nextMonth, calendardata);
+});
         }
 
         document.getElementById('events').style.maxheight = document.getElementById('calendar').style.height;
+
+        document.addEventListener("click", event => {
+            if (event.target.className == "calendar-day") {
+                let data = eventsStore.getData(event.target.id);
+                console.log("hi");
+            }
+        });
     </script>
 </body>
-
-</html>
