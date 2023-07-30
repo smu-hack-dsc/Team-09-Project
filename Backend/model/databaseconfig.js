@@ -7,7 +7,7 @@ const pool = mysql.createPool({
     port:3306,
     user:"root",
     // CHANGE PASSWORD TO root IF USING MAC or LEAVE IT EMPTY IN WINDOWS
-    password:"root",
+    password:"rootroot",
     database:"HEAP"
 });
 
