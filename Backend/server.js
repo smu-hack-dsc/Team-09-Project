@@ -20,6 +20,10 @@ const availabilityDB = require('./model/availability');
 
 const PORT = 3000; //change to .env variable
 
+const availabilityRouter = require('./firebase_api');
+
+// Mount the availability router at /events path
+app.use('/events', availabilityRouter);
 
 // const apikey=process.env.API_KEY;
 // const { google } = require('googleapis');
@@ -159,6 +163,8 @@ app.get('/calendar-events', (req, res) => {
     res.json(events);
   })
 })
+
+
 // Set up your route handler for the form submission
 app.post('/create-event', async (req, res) => {
     // Access the form data through the 'req.body' object
@@ -205,6 +211,38 @@ app.post('/create-event', async (req, res) => {
       res.status(500).send('Error creating event');
     }
 });
+
+// app.get('/available/:eventId', async (req,res) => {
+//     const eventId = req.params.eventId;
+//     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+//     let email = userData.profile.email;
+
+//     try {
+//         // Retrieve event name
+//         const getEventName = `SELECT EventName FROM event WHERE EventID = "${eventId}"`;
+//         const res1 = await db.async_query(getEventName, [eventId]);
+//         const eventName = res1[0].EventName;
+
+//         // Retrieve event dates
+//         const getEventDate = `SELECT Date FROM eventDate WHERE EventID = "${eventId}"`;
+//         const res2 = await db.async_query(getEventDate, [eventId]);
+//         const eventDates = res2.map(row => row.Date); // Extract an array of dates from the result
+
+//         // Create a JSON object with the desired structure
+//         const eventData = {
+//         eventName: eventName,
+//         eventDates: eventDates
+//         };
+
+//         // Sending the JSON object as a response to the front end
+//         res.json(eventData);
+//     }
+//     catch (err) {
+//         console.error('Error retrieving event data:', err);
+//         res.status(500).send('Error retrieving event data:');
+//       }
+
+// });
 
 app.get('/available/:eventId', function (req, res) {
   const eventId = req.params.eventId;
