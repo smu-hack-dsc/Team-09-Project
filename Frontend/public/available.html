@@ -49,6 +49,9 @@
     </div>
 
     <form action="" id="time_wrap">
+      <div id="time_flex">
+
+      </div>
       <div class='submit_button'>
         <button type='submit'>Submit</button>
       </div>
@@ -79,7 +82,7 @@
     var eventId = params.get("eventId");
     
     console.log("eventId:", eventId);
-    let form = document.getElementById("time_wrap");
+    let form = document.getElementById("time_flex");
     form.action = `http://localhost:3000/events/api/availability/store/${eventId}`;
       axios
         .get(
@@ -153,7 +156,7 @@
           </div>
         `;
       
-        $(".submit_button").before(timeslotsContainer);
+        $("#time_flex").append(timeslotsContainer);
       }
     });
   </script>
