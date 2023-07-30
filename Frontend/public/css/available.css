@@ -68,7 +68,7 @@
   padding: 21px 32px;
 }
 
-.btn_date:hover{
+.btn_date:hover, .selected {
   background-color: #FFFFFF;
   color: #213052;
 }
@@ -85,12 +85,12 @@
   margin: 36px auto;
 }
 
-#time_div {
+.time_div {
   position: relative;
   padding: 40px;
 }
 
-#time_div::before {
+.time_div::before {
   left: 0;
   right: 0;
   top: 0;
@@ -134,6 +134,7 @@
 }
 
 .avail_bar{
+  position: relative;
   width: 88%;
   height: 2.0625rem;
   flex-shrink: 0;
@@ -219,17 +220,13 @@
 }
 
 .submit_button > button {
-  width: 11.6875rem;
-  height: 3.375rem;
-  border-radius: 0.9375rem;
+  padding: 16px 48px;
+  border-radius: 16px;
   background: #213052;
   color: #FFF;
   font-size: 1.4375rem;
-  font-family: Gilroy-Regular;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  transition: background-color 0.3s; /* Add transition effect */
+  font-family: "Gilroy-Regular";
+  transition: background-color 0.3s;
 }
 
 /* Change button background color on hover */
