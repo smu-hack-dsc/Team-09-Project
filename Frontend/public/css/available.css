@@ -1,5 +1,6 @@
 /* Navs */
 .availability {
+  width: 90%;
   margin: 36px auto;
 }
 
@@ -17,18 +18,6 @@
   margin: 0 auto;
 }
 
-.date-wrap:after {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  content: '';
-  margin: 0 auto;
-  display: block;
-  height: 2px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.06);
-}
-
 .date_text{
   color: #213052;
   font-size: 1.5rem;
@@ -38,7 +27,7 @@
 
 .dates_outer {
   display: flex;
-  margin: 12px 0 24px;
+  margin: 12px 0;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
@@ -59,7 +48,7 @@
   align-items: center; */
 }
 
-button {
+.btn_date {
   border: 1px solid black;
   /* width: 14.375rem;
   height: 7.0625rem; */
@@ -79,21 +68,39 @@ button {
   padding: 21px 32px;
 }
 
-button:hover{
+.btn_date:hover{
   background-color: #FFFFFF;
   color: #213052;
 }
 
-button:first-child {
+.btn_date:first-child {
   margin-left: 0px;
 }
 
-button:last-child {
+.btn_date:last-child {
   margin-right: 0px;
 }
 
-.time_wrap {
+#time_wrap {
   margin: 36px auto;
+}
+
+#time_div {
+  position: relative;
+  padding: 40px;
+}
+
+#time_div::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  content: '';
+  width: 65%;
+  margin: 0 auto;
+  display: block;
+  height: 2px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .date_selected {
@@ -110,29 +117,24 @@ button:last-child {
 .time_slots{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .time_display{
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   padding: 15px;
-  flex-grow: 1;
-  flex-basis: calc(25% - 20px);
-}
-
-.time_input{
-  color: #000;
-  font-size: 1.5rem;
-  font-family: Gilroy-Regular;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* flex-grow: 1;
+  flex-basis: calc(25% - 20px); */
+  width: 80%;
+  margin: 0 auto;
 }
 
 .avail_bar{
-  width: 49.1875rem;
+  width: 88%;
   height: 2.0625rem;
   flex-shrink: 0;
   border-radius: 1.25rem;
@@ -142,16 +144,16 @@ button:last-child {
   margin-right: 10px;
 }
 
-@media (max-width: 930px) {
+/* @media (max-width: 930px) {
   .avail_bar{
     width: 40rem;
   }
 }
 
 @media (max-width: 768px) {
-  /* Adjust the max-width value based on your desired breakpoint */
+  /* Adjust the max-width value based on your desired breakpoint
   .avail_bar {
-    width: 30rem; /* Change the width for screens up to 768px */
+    width: 30rem; /* Change the width for screens up to 768px
   }
 }
 
@@ -162,49 +164,21 @@ button:last-child {
 }
 
 @media (max-width: 480px) {
-  /* Adjust the max-width value based on your desired breakpoint */
+  /* Adjust the max-width value based on your desired breakpoint
   .avail_bar {
-    width: 15rem; /* Change the width for screens up to 480px */
+    width: 15rem; /* Change the width for screens up to 480px
   }
-}
+} */
 
-.shaded_bar_1{
-  width: 25%;
-  height: 2.0625rem;
+.shaded_bar {
+  height: 100%;
   flex-shrink: 0;
   border-radius: 1.25rem;
   border: 1px solid #A5B6FA;
   background-color: #344ABD;;
 }
 
-.shaded_bar_2{
-  width: 50%;
-  height: 2.0625rem;
-  flex-shrink: 0;
-  border-radius: 1.25rem;
-  border: 1px solid #A5B6FA;
-  background-color: #344ABD;;
-}
-
-.shaded_bar_3{
-  width: 75%;
-  height: 2.0625rem;
-  flex-shrink: 0;
-  border-radius: 1.25rem;
-  border: 1px solid #A5B6FA;
-  background-color: #344ABD;;
-}
-
-.shaded_bar_4{
-  width: 45%;
-  height: 2.0625rem;
-  flex-shrink: 0;
-  border-radius: 1.25rem;
-  border: 1px solid #A5B6FA;
-  background-color: #344ABD;;
-}
-
-.tick{
+.tick {
   width: 2.0625rem;
   height: 2.0625rem;
   background: #FFF;
@@ -239,10 +213,10 @@ button:last-child {
 }
 
 @media (max-width: 930px) {
-  button{
-  width: 12rem;
-  height: 6rem;
-  font-size: 24px;
+  .btn_date{
+    width: 12rem;
+    height: 6rem;
+    font-size: 24px;
   }
 
   .time_input{
@@ -276,7 +250,7 @@ button:last-child {
 }
 
 @media (max-width: 620px) {
-  button{
+  .btn_date {
     width: 10rem;
     height: 5rem;
     font-size: 20px;
