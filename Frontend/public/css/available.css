@@ -142,6 +142,8 @@
   background-color: #D9D9D9;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer; /* Set cursor to pointer (hand) */
+  transition: background-color 0.3s; /* Add transition effect */
 }
 
 /* @media (max-width: 930px) {
@@ -181,9 +183,8 @@
 .tick {
   width: 2.0625rem;
   height: 2.0625rem;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   vertical-align: middle;
   border: 3px solid #213052;
@@ -194,24 +195,49 @@
   clip-path: circle(46% at 50% 50%);
 }
 
+.tick:checked {
+  background-color: #213052;; /* Replace with your desired shaded color */
+  /* Replace with your desired border color */
+}
+
+.tick:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  border: 2px solid #fff; /* Border color to create the checkmark */
+  border-left: none;
+  border-top: none;
+}
+
 .submit_button {
   display: flex;
   justify-content: center;
 }
 
-.submit_button > button{
+.submit_button > button {
   width: 11.6875rem;
   height: 3.375rem;
   border-radius: 0.9375rem;
-  background: #376CC8;
+  background: #213052;
   color: #FFF;
   font-size: 1.4375rem;
   font-family: Gilroy-Regular;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: background-color 0.3s; /* Add transition effect */
 }
 
+/* Change button background color on hover */
+.submit_button > button:hover {
+  background-color: white; /* Replace with your desired hover color */
+  cursor: pointer;
+  color: #213052;
+}
 @media (max-width: 930px) {
   .btn_date{
     width: 12rem;
@@ -227,19 +253,7 @@
     height: 1.8rem;
   }
 
-  .shaded_bar_1{
-    height: 1.8rem;
-  }
-
-  .shaded_bar_2{
-    height: 1.8rem;
-  }
-
-  .shaded_bar_3{
-    height: 1.8rem;
-  }
-
-  .shaded_bar_4{
+  .shaded_bar {
     height: 1.8rem;
   }
 
@@ -267,4 +281,27 @@
   .date_selected{
     font-size: 1.4rem;
   }
+}
+
+.avail_bar::after {
+  content: 'Your custom text here'; /* Replace with your desired text */
+  position: absolute;
+  top: 100%; /* Position it below the .avail_bar element */
+  left: 50%;
+  transform: translateX(-50%); /* Center the text box horizontally */
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #213052;
+  color: #fff;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  visibility: hidden; /* Hide the text box by default */
+  opacity: 0; /* Initially, the text box is transparent */
+  transition: opacity 0.3s, visibility 0.3s; /* Add transition effect */
+}
+
+/* On hover over .avail_bar, display the text box */
+.avail_bar:hover::after {
+  visibility: visible;
+  opacity: 1;
 }
