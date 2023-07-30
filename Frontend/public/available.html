@@ -101,7 +101,9 @@
 
             const datesHTML = `
                 <div class="btn_date" id="date${index + 1}" data-value="${item}">
-                  <h3> ${eventDate} <br /> ? Available </h3>
+                  <h3> ${eventDate} </h3>
+                  <br /> 
+                  <h4> ? Filled up <h4>
                 </div>
               `;
 
@@ -110,10 +112,9 @@
         });
 
     const timeslots = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+
     $(document).on('click', '.btn_date', function(e) {
       e.preventDefault();
-      console.log("hi");
-      console.log($(this).attr('id'));
     
       // Check if the date is already selected (div exists)
       const isSelected = $(this).hasClass('selected');
@@ -123,23 +124,28 @@
         $(this).removeClass('selected');
         $(`#time_${btn_select}`).remove();
       } else {
+        /* do the width calculation here if possible */
+        const time_perc = ["25", "0", "80", "10", "0", "0", "0", "0", "20", "60", "60", "70", "80", "80", "100", "100", "100", "10", "20", "10", "80", "10", "0", "0"];
+
         $(`#${btn_select}`).addClass('selected');
     
-        const timeslotsHTML = timeslots.map((timeslot) => {
+        const timeslotsHTML = timeslots.map((timeslot)).join('');
+        
+        function timeslot(item, index, arr) {
           return `
             <div class="time_display">
-              <h3>${timeslot}</h3>
+              <h3>${item}</h3>
               <div class='avail_bar'>
-                <div class='shaded_bar' style="width: 25%;"></div>
+                <div class='shaded_bar' style="width: ${time_perc[index]}%;"></div>
               </div>
-              <div><input class='tick' type="checkbox" name="time_input" value="${timeslot}"></div>
+              <div><input class='tick' type="checkbox" name="time_input" value="${item}"></div>
             </div>
           `;
-        }).join('');
+        }
       
         const timeslotsContainer = `
           <div id="time_${btn_select}" class="time_div">
-            <div class='date_selected' id="date_selected">${$(this).text()}</div>
+            <div class='date_selected' id="date_selected">${$(this).find('h3').eq(0).text()}</div>
             <input type='hidden' name='date' value='${$(this).attr('data-value')}'/>
             <div class='time_slots'>
               ${timeslotsHTML}
