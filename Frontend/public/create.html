@@ -39,7 +39,6 @@
 
   <div class='outer_box'>
     <h2 class='create_event_title'>Create Event</h2>
-    <a href="http://localhost:3000/api/user-data">Test</a>
     <form action="http://localhost:3000/create-event" method="POST">
       <div class='event_div'>
         <label for="event_name">Event Name:</label>
@@ -77,12 +76,6 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script
     src="https://cdn.jsdelivr.net/gh/dubrox/Multiple-Dates-Picker-for-jQuery-UI@master/jquery-ui.multidatespicker.js"></script>
-
-    <script>
-      if (localStorage.getItem("accessToken") == null) {
-        window.location.href = "./index.html";
-      }
-    </script>
 
     <script>
     $(document).ready(function () {

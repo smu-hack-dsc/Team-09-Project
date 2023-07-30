@@ -16,8 +16,8 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     let email = userData.profile.email;
 
     // frontend need to get these details
-    let specific_date = "2023-07-30";
-    let new_avail = [false,false,false,false,false,true,true,true,false,false,true,true,true,false,true];
+    let specific_date = "2023-07-31";
+    let new_avail = [false,true,false,true,false,true,false,true,false,true,false,true,false,true,false];
 
     axios
         .get(`http://localhost:3000/available/${eventId}`)

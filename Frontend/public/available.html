@@ -268,9 +268,9 @@
 
   <!-- display event name & event dates dynamically -->
   <script>
-    if (localStorage.getItem("accessToken") != null) {
-      const params = new URLSearchParams(window.location.search)
-      var eventId = params.get("eventId");
+    
+    const params = new URLSearchParams(window.location.search)
+    var eventId = params.get("eventId");
     
     console.log("eventId:", eventId);
     let form = document.getElementById("time_wrap");
@@ -301,10 +301,7 @@
 
             $("#dates").append(datesHTML);
           });
-        })
-      } else {
-      window.location.href = "./index.html";
-    }
+        });
 
   
   </script>
