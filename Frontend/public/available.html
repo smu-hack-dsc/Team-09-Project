@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link rel="stylesheet" type="text/css" href="./css/available.css" />
   <title>Availability</title>
-  <script src="./js/protect.js"></script>
+  <!--<script src="./js/protect.js"></script>-->
 </head>
 
 <body>
@@ -19,10 +19,13 @@
         <li><a href="create.html"> Create Event </a></li>
       </ul>
 
-      <div class="hamburger_wrapper">
+      <div id="hamburger" class="hamburger_wrapper">
         <div class="hamburger" id="hamburger"></div>
         <div class="hamburger" id="close_popup"></div>
         <div class="hamburger"></div>
+      </div>
+      <div id='nav_links' class="hide popup">
+        Content of popup
       </div>
     </nav>
 
@@ -105,6 +108,8 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="http://www.datejs.com/build/date.js" type="text/javascript"></script>
 
+
+  <!----
   <script>
     if (localStorage.getItem("accessToken") != null) {
       const params = new URLSearchParams(window.location.search)
@@ -139,6 +144,8 @@
     } else {
       window.location.href = "./index.html";
     }
+
+  -->
   </script>
   <script src = './js/navbar.js'></script>
 

@@ -125,6 +125,10 @@ header {
     height: 84px;
 }
 
+nav{
+    justify-self: start;
+}
+
 .hamburger_wrapper {
     cursor: pointer;
     display: flex;
@@ -302,22 +306,7 @@ footer>p {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .nav_links {
       display: none;
       flex-direction: column;
@@ -340,3 +329,13 @@ footer>p {
       font-weight: 500;
     }
   }
+
+.popup{
+    position: fixed;
+    width: 100vw;
+    height: 100vw;
+    background: red;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+}
