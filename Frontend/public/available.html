@@ -264,19 +264,17 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="http://www.datejs.com/build/date.js" type="text/javascript"></script>
   
-  <!-- generate form action dynamically -->
+
+
+  <!-- display event name & event dates dynamically -->
   <script>
     if (localStorage.getItem("accessToken") != null) {
       const params = new URLSearchParams(window.location.search)
       var eventId = params.get("eventId");
-    }
+    
     console.log("eventId:", eventId);
     let form = document.getElementById("time_wrap");
     form.action = `http://localhost:3000/events/api/availability/store/${eventId}`;
-  </script>
-
-  <!-- display event name & event dates dynamically -->
-  <script>
       axios
         .get(
           `http://localhost:3000/available/${eventId}`)
@@ -304,7 +302,7 @@
             $("#dates").append(datesHTML);
           });
         })
-       } else {
+      } else {
       window.location.href = "./index.html";
     }
 
