@@ -131,7 +131,8 @@ button:last-child {
   line-height: normal;
 }
 
-.avail_bar{
+.avail_bar {
+  position: relative;
   width: 49.1875rem;
   height: 2.0625rem;
   flex-shrink: 0;
@@ -140,6 +141,8 @@ button:last-child {
   background-color: #D9D9D9;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer; /* Set cursor to pointer (hand) */
+  transition: background-color 0.3s; /* Add transition effect */
 }
 
 @media (max-width: 930px) {
@@ -166,6 +169,15 @@ button:last-child {
   .avail_bar {
     width: 15rem; /* Change the width for screens up to 480px */
   }
+}
+
+.shaded_bar_0{
+  width: 30%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
 }
 
 .shaded_bar_1{
@@ -204,12 +216,182 @@ button:last-child {
   background-color: #344ABD;;
 }
 
-.tick{
+.shaded_bar_5{
+  width: 30%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_6{
+  width: 25%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_7{
+  width: 50%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_8{
+  width: 75%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_9{
+  width: 45%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_10{
+  width: 30%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_11{
+  width: 25%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_12{
+  width: 50%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_13{
+  width: 75%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_14{
+  width: 45%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_15{
+  width: 30%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_16{
+  width: 25%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_17{
+  width: 50%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_18{
+  width: 75%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_19{
+  width: 45%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_20{
+  width: 30%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_21{
+  width: 25%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_22{
+  width: 50%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.shaded_bar_23{
+  width: 75%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #A5B6FA;
+  background-color: #344ABD;;
+}
+
+.tick {
   width: 2.0625rem;
   height: 2.0625rem;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   vertical-align: middle;
   border: 3px solid #213052;
@@ -220,24 +402,49 @@ button:last-child {
   clip-path: circle(46% at 50% 50%);
 }
 
+.tick:checked {
+  background-color: #213052;; /* Replace with your desired shaded color */
+  /* Replace with your desired border color */
+}
+
+.tick:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  border: 2px solid #fff; /* Border color to create the checkmark */
+  border-left: none;
+  border-top: none;
+}
+
 .submit_button {
   display: flex;
   justify-content: center;
 }
 
-.submit_button > button{
+.submit_button > button {
   width: 11.6875rem;
   height: 3.375rem;
   border-radius: 0.9375rem;
-  background: #376CC8;
+  background: #213052;
   color: #FFF;
   font-size: 1.4375rem;
   font-family: Gilroy-Regular;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: background-color 0.3s; /* Add transition effect */
 }
 
+/* Change button background color on hover */
+.submit_button > button:hover {
+  background-color: white; /* Replace with your desired hover color */
+  cursor: pointer;
+  color: #213052;
+}
 @media (max-width: 930px) {
   button{
   width: 12rem;
@@ -250,6 +457,10 @@ button:last-child {
   }
 
   .avail_bar{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_0{
     height: 1.8rem;
   }
 
@@ -266,6 +477,82 @@ button:last-child {
   }
 
   .shaded_bar_4{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_5{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_6{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_7{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_8{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_9{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_10{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_11{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_12{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_13{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_14{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_15{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_16{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_17{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_18{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_19{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_20{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_21{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_22{
+    height: 1.8rem;
+  }
+
+  .shaded_bar_23{
     height: 1.8rem;
   }
 
@@ -293,4 +580,27 @@ button:last-child {
   .date_selected{
     font-size: 1.4rem;
   }
+}
+
+.avail_bar::after {
+  content: 'Your custom text here'; /* Replace with your desired text */
+  position: absolute;
+  top: 100%; /* Position it below the .avail_bar element */
+  left: 50%;
+  transform: translateX(-50%); /* Center the text box horizontally */
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #213052;
+  color: #fff;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  visibility: hidden; /* Hide the text box by default */
+  opacity: 0; /* Initially, the text box is transparent */
+  transition: opacity 0.3s, visibility 0.3s; /* Add transition effect */
+}
+
+/* On hover over .avail_bar, display the text box */
+.avail_bar:hover::after {
+  visibility: visible;
+  opacity: 1;
 }
