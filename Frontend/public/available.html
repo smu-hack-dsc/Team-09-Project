@@ -100,7 +100,7 @@
             const eventDate = date.toLocaleDateString('en-US', options);
 
             const datesHTML = `
-                <div class="btn_date" id="date${index + 1}">
+                <div class="btn_date" id="date${index + 1}" data-value="${item}">
                   <h3> ${eventDate} <br /> ? Available </h3>
                 </div>
               `;
@@ -140,6 +140,7 @@
         const timeslotsContainer = `
           <div id="time_${btn_select}" class="time_div">
             <div class='date_selected' id="date_selected">${$(this).text()}</div>
+            <input type='hidden' name='date' value='${$(this).attr('data-value')}'/>
             <div class='time_slots'>
               ${timeslotsHTML}
             </div>
