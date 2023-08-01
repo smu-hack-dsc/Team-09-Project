@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const firebase = require('./model/firebaseconfig');
 const axios = require('axios');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 // const mysqldb = require('./model/databaseconfig');
 
 router.use(cookieParser());
-
+router.use(cors({
+    origin: ['http://localhost:3001', 'https://meetngo-84f89.firebaseio.com'],
+  }));
 const db = firebase.db;
 
 // POST request to store user availability for an event
@@ -14,10 +17,11 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     const { eventId } = req.params;
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     let email = userData.profile.email;
+    email = '123@gmail.com';
 
     // frontend need to get these details
     let specific_date = "2023-07-31";
-    let new_avail = [false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,true,true,true,true,true,false,false,false];
+    let new_avail = [false,true,false,true,false,true,false,false,false,false,false,true,false,true,false,true,true,true,true,true,true,false,false,false];
 
     axios
         .get(`http://localhost:3000/available/${eventId}`)
@@ -104,26 +108,28 @@ function format_date_json(datesArray,email,availability) {
 
 
 router.get('/api/availability/:eventId', async (req, res) => {
-    const { eventId } = req.params;
-    
-
     try {
+        const { eventId } = req.params;
+
+        let json = await empty_json(eventId);
+
         // Get a reference to the document
         let docRef = db.collection('events').doc(eventId);
 
         // Get the current document data
         docRef.get().then((doc) => {
-            let json = empty_json();
-            const total_users = new Set();
+            let total_users = new Set();
 
             if (doc.exists) {                
                 // Get the current data
                 const data = doc.data();
                 let dateArray = data['dates'];
+               
 
                 for (const date in dateArray) {
-                    const day_users = new Set();
+                    let day_users = new Set();
                     let userArray = data['dates'][date]['users'];
+                    
 
                     for (const i in userArray) {
                         let user = userArray[i];
@@ -134,20 +140,26 @@ router.get('/api/availability/:eventId', async (req, res) => {
 
                         const user_avail = user['availability'];
                         
-                        for (const j = 0;j<24;j++) {
-                            json[date]['availabilities'][j].push(user_avail[j]);
+                        
+                        for (let j = 0;j<24;j++) {
+                            if (user_avail[j]) {
+                                json[date]['availabilities'][j].push(email);
+                                
+                            }
                         }
+
                     }
 
-                    const day_avail = json[date]['availabilities'];
-                    for (const lst in day_avail) {
-                       json[date]['no_of_ppl'].push(lst.length());
+                    for (let k = 0; k<24;k++) {
+                        const lst = json[date]['availabilities'][k];
+                        json[date]['no_of_ppl'].push(lst.length);
                     }
-                    json[date]['day_filled_out'] = day_users;
+                    json[date]['day_filled_out'] = day_users.size;
+
                 }
-
-                json['total_users'] = total_users;    
-
+                
+                json['total_users'] = total_users.size;    
+                res.json(json);
             }
             else {
                 res.json(json);
@@ -161,35 +173,38 @@ router.get('/api/availability/:eventId', async (req, res) => {
     
 });
 
-function empty_json() {
-    let datesArray;
-    axios
-        .get(`http://localhost:3000/available/${eventId}`)
-        .then(function (res) {
-            const event = res.data[0];
-            datesArray = event.Dates.split(',');
-        })
-    
-    // Create an empty object to hold the formatted JSON
-    const empty = {};
-    const avail_lst = [];
-    for (let i = 0;i<24;i++) {
-        avail_lst.push([]);
-    }
+async function empty_json(eventId) {
+    try {
+        const res = await axios.get(`http://localhost:3000/available/${eventId}`);
+        const event = res.data[0];
+        const datesArray = event.Dates.split(',');
 
-    // Loop through each date in the input array
-    for (const date of datesArray) {
-        // Create an empty user array for each date
-        empty[date] = { 
-            'day_filled_out': 0,
-            'availabilities': avail_lst,
-            'no_of_ppl': []
-        };
-    }
+        // Create an empty object to hold the formatted JSON
+        const empty = {};
+        const avail_lst = [];
+        for (let i = 0; i < 24; i++) {
+            avail_lst.push([]);
+        }
+        // Loop through each date in the input array
+        for (const date of datesArray) {
+            // Create an empty user array for each date
+            empty[date] = {
+                'day_filled_out': 0,
+                'availabilities': {
+                    "0": [], "1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [],
+                    "8": [], "9": [], "10": [], "11": [], "12": [], "13": [], "14": [], "15": [],
+                    "16": [], "17": [], "18": [], "19": [], "20": [], "21": [], "22": [], "23": []
+                },
+                'no_of_ppl': []
+            };
+        }
 
-    empty['total_users'] = 0;
-    
-    return empty;
+        empty['total_users'] = 0;
+
+        return empty;
+    } catch (error) {
+        throw error;
+    }
 }
 
 module.exports = router;

@@ -22,8 +22,8 @@ const PORT = 3000; //change to .env variable
 
 const availabilityRouter = require('./firebase_api');
 
-// Mount the availability router at /events path
-app.use('/events', availabilityRouter);
+// Mount the availability router at /event path
+app.use('/event', availabilityRouter);
 
 // const apikey=process.env.API_KEY;
 // const { google } = require('googleapis');

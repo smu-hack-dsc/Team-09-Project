@@ -48,7 +48,7 @@
       <div class="dates_outer" id="dates"></div>
     </div>
 
-    <form action="" id="time_wrap">
+    <form action="" id="time_wrap" method="POST">
       <div id="time_flex">
 
       </div>
@@ -82,8 +82,8 @@
     var eventId = params.get("eventId");
     
     console.log("eventId:", eventId);
-    let form = document.getElementById("time_flex");
-    form.action = `http://localhost:3000/events/api/availability/store/${eventId}`;
+    let form = document.getElementById("time_wrap");
+    form.action = `http://localhost:3000/event/api/availability/store/${eventId}`;
       axios
         .get(
           `http://localhost:3000/available/${eventId}`)
@@ -159,6 +159,16 @@
         $("#time_flex").append(timeslotsContainer);
       }
     });
+    
+    // get json data
+    axios
+        .get(
+          `http://localhost:3000/event/api/availability/${eventId}`)
+        .then(function (res) {
+          const data = res.data;
+          const jsonString = JSON.stringify(data, null, 2);
+          console.log(jsonString);
+        })
   </script>
 
   <script src='./js/navbar.js'></script>
