@@ -17,7 +17,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
 
     // frontend need to get these details
     let specific_date = "2023-07-31";
-    let new_avail = [false,true,false,true,false,true,false,true,false,true,false,true,false,true,false];
+    let new_avail = [false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,true,true,true,true,true,false,false,false];
 
     axios
         .get(`http://localhost:3000/available/${eventId}`)
@@ -99,39 +99,97 @@ function format_date_json(datesArray,email,availability) {
     }
     
     return formattedJSON;
-    // const jsonString = JSON.stringify(formattedJSON, null);
-    // return jsonString;
+
 }
 
 
 router.get('/api/availability/:eventId', async (req, res) => {
     const { eventId } = req.params;
+    
 
-    // go into specific date
-    // for each user, go into availability
-    // Example of retrieving data from a Firestore document
-    db.collection('events').doc(eventId).get().then((doc) => {
-        if (doc.exists) {
-        const data = doc.data(); // This will contain the actual data without internal fields
-        const lst1 = [];
-        const lst2 = [];
+    try {
+        // Get a reference to the document
+        let docRef = db.collection('events').doc(eventId);
 
+        // Get the current document data
+        docRef.get().then((doc) => {
+            let json = empty_json();
+            const total_users = new Set();
+
+            if (doc.exists) {                
+                // Get the current data
+                const data = doc.data();
+                let dateArray = data['dates'];
+
+                for (const date in dateArray) {
+                    const day_users = new Set();
+                    let userArray = data['dates'][date]['users'];
+
+                    for (const i in userArray) {
+                        let user = userArray[i];
+                        email = user['email'];
+
+                        total_users.add(email);
+                        day_users.add(email);
+
+                        const user_avail = user['availability'];
+                        
+                        for (const j = 0;j<24;j++) {
+                            json[date]['availabilities'][j].push(user_avail[j]);
+                        }
+                    }
+
+                    const day_avail = json[date]['availabilities'];
+                    for (const lst in day_avail) {
+                       json[date]['no_of_ppl'].push(lst.length());
+                    }
+                    json[date]['day_filled_out'] = day_users;
+                }
+
+                json['total_users'] = total_users;    
+
+            }
+            else {
+                res.json(json);
+            }
+            
+        })
         
-        res.json(data);
-        // for (const date in data.dates) {
-        //     if (data.dates.hasOwnProperty(date)) {
-        //       const usersArray = data.dates[date].users;
-        //       console.log(`Users on ${date}:`, usersArray);
-        //     }
-        //   }
-
-        } else {
-        console.log('Document not found!');
-        }
-    }).catch((error) => {
-        console.log('Error getting document:', error);
-    });
+    } catch (error) {
+        throw error;
+    }
+    
 });
-// Add other routes for retrieving, updating, or deleting availability as needed
+
+function empty_json() {
+    let datesArray;
+    axios
+        .get(`http://localhost:3000/available/${eventId}`)
+        .then(function (res) {
+            const event = res.data[0];
+            datesArray = event.Dates.split(',');
+        })
+    
+    // Create an empty object to hold the formatted JSON
+    const empty = {};
+    const avail_lst = [];
+    for (let i = 0;i<24;i++) {
+        avail_lst.push([]);
+    }
+
+    // Loop through each date in the input array
+    for (const date of datesArray) {
+        // Create an empty user array for each date
+        empty[date] = { 
+            'day_filled_out': 0,
+            'availabilities': avail_lst,
+            'no_of_ppl': []
+        };
+    }
+
+    empty['total_users'] = 0;
+    
+    return empty;
+}
 
 module.exports = router;

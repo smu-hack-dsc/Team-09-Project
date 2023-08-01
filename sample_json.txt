@@ -1,0 +1,14 @@
+{
+    '2023-07-31': 
+        {
+            'day_filled_out': 3,
+            'availabilities': [[abc@gmail.com, 123@gmail.com], [def@gmail.com], ...],
+            'no_of_ppl': [2, 1, 4, 1]
+        },
+    '2023-08-01': 
+        {
+            'day_filled_out': 8,
+            'availabilities': [[abc@gmail.com, 123@gmail.com], [def@gmail.com], ...],
+            'no_of_ppl': [2, 1, 4, 1]
+        },
+}

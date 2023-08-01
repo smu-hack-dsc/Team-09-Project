@@ -123,7 +123,7 @@ app.get('/calendar-events', (req, res) => {
     },
   })
   .then(response => {
-    console.log(response.data)
+    // console.log(response.data)
     const events = response.data.items.map(event => {
       const ItemId = event.id;
       const start = event.start;
