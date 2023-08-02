@@ -17,10 +17,10 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     const { eventId } = req.params;
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     let email = userData.profile.email;
-    email = '123@gmail.com';
+    // email = '123@gmail.com';
 
     // frontend need to get these details
-    let specific_date = "2023-07-31";
+    let specific_date = "2023-08-02";
     let new_avail = [false,true,false,true,false,true,false,false,false,false,false,true,false,true,false,true,true,true,true,true,true,false,false,false];
 
     axios
@@ -68,7 +68,7 @@ function storeAvailability(eventId, datesArray, email, date, new_avail) {
                 }
             }
             else {
-                data = format_date_json(datesArray,email,new_avail);
+                data = format_date_json(datesArray,email,new_avail,date);
             }
             const eventRef = db.collection('events').doc(eventId);
             eventRef.set(data).then(() => {
@@ -83,7 +83,7 @@ function storeAvailability(eventId, datesArray, email, date, new_avail) {
     }
 }
 
-function format_date_json(datesArray,email,availability) {
+function format_date_json(datesArray,email,availability,user_date) {
     // Create an empty object to hold the formatted JSON
     const formattedJSON = 
     {
@@ -99,7 +99,10 @@ function format_date_json(datesArray,email,availability) {
         formattedJSON.dates[date] = { users: [] };
 
         // Add the user object to the users array for the current date
-        formattedJSON.dates[date].users.push(createUserObject(availability, email));
+        if (user_date === date) {
+            formattedJSON.dates[date].users.push(createUserObject(availability, email));
+        }
+        
     }
     
     return formattedJSON;

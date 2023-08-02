@@ -179,18 +179,19 @@ app.post('/create-event', async (req, res) => {
   
     const date_lst = date_func.process_date(date_str);
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-    let email = userData.profile.email;
+    const email = userData.profile.email;
   
     try {
-      // Check for userId
-      const getUserIdSql = `SELECT userId FROM user WHERE email = "${email}"`;
-      const userResult = await db.async_query(getUserIdSql, [email]);
-      const userId = userResult[0].userId;
+      // Check for email
+      let status;
+      const check_user = `SELECT COUNT(*) as count FROM user WHERE email = "${email}"`;
+      const userResult = await db.async_query(check_user, [email]);
+      status = userResult[0].count;
   
-      // Create event if userId exists
-      if (userId) {
-        const insertEventSql = `INSERT into EVENT (EventID, CreatorID, EventName) VALUES ("${eventId}",${userId},"${eventName}")`;
-        await db.async_query(insertEventSql, [eventId, userId, eventName]);
+      // Create event if user exists
+      if (status) {
+        const insertEventSql = `INSERT into EVENT (EventID, Creator, EventName) VALUES ("${eventId}","${email}","${eventName}")`;
+        await db.async_query(insertEventSql, [eventId, email, eventName]);
   
         for (const date of date_lst) {
           const insertDateSql = `INSERT into eventDate VALUES ("${eventId}","${date}")`;
@@ -212,37 +213,62 @@ app.post('/create-event', async (req, res) => {
     }
 });
 
-// app.get('/available/:eventId', async (req,res) => {
-//     const eventId = req.params.eventId;
-//     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-//     let email = userData.profile.email;
+app.get('/filter', async (req,res) => {
+    const requestedCategory = req.query.category;
+    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    let email = userData.profile.email;
 
-//     try {
-//         // Retrieve event name
-//         const getEventName = `SELECT EventName FROM event WHERE EventID = "${eventId}"`;
-//         const res1 = await db.async_query(getEventName, [eventId]);
-//         const eventName = res1[0].EventName;
+    if (requestedCategory === 'All Events') {
+        const sqlQuery = `
+        SELECT EventName
+        FROM EVENT e
+        JOIN USER u ON e.CreatorID = u.UserID
+        WHERE u.UserID = ${userId}`;
+        // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
+        } 
 
-//         // Retrieve event dates
-//         const getEventDate = `SELECT Date FROM eventDate WHERE EventID = "${eventId}"`;
-//         const res2 = await db.async_query(getEventDate, [eventId]);
-//         const eventDates = res2.map(row => row.Date); // Extract an array of dates from the result
+        else if (requestedCategory === 'My Created Events') {
+        const sqlQuery = `
+        SELECT EventName
+        FROM EVENT
+        WHERE CreatorID = ${userId}`;
+        // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
+        
+        }
+        else {
+        const sqlQuery = `
+        SELECT EventName
+        FROM EVENT e
+        JOIN AVAILABILITY u ON e.EventID = u.EventID
+        WHERE u.UserID = ${userId}`;
+        // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
+        }
+    try {
+        // Retrieve event name
+        const getEventName = `SELECT EventName FROM event WHERE EventID = "${eventId}"`;
+        const res1 = await db.async_query(getEventName, [eventId]);
+        const eventName = res1[0].EventName;
 
-//         // Create a JSON object with the desired structure
-//         const eventData = {
-//         eventName: eventName,
-//         eventDates: eventDates
-//         };
+        // Retrieve event dates
+        const getEventDate = `SELECT Date FROM eventDate WHERE EventID = "${eventId}"`;
+        const res2 = await db.async_query(getEventDate, [eventId]);
+        const eventDates = res2.map(row => row.Date); // Extract an array of dates from the result
 
-//         // Sending the JSON object as a response to the front end
-//         res.json(eventData);
-//     }
-//     catch (err) {
-//         console.error('Error retrieving event data:', err);
-//         res.status(500).send('Error retrieving event data:');
-//       }
+        // Create a JSON object with the desired structure
+        const eventData = {
+        eventName: eventName,
+        eventDates: eventDates
+        };
 
-// });
+        // Sending the JSON object as a response to the front end
+        res.json(eventData);
+    }
+    catch (err) {
+        console.error('Error retrieving event data:', err);
+        res.status(500).send('Error retrieving event data:');
+      }
+
+});
 
 app.get('/available/:eventId', function (req, res) {
   const eventId = req.params.eventId;
