@@ -16,7 +16,7 @@ dayjs.extend(utc);
 const passport = require('./auth');
 const date_func = require('./helper_func/date_func');
 
-const availabilityDB = require('./model/availability');
+const availabilityDB = require('./helper_func/availability');
 
 const PORT = 3000; //change to .env variable
 
@@ -28,7 +28,7 @@ app.use('/event', availabilityRouter);
 // const apikey=process.env.API_KEY;
 // const { google } = require('googleapis');
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
 app.use(session({
     secret:'cats', // change to .env variable
     resave: false,
@@ -215,53 +215,48 @@ app.post('/create-event', async (req, res) => {
 
 app.get('/filter', async (req,res) => {
     const requestedCategory = req.query.category;
+
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     let email = userData.profile.email;
+    let sqlQuery;
 
-    if (requestedCategory === 'All Events') {
-        const sqlQuery = `
-        SELECT EventName
-        FROM EVENT e
-        JOIN USER u ON e.CreatorID = u.UserID
-        WHERE u.UserID = ${userId}`;
+    if (requestedCategory === 'all') {
+        sqlQuery;
         // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
         } 
 
-        else if (requestedCategory === 'My Created Events') {
-        const sqlQuery = `
-        SELECT EventName
+        else if (requestedCategory === 'mine') {
+        sqlQuery = `
+        SELECT EventName,EventID
         FROM EVENT
-        WHERE CreatorID = ${userId}`;
+        WHERE Creator = "${email}"`;
         // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
         
         }
         else {
-        const sqlQuery = `
-        SELECT EventName
-        FROM EVENT e
-        JOIN AVAILABILITY u ON e.EventID = u.EventID
-        WHERE u.UserID = ${userId}`;
+        sqlQuery;
         // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
         }
+    
     try {
         // Retrieve event name
-        const getEventName = `SELECT EventName FROM event WHERE EventID = "${eventId}"`;
-        const res1 = await db.async_query(getEventName, [eventId]);
-        const eventName = res1[0].EventName;
+        const res1 = await db.async_query(sqlQuery, []);
+        console.log(res1);
+        // const eventName = res1[0].EventName;
 
-        // Retrieve event dates
-        const getEventDate = `SELECT Date FROM eventDate WHERE EventID = "${eventId}"`;
-        const res2 = await db.async_query(getEventDate, [eventId]);
-        const eventDates = res2.map(row => row.Date); // Extract an array of dates from the result
+        // // Retrieve event dates
+        // const getEventDate = `SELECT Date FROM eventDate WHERE EventID = "${eventId}"`;
+        // const res2 = await db.async_query(getEventDate, [eventId]);
+        // const eventDates = res2.map(row => row.Date); // Extract an array of dates from the result
 
-        // Create a JSON object with the desired structure
-        const eventData = {
-        eventName: eventName,
-        eventDates: eventDates
-        };
+        // // Create a JSON object with the desired structure
+        // const eventData = {
+        // eventName: eventName,
+        // eventDates: eventDates
+        // };
 
         // Sending the JSON object as a response to the front end
-        res.json(eventData);
+        res.json(res1);
     }
     catch (err) {
         console.error('Error retrieving event data:', err);

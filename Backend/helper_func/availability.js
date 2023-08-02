@@ -1,4 +1,4 @@
-const db = require("./databaseconfig");
+const db = require("../model/databaseconfig");
 
 const availabilityDB = {
     getAvailabilityByEvent(eventId, callback) {

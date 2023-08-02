@@ -45,29 +45,29 @@
             <div class="select-box">
                 <div class="select-box__current" tabindex="1">
                     <div class="select-box__value">
-                        <input class="select-box__input" type="radio" id="0" value="1" name="event" checked="checked" data-category="all"/>
+                        <input class="select-box__input" type="radio" id="0" value="1" name="event" checked="checked"/>
                         <p class="select-box__input-text">All Events</p>
                     </div>
                     <div class="select-box__value">
-                        <input class="select-box__input" type="radio" id="1" value="2" name="event" checked="checked" data-category="mine"/>
+                        <input class="select-box__input" type="radio" id="1" value="2" name="event" checked="checked" />
                         <p class="select-box__input-text">My Created Events</p>
                     </div>
                     <div class="select-box__value">
-                        <input class="select-box__input" type="radio" id="2" value="3" name="event" checked="checked" data-category="other"/>
+                        <input class="select-box__input" type="radio" id="2" value="3" name="event" checked="checked" />
                         <p class="select-box__input-text">Other Events</p>
                     </div>
                     <img class="select-box__icon" src="icons/down.png" alt="Arrow Icon" aria-hidden="true" />
                 </div>
                 <ul class="select-box__list">
                     <li>
-                        <label class="select-box__option" for="0" aria-hidden="aria-hidden">All Events</label>
+                        <label class="select-box__option" for="0" aria-hidden="aria-hidden" data-category="all">All Events</label>
                     </li>
                     <li>
-                        <label class="select-box__option" for="1" aria-hidden="aria-hidden">My Created
+                        <label class="select-box__option" for="1" aria-hidden="aria-hidden" data-category="mine">My Created
                             Events</label>
                     </li>
                     <li>
-                        <label class="select-box__option" for="2" aria-hidden="aria-hidden">Other Events</label>
+                        <label class="select-box__option" for="2" aria-hidden="aria-hidden" data-category="other">Other Events</label>
                     </li>
                 </ul>
             </div>
@@ -82,28 +82,31 @@
         </div>
 
         <script>
+
             document.addEventListener('DOMContentLoaded', function () {
                 const buttons = document.querySelectorAll('.select-box__option');
-                const items = document.querySelectorAll('events-item');
+                const items = document.querySelector('.events-item');
             
                 buttons.forEach(button => {
                 button.addEventListener('click', function () {
-                    const category = this.getAttribute('data-category');
-                    const selectedOption = button.textContent;
-                    console.log(selectedOption);
+                    const category = button.getAttribute('data-category');
+                    console.log(category);
             
                         // Fetch data based on the selected category using Axios
-                        axios.get(`http://localhost:3000/filter?category=${category}`)
+                        axios.get(`http://localhost:3000/filter?category=${category}`, {withCredentials: true})
                             .then(response => {
                             const data = response.data;
+                            console.log(data);
 
                             // Create HTML elements for each fetched item
-                            const itemsHTML = data.map(item => {
-                                return `<li>${item.name}</li>`;
+                            const listHTML = data.map(event => {
+                                const eventURL = `http://localhost:3001/available.html?eventId=${event.EventID}`;
+                                return `<li><a href=${eventURL}>${event.EventName}</a></li>`;
                             }).join('');
 
+                            const itemsHTML = `<ol>${listHTML}</ol>`
                             // Replace existing items with fetched items
-                            itemList.innerHTML = itemsHTML;
+                            items.innerHTML = itemsHTML;
                             })
                             .catch(error => {
                             console.error('Error fetching data:', error);
