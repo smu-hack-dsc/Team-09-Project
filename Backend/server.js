@@ -221,7 +221,9 @@ app.get('/filter', async (req,res) => {
     let sqlQuery;
 
     if (requestedCategory === 'all') {
-        sqlQuery;
+      sqlQuery = `
+      SELECT EventName,EventID
+      FROM EVENT`;
         // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
         } 
 
@@ -234,7 +236,10 @@ app.get('/filter', async (req,res) => {
         
         }
         else {
-        sqlQuery;
+          sqlQuery = `
+          SELECT EventName,EventID
+          FROM EVENT
+          WHERE Creator != "${email}"`;
         // res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
         }
     
