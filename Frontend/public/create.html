@@ -116,6 +116,36 @@
         j = 0;
       cnt = 0;
     });
+
+// function to add calendar event
+function addCalendarEvent() {
+  const event = {
+      'summary': 'insert eventname here',
+      'description': 'insert event description here',
+      'start': {
+          'dateTime': '2023-08-10T10:00:00',
+          'timeZone': 'Asia/Singapore' // using 'Asia/Singapore' for GMT+8
+      },
+      'end': {
+          'dateTime': '2023-08-10T12:00:00',
+          'timeZone': 'Asia/Singapore' // using 'Asia/Singapore' for GMT+8
+      }
+  };
+
+  gapi.client.calendar.events.insert({
+    'calendarId': 'primary', // 'primary' is for the user's primary calendar
+    //note: if want to add event to a calendar not to primary calendar, need to obtain the calendarId of the calendar,, maybe kiv that feature
+    'resource': event
+  }).then(response => {
+      console.log('Event created:', response.result);
+  }).catch(error => {
+      console.error('Error adding event:', error);
+  });
+}
+
+// add event button is below
+// <button onclick="handleClientLoad()">Authorize and Add Event</button>
+
   </script>
 </body>
 
