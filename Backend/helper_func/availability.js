@@ -3,7 +3,7 @@ const db = require("../model/databaseconfig");
 const availabilityDB = {
     getAvailabilityByEvent(eventId, callback) {
         const sql = `
-        SELECT USER.Email, USER.Username, EVENT.EventID, EVENT.EventName, EVENT.EventOver, group_concat(Date separator ',') 
+        SELECT USER.Email "creator_email", USER.Username "creator_username", EVENT.EventID, EVENT.EventName, EVENT.EventOver, group_concat(Date separator ',') 
         "Dates" FROM eventDate 
         INNER JOIN EVENT ON EVENT.EventID=eventDate.EventID
         INNER JOIN USER ON EVENT.Creator=USER.Email
