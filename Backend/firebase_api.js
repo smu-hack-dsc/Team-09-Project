@@ -17,7 +17,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     const { eventId } = req.params;
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     let email = userData.profile.email;
-    // email = '123@gmail.com';
+    email = '123@gmail.com';
 
     // frontend need to get these details
     let specific_date = "2023-08-08";
@@ -29,6 +29,9 @@ router.post('/api/availability/store/:eventId', (req, res) => {
             const event = res.data[0];
             const datesArray = event.Dates.split(',');
             return storeAvailability(eventId, datesArray, email, specific_date,new_avail);
+        })
+        .then(() => {
+            return store_events_per_user(email,eventId);
         })
         .then(() => {
             res.status(200).json({ message: 'User availability stored successfully.' });
@@ -72,9 +75,9 @@ function storeAvailability(eventId, datesArray, email, date, new_avail) {
             }
             const eventRef = db.collection('events').doc(eventId);
             eventRef.set(data).then(() => {
-                console.log('Document successfully updated!');
+                console.log('Availability document successfully updated!');
                 }).catch((error) => {
-                console.error('Error updating document: ', error);
+                console.error('Error updating availability document: ', error);
                 });
         })
         
@@ -107,6 +110,39 @@ function format_date_json(datesArray,email,availability,user_date) {
     
     return formattedJSON;
 
+}
+
+function store_events_per_user(email,eventId) {
+    const events_per_user_ref = db.collection('users').doc('events_per_user');
+
+    // Update the document
+    events_per_user_ref.get()
+    .then(doc => {
+    if (doc.exists) {
+        const data = doc.data();
+        if (data[email]) {
+        // User's email exists, update the array
+        data[email].push(eventId);
+        } else {
+        // User's email doesn't exist, create a new entry
+        data[email] = [eventId];
+        }
+        // Update the document with the modified data
+        return events_per_user_ref.set(data);
+    } else {
+        // Document doesn't exist, create a new document with the user's email and event ID
+        const newData = {
+        [email]: [eventId]
+        };
+        return events_per_user_ref.set(newData);
+    }
+    })
+    .then(() => {
+    console.log("events_per_user document updated successfully!");
+    })
+    .catch(error => {
+    console.error("Error updating events_per_user document: ", error);
+    });
 }
 
 
@@ -207,7 +243,6 @@ async function empty_json(eventId) {
 
 router.get('/api/:user', (req,res) => {
     const { user } = req.params;
-    console.log(user);
 
     const docRef = db.collection('users').doc('events_per_user');
 
