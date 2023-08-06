@@ -81,7 +81,6 @@
     const params = new URLSearchParams(window.location.search)
     var eventId = params.get("eventId");
     
-    console.log("eventId:", eventId);
     let form = document.getElementById("time_wrap");
     form.action = `http://localhost:3000/event/api/availability/store/${eventId}`;
       axios

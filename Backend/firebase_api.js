@@ -17,7 +17,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     const { eventId } = req.params;
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     let email = userData.profile.email;
-    email = '123@gmail.com';
+    // email = '123@gmail.com';
 
     // frontend need to get these details
     let specific_date = "2023-08-08";
@@ -211,6 +211,7 @@ async function empty_json(eventId) {
         const res = await axios.get(`http://localhost:3000/available/${eventId}`);
         const event = res.data[0];
         const datesArray = event.Dates.split(',');
+        const creator = event.Email;
 
         // Create an empty object to hold the formatted JSON
         const empty = {};
@@ -233,6 +234,7 @@ async function empty_json(eventId) {
         }
 
         empty['total_users'] = 0;
+        empty['creator'] = creator;
 
         return empty;
     } catch (error) {
