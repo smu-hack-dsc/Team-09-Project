@@ -50,7 +50,6 @@
                     axios.get(`http://localhost:3000/filter?category=${category}`, {withCredentials: true})
                         .then(response => {
                         const data = response.data;
-                        console.log(data);
 
                         // Create HTML elements for each fetched item
                         const listHTML = data.map(event => {
@@ -112,10 +111,7 @@
                 </ol>
             </div>
         </div>
-
-       
-          
-
+        
         <div class="calendar">
             <div id="calendar"></div>
         </div>

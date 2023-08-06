@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 
 router.use(cookieParser());
 router.use(cors({
-    origin: ['http://localhost:3001', 'https://meetngo-84f89.firebaseio.com'],
+    origin: ['http://localhost:3001', 'https://meetngo-84f89.firebaseio.com']
   }));
 const db = firebase.db;
 
@@ -113,7 +113,6 @@ function format_date_json(datesArray,email,availability,user_date) {
 router.get('/api/availability/:eventId', async (req, res) => {
     try {
         const { eventId } = req.params;
-
         let json = await empty_json(eventId);
 
         // Get a reference to the document
@@ -127,12 +126,10 @@ router.get('/api/availability/:eventId', async (req, res) => {
                 // Get the current data
                 const data = doc.data();
                 let dateArray = data['dates'];
-               
 
                 for (const date in dateArray) {
                     let day_users = new Set();
                     let userArray = data['dates'][date]['users'];
-                    
 
                     for (const i in userArray) {
                         let user = userArray[i];
@@ -143,22 +140,19 @@ router.get('/api/availability/:eventId', async (req, res) => {
 
                         const user_avail = user['availability'];
                         
-                        
                         for (let j = 0;j<24;j++) {
                             if (user_avail[j]) {
-                                json[date]['availabilities'][j].push(email);
-                                
+                                json[date]['availabilities'][j].push(email);    
                             }
                         }
-
                     }
 
                     for (let k = 0; k<24;k++) {
                         const lst = json[date]['availabilities'][k];
                         json[date]['no_of_ppl'].push(lst.length);
                     }
-                    json[date]['day_filled_out'] = day_users.size;
 
+                    json[date]['day_filled_out'] = day_users.size;
                 }
                 
                 json['total_users'] = total_users.size;    
@@ -210,4 +204,22 @@ async function empty_json(eventId) {
     }
 }
 
+
+router.get('/api/:user', (req,res) => {
+    const { user } = req.params;
+    console.log(user);
+
+    const docRef = db.collection('users').doc('events_per_user');
+
+            // Get the current document data
+            docRef.get().then((doc) => {    
+                             
+                // Get the current data
+                const data = doc.data();
+                const user_events = data[user];
+                res.json(user_events);
+                
+            })
+
+});
 module.exports = router;
