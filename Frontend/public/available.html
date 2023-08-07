@@ -49,9 +49,7 @@
     </div>
 
     <form action="" id="time_wrap" method="POST">
-      <div id="time_flex">
-
-      </div>
+      <div id="time_flex"></div>
       <div class='submit_button'>
         <button type='submit'>Submit</button>
       </div>
@@ -197,8 +195,8 @@
         }
       
         const timeslotsContainer = `
-          <div id="time_${btn_select}" class="time_div">
-            <div class='date_selected' id="date_selected">${$(this).find('h3').eq(0).text()}</div>
+          <div id="time_${btn_select}" class="time_div" data-value="${$(this).attr('data-value')}">
+            <h3 class='date_selected' id="date_selected">${$(this).find('h3').eq(0).text()}</h3>
             <input type='hidden' name='date' value='${$(this).attr('data-value')}'/>
             <div class='time_slots'>
               ${timeslotsHTML}
@@ -207,8 +205,6 @@
         `;
       
         $("#time_flex").append(timeslotsContainer);
-
-        
       }
     });
   </script>

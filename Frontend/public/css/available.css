@@ -1,7 +1,8 @@
 /* Navs */
 .availability {
-  width: 90%;
-  margin: 36px auto;
+  /* width: 90%; */
+  width: 95%;
+  margin: 54px auto;
 }
 
 .title {
@@ -18,6 +19,29 @@
   margin: 0 auto;
 }
 
+.date_wrap::after {
+  bottom: 0;
+  content: '';
+  width: 150%;
+  margin: 0 auto;
+  display: block;
+  height: 2px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  width: 65%;
+  margin: 0 auto;
+  display: block;
+  height: 2px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06); */
+}
+
 .date_text{
   color: #213052;
   font-size: 1.5rem;
@@ -26,7 +50,8 @@
 
 .dates_outer {
   display: flex;
-  margin: 12px 0;
+  /* margin: 12px 0; */
+  margin: 6px 0 32px;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
@@ -61,7 +86,8 @@
 }
 
 #time_wrap {
-  margin: 36px auto;
+  /* margin: 36px auto; */
+  margin: 32px auto;
 }
 
 #time_flex {
@@ -73,26 +99,15 @@
 
 .time_div {
   position: relative;
-  padding: 40px;
-  width: 50%;
-}
-
-.time_div::before {
-  left: 0;
-  right: 0;
-  top: 0;
-  content: '';
-  width: 65%;
-  margin: 0 auto;
-  display: block;
-  height: 2px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.06);
+  /* padding: 40px;
+  width: 50%; */
+  padding: 12px;
+  width: 33%;
 }
 
 .date_selected {
   color: #213052;
-  font-size: 1.8125rem;
+  /* font-size: 1.8125rem; */
   font-family: Gilroy-Regular;
   font-style: normal;
   font-weight: 400;
@@ -122,7 +137,8 @@
 
 .avail_bar{
   position: relative;
-  width: 77%;
+  /* width: 77%; */
+  width: 68%;
   height: 2.0625rem;
   flex-shrink: 0;
   border-radius: 1.25rem;
@@ -258,9 +274,9 @@
     font-size: 1.5rem;
   }
 
-  .date_selected{
+  /* .date_selected{
     font-size: 1.4rem;
-  }
+  } */
 }
 
 .avail_bar::after {
