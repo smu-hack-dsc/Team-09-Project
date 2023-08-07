@@ -5,8 +5,6 @@ const axios = require('axios');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const e = require('express');
-// const mysqldb = require('./model/databaseconfig');
 
 router.use(cookieParser());
 router.use(bodyParser.json());

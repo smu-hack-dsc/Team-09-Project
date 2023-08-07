@@ -109,11 +109,15 @@ app.get('/protected',isLoggedIn, (req,res) => {
     
 });
 
+app.get('/access', (req,res) => {
+  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+  const accessToken = userData.accessToken;
+  res.send(accessToken);
+})
 
 app.get('/calendar-events', (req, res) => {
   const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
   const accessToken = userData.accessToken;
-  // const accessToken = req.headers.authorization.replace('Bearer ', '');
   const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
   
 
@@ -305,6 +309,15 @@ app.get('/available/:eventId', function (req, res) {
           res.json(results)
       }
   })
+});
+
+app.get('/username', async (req,res) => {
+    const email_lst = req.body;
+    const email_str = email_lst.map(id => `'${id}'`).join(', ');
+    const sql = `select username from user where email in (${email_str});`;
+    const users = await db.async_query(sql, []);
+
+    res.json(users);
 });
 
 app.get('/logout', (req,res) => {

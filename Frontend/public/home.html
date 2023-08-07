@@ -8,9 +8,16 @@
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
-    <script src="./js/protect.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        axios
+            .get('http://localhost:3000/access',{ withCredentials: true })
+            .then(res => {
+                const accessToken = res.data;
+                sessionStorage.setItem('accessToken', accessToken);
+            })
     </script>
+    <script src="./js/protect.js"></script>
 </head>
 
 <body>
