@@ -231,6 +231,7 @@ app.get('/filter', async (req,res) => {
       .then(async response => {
         const data = response.data;
         const all_events = await get_all_events(data);
+        console.log(all_events);
         res.json(all_events);
       })
         

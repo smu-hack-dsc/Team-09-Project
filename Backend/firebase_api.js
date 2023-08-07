@@ -5,6 +5,7 @@ const axios = require('axios');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const e = require('express');
 // const mysqldb = require('./model/databaseconfig');
 
 router.use(cookieParser());
@@ -24,98 +25,104 @@ router.post('/api/availability/store/:eventId', (req, res) => {
 
     const formData = req.body;
     console.log('Form Data:', formData);
+    
+        axios
+            .get(`http://localhost:3000/available/${eventId}`)
+            .then(async function (res) {
+                const event = res.data[0];
+                const datesArray = event.Dates.split(',');
+                let dict = await check_event_doc(eventId,datesArray);
+                console.log('line 35: ',dict);
 
-    // frontend need to get these details
-    let specific_date = "2023-08-08";
-    let new_avail = [false,true,false,true,false,true,false,false,false,false,false,true,false,true,false,true,true,true,true,true,true,false,false,false];
+                for (const specific_date in formData) {
+                    const user_avail = formData[specific_date];
+                    const new_avail = format_user_avail(user_avail);
+                    // console.log(new_avail);
+                    
+                    dict = storeAvailability(email, specific_date, new_avail, dict);
+                    // for(let date in dict.dates) {
+                    //     console.log(date);
+                    //     console.log(dict.dates[date].users);
+                    // }
+                }
+                const eventRef = db.collection('events').doc(eventId);
+                eventRef.set(dict).then(() => {
+                    console.log('Availability document successfully updated!');
+                    }).catch((error) => {
+                    console.error('Error updating availability document: ', error);
+                    });
+            })
+            .then(() => {
+                return store_events_per_user(email,eventId);
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Something went wrong.' });
+            });
 
-    axios
-        .get(`http://localhost:3000/available/${eventId}`)
-        .then(function (res) {
-            const event = res.data[0];
-            const datesArray = event.Dates.split(',');
-            return storeAvailability(eventId, datesArray, email, specific_date,new_avail);
-        })
-        .then(() => {
-            return store_events_per_user(email,eventId);
-        })
-        .then(() => {
-            res.status(200).json({ message: 'User availability stored successfully.' });
-        })
-        .catch(function (error) {
-            console.error('Error:', error);
-            res.status(500).json({ error: 'Something went wrong.' });
-        });
+    res.redirect(`http://localhost:3001/available.html?eventId=${eventId}`);
+
 });
 
-function storeAvailability(eventId, datesArray, email, date, new_avail) {
+async function check_event_doc(eventId, datesArray) {
     try {
-        // Get a reference to the document
         let docRef = db.collection('events').doc(eventId);
 
         // Get the current document data
-        docRef.get().then((doc) => {
-            let data;
-            if (doc.exists) {                
-                // Get the current data
-                data = doc.data();
-                let userArray = data['dates'][date]['users'];
-                let status = false;
-                for (const i in userArray) {
-                    let user = userArray[i];
-                    if (user['email'] == email) {
-                        user['availability'] = new_avail;
-                        status = true;    
-                    }
-                }
-                if (!status) {
-                    userArray.push(
-                        {
-                            "availability": new_avail,
-                            "email": email
-                        })
-                }
-            }
-            else {
-                data = format_date_json(datesArray,email,new_avail,date);
-            }
-            const eventRef = db.collection('events').doc(eventId);
-            eventRef.set(data).then(() => {
-                console.log('Availability document successfully updated!');
-                }).catch((error) => {
-                console.error('Error updating availability document: ', error);
-                });
-        })
+        let doc = await docRef.get();
+        let data;
+
+        if (doc.exists) {
+            data = doc.data();
+        } else {
+            data = format_date_json(datesArray);
+        }
+        return data;
         
     } catch (error) {
         throw error;
     }
 }
 
-function format_date_json(datesArray,email,availability,user_date) {
+function storeAvailability(email, date, new_avail, data) {
+              
+            // Get the current data
+            let userArray = data['dates'][date]['users'];
+            let status = false;
+            for (const i in userArray) {
+                let user = userArray[i];
+                if (user['email'] == email) {
+                    user['availability'] = new_avail;
+                    status = true;    
+                }
+            }
+            if (!status) {
+                userArray.push(
+                    {
+                        "availability": new_avail,
+                        "email": email
+                    })
+            }
+            
+            // console.log(data);
+            return data;
+        
+}
+
+function format_date_json(datesArray) {
     // Create an empty object to hold the formatted JSON
     const formattedJSON = 
     {
         dates: {}
     };
 
-    // Function to create user object
-    const createUserObject = (availability, email) => ({ availability, email });
-
     // Loop through each date in the input array
     for (const date of datesArray) {
         // Create an empty user array for each date
         formattedJSON.dates[date] = { users: [] };
-
-        // Add the user object to the users array for the current date
-        if (user_date === date) {
-            formattedJSON.dates[date].users.push(createUserObject(availability, email));
-        }
-        
     }
-    
-    return formattedJSON;
 
+    return formattedJSON;
 }
 
 function store_events_per_user(email,eventId) {
@@ -127,11 +134,14 @@ function store_events_per_user(email,eventId) {
     if (doc.exists) {
         const data = doc.data();
         if (data[email]) {
-        // User's email exists, update the array
-        data[email].push(eventId);
+            // User's email exists, update the array
+            data[email].push(eventId);
+            const unique = new Set(data[email]);
+            const arr = Array.from(unique)
+            data[email] = arr;
         } else {
-        // User's email doesn't exist, create a new entry
-        data[email] = [eventId];
+            // User's email doesn't exist, create a new entry
+            data[email] = [eventId];
         }
         // Update the document with the modified data
         return events_per_user_ref.set(data);
@@ -149,6 +159,20 @@ function store_events_per_user(email,eventId) {
     .catch(error => {
     console.error("Error updating events_per_user document: ", error);
     });
+}
+
+function format_user_avail(user_avail) {
+
+    // Initialize an array of 24 elements with all values set to false
+    const availabilityArray = Array(24).fill(false);
+
+    // Loop through the availability array and set corresponding hours to true
+    user_avail.forEach(time => {
+    const hour = parseInt(time.split(':')[0], 10);
+    availabilityArray[hour] = true;
+    });
+
+    return availabilityArray;
 }
 
 

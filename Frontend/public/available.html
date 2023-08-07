@@ -132,13 +132,14 @@
           });
       });
 
-    $(document).on('click', '.btn_date', function(e) {
+      $(document).on('click', '.btn_date', function(e) {
       e.preventDefault();
-    
+
       // Check if the date is already selected (div exists)
       const date_clicked = $(this).attr("data-value");
       const isSelected = $(this).hasClass('selected');
       const btn_select = $(this).attr('id');
+      const date = $(this).attr('data-value');
     
       if (isSelected) {
         $(this).removeClass('selected');
@@ -178,6 +179,7 @@
                 <div><input class='tick' type="checkbox" name="time_input" value="${item}" ${checked[index]}></div>
               </div>
             `;*/
+
           if (availabilities_obj[index].length == 0){
             return `
               <div class="time_display">
@@ -185,7 +187,7 @@
                 <div class='avail_bar' data-content="Nan">
                   <div class='shaded_bar' style="width: ${availabilities[index]}%;"></div>
                 </div>
-                <div><input class='tick' type="checkbox" name="time_input" value="${item}"></div>
+                <div><input class='tick' type="checkbox" name='${date}' value="${item}"></div>
               </div>
             `;
           } else {
@@ -195,16 +197,16 @@
                 <div class='avail_bar' data-content="${availabilities_obj[index]}">
                   <div class='shaded_bar' style="width: ${availabilities[index]}%;"></div>
                 </div>
-                <div><input class='tick' type="checkbox" name="time_input" value="${item}" ></div>
+                <div><input class='tick' type="checkbox" name='${date}' value="${item}" ></div>
               </div>
             `;
           }
         }
       
+
         const timeslotsContainer = `
-          <div id="time_${btn_select}" class="time_div" data-value="${$(this).attr('data-value')}">
+          <div id="time_${btn_select}" class="time_div" data-value="${date}">
             <h3 class='date_selected' id="date_selected">${$(this).find('h3').eq(0).text()}</h3>
-            <input type='hidden' name='date' value='${$(this).attr('data-value')}'/>
             <div class='time_slots'>
               ${timeslotsHTML}
             </div>
