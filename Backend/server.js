@@ -165,6 +165,13 @@ app.get('/calendar-events', (req, res) => {
 })
 
 
+app.get('/userData', (req,res) => {
+    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    const email = userData.profile.email;
+    const data = {'email' : email}
+    res.json(data);
+});
+
 // Set up your route handler for the form submission
 app.post('/create-event', async (req, res) => {
     // Access the form data through the 'req.body' object

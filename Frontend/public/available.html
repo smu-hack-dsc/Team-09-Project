@@ -73,13 +73,23 @@
 
   <script>
     const params = new URLSearchParams(window.location.search)
-    var eventId = params.get("eventId");
+    let eventId = params.get("eventId");
     const timeslots = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
 
-    var data;
-    var event;
-    var user;
-    var creator;
+    let data;
+    let event;
+    let user;
+    let creator;
+    let userEmail;
+
+    //get userEmail
+    axios
+      .get('http://localhost:3000/userData',  {withCredentials: true})
+      .then(function (res) {
+        data = res.data;
+        userEmail = data.email;
+      })
+
 
     // get json data
     axios
@@ -121,9 +131,6 @@
             };
           });
       });
-    
-    let form = document.getElementById("time_wrap");
-    form.action = `http://localhost:3000/event/api/availability/store/${eventId}`;
 
     $(document).on('click', '.btn_date', function(e) {
       e.preventDefault();
@@ -207,6 +214,11 @@
         $("#time_flex").append(timeslotsContainer);
       }
     });
+  </script>
+
+  <script>
+    let form = document.getElementById("time_wrap");
+    form.action = `http://localhost:3000/event/api/availability/store/${eventId}`;
   </script>
 
   <script src='./js/navbar.js'></script>

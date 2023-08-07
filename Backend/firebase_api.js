@@ -4,9 +4,12 @@ const firebase = require('./model/firebaseconfig');
 const axios = require('axios');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 // const mysqldb = require('./model/databaseconfig');
 
 router.use(cookieParser());
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cors({
     origin: ['http://localhost:3001', 'https://meetngo-84f89.firebaseio.com']
   }));
@@ -18,6 +21,9 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     let email = userData.profile.email;
     // email = '123@gmail.com';
+
+    const formData = req.body;
+    console.log('Form Data:', formData);
 
     // frontend need to get these details
     let specific_date = "2023-08-08";
