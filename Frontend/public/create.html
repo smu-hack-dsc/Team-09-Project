@@ -19,7 +19,7 @@
   <header>
     <nav>
       <ul class="nav_links">
-        <li><a href="home.html"> Home </a></li>
+        <li><a href="http://localhost:3000/protected"> Home </a></li>
         <li><a href="create.html"> Create Event </a></li>
       </ul>
 
@@ -32,7 +32,7 @@
 
     </nav>
     <div class="logo_box">
-      <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
+      <a href="http://localhost:3000/protected"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
     </div>
     <a class="logout" onclick="logout()" href="http://localhost:3000/logout"> <img src=" ./logo/logout.png " /> </a>
   </header>
@@ -49,9 +49,18 @@
       </div>
 
       <div class='create_event_button'>
-        <button class="button" type='submit'>
+        <button class="button" type='button' onclick="showConfirmation()">
           Create Event
-        </button>
+        </button>'
+      </div>
+
+      <div id="confirmationPrompt" class="confirmation-prompt" style="display: none;">
+        <div class="confirmation-prompt-message">Are you sure you want to create the event?</div>
+        <div class="confirmation-prompt-buttons">
+          <button class = "yes_button" onclick="proceedWithSubmission()">Yes</button>
+          <button class = "no_button" onclick="cancelSubmission()">No</button>
+        </div>
+      </div>
 
         <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg"
           version="1.1">
@@ -117,6 +126,7 @@
       cnt = 0;
     });
 
+
 // function to add calendar event
 function addCalendarEvent() {
   const event = {
@@ -147,6 +157,25 @@ function addCalendarEvent() {
 // <button onclick="handleClientLoad()">Authorize and Add Event</button>
 
   </script>
+
+  
+
+<script>
+  function showConfirmation() {
+    document.getElementById('confirmationPrompt').style.display = 'block';
+  }
+
+  function proceedWithSubmission() {
+    document.getElementById('confirmationPrompt').style.display = 'none';
+    document.querySelector('.create_event_button button').removeEventListener('click', showConfirmation);
+    document.querySelector('.create_event_button button').click();
+  }
+
+  function cancelSubmission() {
+    document.getElementById('confirmationPrompt').style.display = 'none';
+  }
+</script>
+
 </body>
 
 </html>

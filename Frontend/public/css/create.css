@@ -115,6 +115,35 @@ input[type=text] {
   font-family: 'Gilroy-Regular';
 }
 
+.confirmation-prompt {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #FFF;
+  border: 1px solid rgba(161, 161, 161, 0.87);
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  border-radius: 0.9367rem;
+}
+
+.confirmation-prompt-message {
+  margin-bottom: 10px;
+}
+
+.confirmation-prompt-buttons {
+  display: flex;
+}
+
+.confirmation-prompt-buttons button {
+  margin-left: 10px;
+}
+
+.yes_button{
+  background: yellow;
+}
+
 /* .calendar_div {
   display: flex;
   justify-content: space-between;
@@ -156,7 +185,7 @@ input[type=text] {
 .ui-state-focus .ui-icon,
 .ui-button:hover .ui-icon,
 .ui-button:focus .ui-icon {
-	background-image: url("images/ui-icons_454545_256x240.png");
+  background-image: url("images/ui-icons_454545_256x240.png");
 }
 
 .ui-datepicker th {
