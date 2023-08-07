@@ -334,8 +334,23 @@ footer>p {
     position: fixed;
     width: 100vw;
     height: 100vw;
-    background: white;
+    background: #F6EDBF;
     top: 0;
     left: 0;
     z-index: 100000;
+}
+.nav_link_popup_s{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.nav_link_popup{
+    padding-top: 55px;
+}
+
+.nav_link_popup_s:hover{
+    background-color: white;
 }

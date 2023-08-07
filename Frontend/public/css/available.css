@@ -1,8 +1,7 @@
 /* Navs */
 .availability {
-  /* width: 90%; */
-  width: 95%;
-  margin: 54px auto;
+  width: 90%;
+  margin: 36px auto;
 }
 
 .title {
@@ -19,51 +18,48 @@
   margin: 0 auto;
 }
 
-.date_wrap::after {
-  bottom: 0;
-  content: '';
-  width: 150%;
-  margin: 0 auto;
-  display: block;
-  height: 2px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.06);
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* left: 0;
-  right: 0;
-  bottom: 0;
-  content: '';
-  width: 65%;
-  margin: 0 auto;
-  display: block;
-  height: 2px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.06); */
-}
-
 .date_text{
   color: #213052;
   font-size: 1.5rem;
   font-family: Gilroy-Regular;
+  /* margin-left: 6.5%; */
 }
 
 .dates_outer {
   display: flex;
-  /* margin: 12px 0; */
-  margin: 6px 0 32px;
+  margin: 12px 0;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
   justify-content: space-around;
+  /* display: flex;
+  margin: 10px;
+  justify-content: space-evenly;
+  padding-left: 6%;
+  padding-right: 6%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-bottom: 100px; 
+  justify-content: center;
+  margin: 10px auto;
+  width: 88%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center; */
 }
 
 .btn_date {
   border: 1px solid black;
-  width: 12.5rem;
+  /* width: 14.375rem;
+  height: 7.0625rem; */
   color: #FFFFFF;
   background-color: #213052;
   border-radius: 30px;
+  /* font-size: 28px;
+  font-family: Gilroy-Regular;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal; */
   text-align: center;
   transition: all 0.3s ease 0s;
   cursor: pointer;
@@ -86,8 +82,7 @@
 }
 
 #time_wrap {
-  /* margin: 36px auto; */
-  margin: 32px auto;
+  margin: 36px auto;
 }
 
 #time_flex {
@@ -99,15 +94,26 @@
 
 .time_div {
   position: relative;
-  /* padding: 40px;
-  width: 50%; */
-  padding: 12px;
-  width: 33%;
+  padding: 40px;
+  width: 50%;
+}
+
+.time_div::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  content: '';
+  width: 65%;
+  margin: 0 auto;
+  display: block;
+  height: 2px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .date_selected {
   color: #213052;
-  /* font-size: 1.8125rem; */
+  font-size: 1.8125rem;
   font-family: Gilroy-Regular;
   font-style: normal;
   font-weight: 400;
@@ -127,18 +133,17 @@
 .time_display{
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding: 15px;
   /* flex-grow: 1;
   flex-basis: calc(25% - 20px); */
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
 }
 
 .avail_bar{
   position: relative;
-  /* width: 77%; */
-  width: 68%;
+  width: 88%;
   height: 2.0625rem;
   flex-shrink: 0;
   border-radius: 1.25rem;
@@ -180,7 +185,7 @@
   height: 100%;
   flex-shrink: 0;
   border-radius: 1.25rem;
-  /* border: 1px solid #A5B6FA; */
+  border: 1px solid #A5B6FA;
   background-color: #344ABD;;
 }
 
@@ -274,13 +279,13 @@
     font-size: 1.5rem;
   }
 
-  /* .date_selected{
+  .date_selected{
     font-size: 1.4rem;
-  } */
+  }
 }
 
 .avail_bar::after {
-  content: attr(data-content); 
+  content: 'Your custom text here'; /* Replace with your desired text */
   position: absolute;
   top: 100%; /* Position it below the .avail_bar element */
   left: 50%;
