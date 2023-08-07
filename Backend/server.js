@@ -314,7 +314,7 @@ app.get('/available/:eventId', function (req, res) {
 app.get('/username', async (req,res) => {
     const email_lst = req.body;
     const email_str = email_lst.map(id => `'${id}'`).join(', ');
-    const sql = `select username from user where email in (${email_str});`;
+    const sql = `select email,username from user where email in (${email_str});`;
     const users = await db.async_query(sql, []);
 
     res.json(users);
