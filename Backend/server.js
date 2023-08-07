@@ -231,7 +231,6 @@ app.get('/filter', async (req,res) => {
       .then(async response => {
         const data = response.data;
         const all_events = await get_all_events(data);
-        console.log(all_events);
         res.json(all_events);
       })
         
@@ -241,11 +240,19 @@ app.get('/filter', async (req,res) => {
       res.json(my_events);
     
     }
-    else {
-      sqlQuery = `
-      SELECT EventName,EventID
-      FROM EVENT
-      WHERE Creator != "${email}"`;
+    else if (requestedCategory === 'other') {
+      axios.get(`http://localhost:3000/event/api/${email}`)
+      .then(async response => {
+        const data = response.data;
+        const all_events = await get_all_events(data);
+        const my_events = await get_my_created_events(email);
+        
+        const other_events = all_events.filter(itemA => {
+        return !my_events.some(itemB => 
+          itemB.EventName === itemA.EventName && itemB.EventID === itemA.EventID);
+        });
+      res.json(other_events);
+      })
     }
 
 });

@@ -34,38 +34,41 @@
         </div>
         <a class="logout" onclick="logout()" href="http://localhost:3000/logout"> <img src=" ./logo/logout.png " /> </a>
     </header>
-
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
             const buttons = document.querySelectorAll('.select-box__option');
             const items = document.querySelector('.events-item');
-        
+    
+            // Fetch and display events under "All Events" category on page load
+            fetchEvents('all');
+    
             buttons.forEach(button => {
-            button.addEventListener('click', function () {
-                const category = button.getAttribute('data-category');
-                console.log(category);
-        
-                    // Fetch data based on the selected category using Axios
-                    axios.get(`http://localhost:3000/filter?category=${category}`, {withCredentials: true})
-                        .then(response => {
+                button.addEventListener('click', function () {
+                    const category = button.getAttribute('data-category');
+                    fetchEvents(category);
+                });
+            });
+    
+            function fetchEvents(category) {
+                // Fetch data based on the selected category using Axios
+                axios.get(`http://localhost:3000/filter?category=${category}`, { withCredentials: true })
+                    .then(response => {
                         const data = response.data;
-
+    
                         // Create HTML elements for each fetched item
                         const listHTML = data.map(event => {
                             const eventURL = `http://localhost:3001/available.html?eventId=${event.EventID}`;
                             return `<li><a href=${eventURL}>${event.EventName}</a></li>`;
                         }).join('');
-
-                        const itemsHTML = `<ol>${listHTML}</ol>`
+    
+                        const itemsHTML = `<ol>${listHTML}</ol>`;
                         // Replace existing items with fetched items
                         items.innerHTML = itemsHTML;
-                        })
-                        .catch(error => {
+                    })
+                    .catch(error => {
                         console.error('Error fetching data:', error);
-                        });
-            });
-            });
+                    });
+            }
         });
     </script>
 
