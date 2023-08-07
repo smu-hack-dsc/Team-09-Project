@@ -191,16 +191,9 @@
 
         async function getcalendardata(year, month) {
             try {
-                const accessToken = getAccessToken();
-                console.log(accessToken);
-                const response = await axios.get('http://localhost:3000/calendar-events', {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
+                const response = await axios.get('http://localhost:3000/calendar-events', {withCredentials: true});
 
-                console.log('Response data:', response.data);
+                // console.log('Response data:', response.data);
                 const eventsData = response.data;
                 var calendardict = {};
                 eventsData.forEach(event => {

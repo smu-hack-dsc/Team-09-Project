@@ -68,7 +68,6 @@ app.get('/auth/failure', (req,res) => {
 app.get('/protected',isLoggedIn, (req,res) => {
     res.cookie('userData', JSON.stringify(req.user), { httpOnly: true });
 
-    const accessToken = req.user.accessToken;
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
 
@@ -90,7 +89,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
       
         if (count > 0) {
           // Email already exists, do not create another instance in db
-          res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
+          res.redirect('http://localhost:3001/home.html');
         } 
         else {
           // Email doesn't exist, create a new instance in db
@@ -101,7 +100,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
               res.redirect('http://localhost:3001')
             }
             else{
-            res.redirect('http://localhost:3001/home.html?accessToken=' + encodeURIComponent(accessToken));
+            res.redirect('http://localhost:3001/home.html');
             ;}
             
         })
@@ -112,7 +111,9 @@ app.get('/protected',isLoggedIn, (req,res) => {
 
 
 app.get('/calendar-events', (req, res) => {
-  const accessToken = req.headers.authorization.replace('Bearer ', '');
+  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+  const accessToken = userData.accessToken;
+  // const accessToken = req.headers.authorization.replace('Bearer ', '');
   const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
   
 
