@@ -112,17 +112,17 @@
 .time_display{
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 15px;
   /* flex-grow: 1;
   flex-basis: calc(25% - 20px); */
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
 .avail_bar{
   position: relative;
-  width: 88%;
+  width: 77%;
   height: 2.0625rem;
   flex-shrink: 0;
   border-radius: 1.25rem;
@@ -164,7 +164,7 @@
   height: 100%;
   flex-shrink: 0;
   border-radius: 1.25rem;
-  border: 1px solid #A5B6FA;
+  /* border: 1px solid #A5B6FA; */
   background-color: #344ABD;;
 }
 
