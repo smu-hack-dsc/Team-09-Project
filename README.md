@@ -8,8 +8,9 @@ Done By:
 
 ## Steps to Run Application
 1. Clone Github repo and cd into the folder from the terminal
-2. Install nodemon using `npm install -g nodemon`
-3. Run `npm start` for both frontend folder and backend folder in 2 different terminal/consoles
+2. Install nvm and node
+3. Install nodemon using `npm install -g nodemon`
+4. Run `npm start` for both frontend folder and backend folder in 2 different terminal/consoles
 
 ## Considerations
 **Microservice architecture**: Frontend and backend are two different microservices hosted on two different servers 3000 and 3001
