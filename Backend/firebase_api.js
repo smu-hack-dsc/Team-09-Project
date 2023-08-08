@@ -12,7 +12,7 @@ router.use(cookieParser());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cors({
-    origin: ['http://localhost:3001', 'https://meetngo-84f89.firebaseio.com']
+    origin: ['https://meet-n-go.onrender.com', 'https://meetngo-84f89.firebaseio.com']
   }));
 const db = firebase.db;
 
@@ -74,7 +74,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
                 res.status(500).json({ error: 'Something went wrong.' });
             });
 
-    res.redirect(`http://localhost:3001/home.html`);
+    res.redirect(`https://meet-n-go.onrender.com/home.html`);
 
 });
 

@@ -57,7 +57,7 @@
     
                         // Create HTML elements for each fetched item
                         const listHTML = data.map(event => {
-                            const eventURL = `http://localhost:3001/available.html?eventId=${event.EventID}`;
+                            const eventURL = `https://meet-n-go.onrender.com/available.html?eventId=${event.EventID}`;
                             return `<li class="event-list"><a href=${eventURL}>${event.EventName}</a></li>`;
                         }).join('');
     

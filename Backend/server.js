@@ -30,7 +30,7 @@ app.use('/event', availabilityRouter);
 // const apikey=process.env.API_KEY;
 // const { google } = require('googleapis');
 
-app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
+app.use(cors({ origin: 'https://meet-n-go.onrender.com', credentials: true }));
 app.use(session({
     secret:'cats', // change to .env variable
     resave: false,
@@ -63,7 +63,7 @@ app.get('/google/callback',
     }));
 
 app.get('/auth/failure', (req,res) => {
-    res.redirect('http://localhost:3001');
+    res.redirect('https://meet-n-go.onrender.com');
 });
 
 // adding isLoggedIn middleware function is called before the res is sent.
@@ -85,7 +85,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
         if (err) {
           console.error('Error executing SQL query:', err);
           // if error redirect to login
-          res.redirect('http://localhost:3001')
+          res.redirect('https://meet-n-go.onrender.com')
         }
       
         // Access the count value from the result object
@@ -93,7 +93,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
       
         if (count > 0) {
           // Email already exists, do not create another instance in db
-          res.redirect('http://localhost:3001/home.html');
+          res.redirect('https://meet-n-go.onrender.com/home.html');
         } 
         else {
           // Email doesn't exist, create a new instance in db
@@ -101,10 +101,10 @@ app.get('/protected',isLoggedIn, (req,res) => {
             if (err) {
               console.error('Error executing SQL query:', err);
               // if error redirect to login
-              res.redirect('http://localhost:3001')
+              res.redirect('https://meet-n-go.onrender.com')
             }
             else{
-            res.redirect('http://localhost:3001/home.html');
+            res.redirect('https://meet-n-go.onrender.com/home.html');
             ;}
             
         })
@@ -219,7 +219,7 @@ app.post('/create-event', async (req, res) => {
   
         // Respond to the client
         // res.send('Event created successfully!');
-        const eventURL = `http://localhost:3001/available.html?eventId=${eventId}`;
+        const eventURL = `https://meet-n-go.onrender.com/available.html?eventId=${eventId}`;
         res.redirect(eventURL);
       } 
       else {
@@ -355,7 +355,7 @@ app.get('/logout', (req,res) => {
         if (err) { return next(err); }
         req.session.destroy();
         res.clearCookie('encryptedUserData', { httpOnly: true });
-        res.redirect('http://localhost:3001');
+        res.redirect('https://meet-n-go.onrender.com');
       });
 });
 

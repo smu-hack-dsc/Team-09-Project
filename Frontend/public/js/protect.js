@@ -22,18 +22,18 @@ function isLoggedIn() {
             if (accessToken) {
                 console.log('Logged in with token:', accessToken);
             } else {
-                window.location.href = 'http://localhost:3001';
+                window.location.href = 'https://meet-n-go.onrender.com';
             }
         })
         .catch(error => {
             console.error('Error checking access token:', error);
-            window.location.href = 'http://localhost:3001'; // Redirect on error
+            window.location.href = 'https://meet-n-go.onrender.com'; // Redirect on error
         });
 }
 
 function logout() {
     removeAccessToken();
-    window.location.href = 'http://localhost:3001';
+    window.location.href = 'https://meet-n-go.onrender.com';
 }
 
 
