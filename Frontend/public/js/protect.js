@@ -24,12 +24,6 @@ function isLoggedIn() {
      }
 }
 
-function logout() {
-    removeAccessToken();
-    window.location.href = 'http://localhost:3001';
-}
-
-
 // General Script ------------------------
 const accessToken = getAccessToken();
 if (accessToken) {
