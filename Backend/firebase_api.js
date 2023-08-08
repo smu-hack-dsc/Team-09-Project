@@ -58,7 +58,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
                 res.status(500).json({ error: 'Something went wrong.' });
             });
 
-    res.redirect(`http://localhost:3001/available.html?eventId=${eventId}`);
+    res.redirect(`http://localhost:3001/home.html`);
 
 });
 
