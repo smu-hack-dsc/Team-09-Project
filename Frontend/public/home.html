@@ -31,7 +31,7 @@
         <div class="logo_box">
             <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
         </div>
-        <a class="logout" href="http://localhost:3000/logout"> <img src=" ./logo/logout.png " /> </a>
+        <a class="logout" href="https://meetngo.onrender.com/logout"> <img src=" ./logo/logout.png " /> </a>
     </header>
 
     <script>
@@ -51,7 +51,7 @@
     
             function fetchEvents(category) {
                 // Fetch data based on the selected category using Axios
-                axios.get(`http://localhost:3000/filter?category=${category}`, { withCredentials: true })
+                axios.get(`https://meetngo.onrender.com/filter?category=${category}`, { withCredentials: true })
                     .then(response => {
                         const data = response.data;
     
@@ -191,7 +191,7 @@
 
         async function getcalendardata(year, month) {
             try {
-                const response = await axios.get('http://localhost:3000/calendar-events', {withCredentials: true});
+                const response = await axios.get('https://meetngo.onrender.com/calendar-events', {withCredentials: true});
 
               
                 const eventsData = response.data;

@@ -239,7 +239,7 @@ app.get('/filter', async (req,res) => {
     const email = encrypt.decrypt_user_data(encryptedCookie,'email');
 
     if (requestedCategory === 'all') {
-      axios.get(`http://localhost:3000/event/api/${email}`)
+      axios.get(`https://meetngo.onrender.com/event/api/${email}`)
       .then(async response => {
         const data = response.data;
         let all_events = {};
@@ -269,7 +269,7 @@ app.get('/filter', async (req,res) => {
     
     }
     else if (requestedCategory === 'other') {
-      axios.get(`http://localhost:3000/event/api/${email}`)
+      axios.get(`https://meetngo.onrender.com/event/api/${email}`)
       .then(async response => {
         let all_events = {};
         let my_events = {};

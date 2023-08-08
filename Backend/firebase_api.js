@@ -27,7 +27,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     // console.log('Form Data:', formData);
     
         axios
-            .get(`http://localhost:3000/available/${eventId}`)
+            .get(`https://meetngo.onrender.com/available/${eventId}`)
             .then(async function (res) {
                 const event = res.data[0];
                 const datesArray = event.Dates.split(',');
@@ -254,7 +254,7 @@ router.get('/api/availability/:eventId', async (req, res) => {
 
 async function empty_json(eventId) {
     try {
-        const res = await axios.get(`http://localhost:3000/available/${eventId}`);
+        const res = await axios.get(`https://meetngo.onrender.com/available/${eventId}`);
         const event = res.data[0];
         const datesArray = event.Dates.split(',');
         const creator = event.Email;

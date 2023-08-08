@@ -16,7 +16,7 @@ function removeAccessToken() {
 // Main Functions ------------------------
 function isLoggedIn() {
     axios
-        .get('http://localhost:3000/access', { withCredentials: true })
+        .get('https://meetngo.onrender.com/access', { withCredentials: true })
         .then(res => {
             const accessToken = res.data;
             if (accessToken) {
