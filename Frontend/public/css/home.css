@@ -43,7 +43,7 @@
     position: relative;
     display: block;
     width: 85%;
-    margin: 24px auto 16px;
+    margin: 24px auto 12px;
     font-size: 18px;
     color: #252525;
     border: 1px solid #9D9D9D;
@@ -187,11 +187,45 @@
     display: block;
     width: 85%;
     margin: 0 auto 24px;
-    padding: 8px 8px 40px 8px;
+    padding: 8px 8px 40px 20px;
     font-size: 18px;
     color: #252525;
     scrollbar-color: red orange;
     scrollbar-width: thin;
+}
+
+.event-list {
+    list-style: decimal;
+    padding: 4px;
+}
+
+.event-list a {
+    padding: 10px 0;
+    text-shadow: none;
+    position: relative;
+    color: #8e8e8e;
+    font-size: 18px;
+    text-transform:none;
+}
+
+.event-list a::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    padding: 8.5px 0 0px;
+    max-width: 0;
+    border-bottom: 2px solid #fac155;
+    color: #fac155;
+    content: attr(data-hover);
+    -webkit-transition: max-width 0.5s;
+    -moz-transition: max-width 0.5s;
+    transition: max-width 0.5s;
+    line-height: normal;
+}
+
+.event-list a:hover::before {
+    max-width: 100%;
 }
 
 .calendar {
@@ -402,7 +436,7 @@ li {
     }
 
     .events-item {
-        padding: 4px 8px;
+        padding: 4px 18px;
     }
 
     .calendar-month-header {

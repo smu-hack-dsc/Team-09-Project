@@ -65,7 +65,7 @@
                         // Create HTML elements for each fetched item
                         const listHTML = data.map(event => {
                             const eventURL = `http://localhost:3001/available.html?eventId=${event.EventID}`;
-                            return `<li><a href=${eventURL}>${event.EventName}</a></li>`;
+                            return `<li class="event-list"><a href=${eventURL} data-hover="${event.EventName}">${event.EventName}</a></li>`;
                         }).join('');
     
                         const itemsHTML = `<ol>${listHTML}</ol>`;
