@@ -24,6 +24,13 @@ New terminal:
 cd Yourfilepath/frontend  
 npm start (or node server.js if npm does not work)
 
+<u>Encryption of userData cookie</u>
+<ol>
+  <li>In the path /Backend/server.js line 71, the userData is encrypted. In line 72, the encrypted cookie is set.</li>
+  <li>The encryption and decryption methods are stored in /Backend/encrypt.js</li>
+  <li>The initialisation vector and encryption key are randomly generated in /Backend/encrypt.js</li>
+  <li>When a request is made via the front end, the decryption method is called to decrypt the cookie. This can be seen in /Backend/server.js line 125 and line 182.</li>
+</ol>
 
 Wireframe link: https://www.figma.com/file/zuoyCpjDnOFwrtxNaL64uQ/MeetnGo?type=design&node-id=4-6&mode=design&t=WjtzAKiS5iyajR77-0
 
