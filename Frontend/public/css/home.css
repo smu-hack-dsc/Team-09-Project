@@ -214,7 +214,7 @@
     left: 0;
     overflow: hidden;
     max-height: 0;
-    color: #fac155;
+    color: #ffb322;
     content: attr(data-hover);
     -webkit-transition: max-height 0.5s;
     -moz-transition: max-height 0.5s;
