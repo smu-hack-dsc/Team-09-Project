@@ -9,6 +9,8 @@ const db = require('./model/databaseconfig');
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
+const encrypt = require('./encrypt');
+const config = require('./config');
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
@@ -42,8 +44,8 @@ app.use(cookieParser());
 
 
 function isLoggedIn(req,res,next) {
-    const accessToken = req.user && req.user.accessToken;
-    if (accessToken) {
+    const check = req.user && req.user.accessToken;
+    if (check) {
         return next();
     }
 
@@ -66,7 +68,9 @@ app.get('/auth/failure', (req,res) => {
 
 // adding isLoggedIn middleware function is called before the res is sent.
 app.get('/protected',isLoggedIn, (req,res) => {
-    res.cookie('userData', JSON.stringify(req.user), { httpOnly: true });
+    const encryptedCookie = encrypt.encrypt_cookie(req.user)
+
+    res.cookie('encryptedUserData', encryptedCookie, { httpOnly: true });
 
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
@@ -110,69 +114,72 @@ app.get('/protected',isLoggedIn, (req,res) => {
 });
 
 app.get('/access', (req,res) => {
-  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-  const accessToken = userData.accessToken;
+  const encryptedCookie = req.cookies.encryptedUserData;
+  const accessToken = encrypt.decrypt_user_data(encryptedCookie,'access');
   res.send(accessToken);
 })
 
-app.get('/calendar-events', (req, res) => {
-  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-  const accessToken = userData.accessToken;
+
+app.get('/calendar-events', async (req, res) => {
+  const encryptedCookie = req.cookies.encryptedUserData;
+  const accessToken = encrypt.decrypt_user_data(encryptedCookie,'access');
+  // console.log(accessToken);
   const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
   
-
-  axios.get(url, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
-  })
-  .then(response => {
-    // console.log(response.data)
-    const events = response.data.items.map(event => {
-      const ItemId = event.id;
-      const start = event.start;
-      const end =event.end
-      const descriptionini=event.description
-      
-      const startdatetime = Object.keys(start).length > 1 ? start : 'Whole Day';
-      const enddatetime = Object.keys(end).length > 1 ? end : '';
-      const description = descriptionini || '';
-      const ItemName = event.summary;
-      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      let StartDate, EndDate;
-  
-      if (startdatetime && startdatetime.dateTime) {
-        // Use dateTime if available (format: "2023-07-27T15:00:00Z")
-        StartDate = dayjs(startdatetime.dateTime).utc().tz(userTimezone).format('YYYY-MM-DD');
-        const eventDuration = dayjs(event.end.dateTime).diff(dayjs(startdatetime.dateTime), 'day');
-        EndDate = dayjs(StartDate).add(eventDuration, 'day').format('YYYY-MM-DD');
-      } else {
-        // Fall back to date property (format: "2023-07-27")
-        StartDate = dayjs(event.start.date).tz('Asia/Singapore').format('YYYY-MM-DD');
-        // Subtract one day for events without time
-        EndDate = dayjs(event.end.date).tz('Asia/Singapore').subtract(1, 'day').format('YYYY-MM-DD');
-      }
-  
-      return {
-        ItemId,
-        ItemName,
-        StartDate,
-        EndDate,
-        startdatetime,
-        enddatetime,
-        description
-      };
-    });
-    // Send the events data to the frontend as JSON
-    res.json(events);
-  })
+  if (accessToken) {
+    axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => {
+      // console.log(response.data)
+      const events = response.data.items.map(event => {
+        const ItemId = event.id;
+        const start = event.start;
+        const end =event.end
+        const descriptionini=event.description
+        
+        const startdatetime = Object.keys(start).length > 1 ? start : 'Whole Day';
+        const enddatetime = Object.keys(end).length > 1 ? end : '';
+        const description = descriptionini || '';
+        const ItemName = event.summary;
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        let StartDate, EndDate;
+    
+        if (startdatetime && startdatetime.dateTime) {
+          // Use dateTime if available (format: "2023-07-27T15:00:00Z")
+          StartDate = dayjs(startdatetime.dateTime).utc().tz(userTimezone).format('YYYY-MM-DD');
+          const eventDuration = dayjs(event.end.dateTime).diff(dayjs(startdatetime.dateTime), 'day');
+          EndDate = dayjs(StartDate).add(eventDuration, 'day').format('YYYY-MM-DD');
+        } else {
+          // Fall back to date property (format: "2023-07-27")
+          StartDate = dayjs(event.start.date).tz('Asia/Singapore').format('YYYY-MM-DD');
+          // Subtract one day for events without time
+          EndDate = dayjs(event.end.date).tz('Asia/Singapore').subtract(1, 'day').format('YYYY-MM-DD');
+        }
+    
+        return {
+          ItemId,
+          ItemName,
+          StartDate,
+          EndDate,
+          startdatetime,
+          enddatetime,
+          description
+        };
+      });
+      // Send the events data to the frontend as JSON
+      res.json(events);
+    })
+  }
 })
 
 
 app.get('/userData', (req,res) => {
-    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-    const email = userData.profile.email;
+    const encryptedCookie = req.cookies.encryptedUserData;
+    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
     const data = {'email' : email}
     res.json(data);
 });
@@ -190,8 +197,8 @@ app.post('/create-event', async (req, res) => {
     const date_str = eventData.datePick;
   
     const date_lst = date_func.process_date(date_str);
-    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-    const email = userData.profile.email;
+    const encryptedCookie = req.cookies.encryptedUserData;
+    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
   
     try {
       // Check for email
@@ -228,8 +235,8 @@ app.post('/create-event', async (req, res) => {
 app.get('/filter', async (req,res) => {
     const requestedCategory = req.query.category;
 
-    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-    let email = userData.profile.email;
+    const encryptedCookie = req.cookies.encryptedUserData;
+    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
 
     if (requestedCategory === 'all') {
       axios.get(`http://localhost:3000/event/api/${email}`)
@@ -333,7 +340,7 @@ app.get('/logout', (req,res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
         req.session.destroy();
-        res.clearCookie('userData', { httpOnly: true });
+        res.clearCookie('encryptedUserData', { httpOnly: true });
         res.redirect('http://localhost:3001');
       });
 });

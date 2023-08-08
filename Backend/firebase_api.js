@@ -5,6 +5,8 @@ const axios = require('axios');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const encrypt = require('./encrypt');
+const config = require('./config');
 
 router.use(cookieParser());
 router.use(bodyParser.json());
@@ -17,8 +19,8 @@ const db = firebase.db;
 // POST request to store user availability for an event
 router.post('/api/availability/store/:eventId', (req, res) => {
     const { eventId } = req.params;
-    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
-    let email = userData.profile.email;
+    const encryptedCookie = req.cookies.encryptedUserData;
+    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
     // email = '123@gmail.com';
 
     const formData = req.body;
