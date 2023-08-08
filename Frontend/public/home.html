@@ -200,7 +200,7 @@
             try {
                 const response = await axios.get('http://localhost:3000/calendar-events', {withCredentials: true});
 
-                // console.log('Response data:', response.data);
+              
                 const eventsData = response.data;
                 var calendardict = {};
                 eventsData.forEach(event => {
@@ -211,8 +211,7 @@
                     const calanderstartdatedesc = event.startdatetime
                     const calanderenddatedesc = event.enddatetime
                     const description = event.description
-                    // console.log('FRONTNED DESCRIPITOTM')
-                    // console.log(description)
+                 
                     const startOfMonth = dayjs(`${year}-${month}-01`).startOf('month').subtract(1, 'week').toDate();
                     const endOfMonth = dayjs(`${year}-${month}-01`).endOf('month').add(1, 'week').toDate();
 
