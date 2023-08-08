@@ -24,7 +24,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     // email = '123@gmail.com';
 
     const formData = req.body;
-    console.log('Form Data:', formData);
+    // console.log('Form Data:', formData);
     
         axios
             .get(`http://localhost:3000/available/${eventId}`)
@@ -32,16 +32,16 @@ router.post('/api/availability/store/:eventId', (req, res) => {
                 const event = res.data[0];
                 const datesArray = event.Dates.split(',');
                 let dict = await check_event_doc(eventId,datesArray);
-                console.log('line 35: ',dict);
+                // console.log('line 35: ',dict);
 
                 for (const specific_date in formData) {
                     let user_avail = formData[specific_date];
                     if (typeof user_avail === "string") {
                         user_avail = [user_avail];
                     }
-                    console.log(user_avail);
+                    // console.log(user_avail);
                     const new_avail = format_user_avail(user_avail);
-                    console.log(new_avail);
+                    // console.log(new_avail);
                     
                     dict = storeAvailability(email, specific_date, new_avail, dict);
                     // for(let date in dict.dates) {

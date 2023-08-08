@@ -243,10 +243,23 @@ app.get('/filter', async (req,res) => {
       .then(async response => {
         const data = response.data;
         let all_events = {};
+        let my_events = {};
+        let result = {};
+
         if (data) {
           all_events = await get_all_events(data);
+          my_events = await get_my_created_events(email);
         }
-        res.json(all_events);
+
+        // Merge listA and listB
+        const mergedList = [...all_events, ...my_events];
+
+        // Remove duplicates based on EventName and EventID
+        result = mergedList.filter((item, index, self) => 
+        index === self.findIndex(i =>
+        i.EventName === item.EventName && i.EventID === item.EventID
+        ));
+        res.json(result);
       })
         
     }
@@ -259,12 +272,13 @@ app.get('/filter', async (req,res) => {
       axios.get(`http://localhost:3000/event/api/${email}`)
       .then(async response => {
         let all_events = {};
+        let my_events = {};
         let other_events = {};
 
         const data = response.data;
         if (data) {
           all_events = await get_all_events(data);
-          const my_events = await get_my_created_events(email);
+          my_events = await get_my_created_events(email);
         
           other_events = all_events.filter(itemA => {
           return !my_events.some(itemB => 
