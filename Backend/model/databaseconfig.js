@@ -1,13 +1,21 @@
 const mysql = require('mysql2');
 const { promisify } = require('util');
+const os = require('os');
 
 // Create a connection pool
+if (os.platform() === 'darwin') {
+  // Mac
+  password = 'root';
+} else {
+  // Windows or other platforms
+  password = '';
+}
 const pool = mysql.createPool({
     host:"localhost",
     port:3306,
     user:"root",
     // CHANGE PASSWORD TO root IF USING MAC or LEAVE IT EMPTY IN WINDOWS
-    password:"",
+    password:password,
     database:"HEAP"
 });
 
