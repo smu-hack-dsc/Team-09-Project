@@ -23,7 +23,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     const email = encrypt.decrypt_user_data(encryptedCookie,'email');
     // email = '123@gmail.com';
 
-    const formData = req.body;
+    let formData = req.body;
     // console.log('Form Data:', formData);
     
         axios
@@ -33,6 +33,16 @@ router.post('/api/availability/store/:eventId', (req, res) => {
                 const datesArray = event.Dates.split(',');
                 let dict = await check_event_doc(eventId,datesArray);
                 // console.log('line 35: ',dict);
+                
+                if (Object.keys(formData).length !== datesArray.length) {
+                    for (const date of datesArray) {
+                        if (!(date in formData)) {
+                            formData[date] = [];
+                        }
+                    }
+                }
+
+                // console.log('Formatted Data:', formData);
 
                 for (const specific_date in formData) {
                     let user_avail = formData[specific_date];
@@ -170,11 +180,13 @@ function format_user_avail(user_avail) {
     // Initialize an array of 24 elements with all values set to false
     const availabilityArray = Array(24).fill(false);
 
-    // Loop through the availability array and set corresponding hours to true
-    user_avail.forEach(time => {
-    const hour = parseInt(time.split(':')[0], 10);
-    availabilityArray[hour] = true;
-    });
+    if (user_avail !== []) {
+        // Loop through the availability array and set corresponding hours to true
+        user_avail.forEach(time => {
+            const hour = parseInt(time.split(':')[0], 10);
+            availabilityArray[hour] = true;
+            });
+    }
 
     return availabilityArray;
 }
