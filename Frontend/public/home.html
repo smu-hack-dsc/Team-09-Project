@@ -211,7 +211,7 @@
                     const calanderstartdatedesc = event.startdatetime
                     const calanderenddatedesc = event.enddatetime
                     const description = event.description
-                 
+             
                     const startOfMonth = dayjs(`${year}-${month}-01`).startOf('month').subtract(1, 'week').toDate();
                     const endOfMonth = dayjs(`${year}-${month}-01`).endOf('month').add(1, 'week').toDate();
 
@@ -242,8 +242,7 @@
                     }
                 }
                 );
-                // console.log('Calander dict test')
-                // console.log(calendardict);
+          
                 return calendardict;
             } catch (error) {
                 console.error('Error fetching calendar events when fetching from google calendar:', error);
@@ -253,12 +252,11 @@
         async function fetchAndCreateCalendar(year, month, calendardata) {
             try {
                 const calendardata = await getcalendardata(year, month);
-                // console.log("fetchandcreatecalander test")
-                // console.log(calendardata)
+           
 
                 if (calendardata) {
                     createCalendar(year, month, calendardata);
-                    // console.log(calendardata)
+             
                 } else {
                     console.error("Error fetching calendar data. Calendar data is undefined.");
                 }
