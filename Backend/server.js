@@ -332,6 +332,7 @@ app.get('/username', async (req,res) => {
 app.get('/logout', (req,res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
+        res.clearCookie('userData', { httpOnly: true });
         req.session.destroy();
         res.redirect('http://localhost:3001');
       });

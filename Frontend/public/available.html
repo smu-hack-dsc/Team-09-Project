@@ -8,6 +8,12 @@
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link rel="stylesheet" type="text/css" href="./css/available.css" />
   <title>Availability</title>
+  <script>
+    function logout() {
+        sessionStorage.removeItem('accessToken');
+        window.location.href = 'http://localhost:3000/logout';
+    }
+    </script>
   <script src="./js/protect.js"></script>
 </head>
 
@@ -39,7 +45,7 @@
     <div class="logo_box">
       <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
     </div>
-    <a class="logout" onclick="logout()" href="http://localhost:3000/logout"> <img src=" ./logo/logout.png " /> </a>
+    <a class="logout" onclick="logout()"> <img src=" ./logo/logout.png " /> </a>
   </header>
 
   <div class="availability">
