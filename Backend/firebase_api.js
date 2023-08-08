@@ -33,9 +33,13 @@ router.post('/api/availability/store/:eventId', (req, res) => {
                 console.log('line 35: ',dict);
 
                 for (const specific_date in formData) {
-                    const user_avail = formData[specific_date];
+                    let user_avail = formData[specific_date];
+                    if (typeof user_avail === "string") {
+                        user_avail = [user_avail];
+                    }
+                    console.log(user_avail);
                     const new_avail = format_user_avail(user_avail);
-                    // console.log(new_avail);
+                    console.log(new_avail);
                     
                     dict = storeAvailability(email, specific_date, new_avail, dict);
                     // for(let date in dict.dates) {

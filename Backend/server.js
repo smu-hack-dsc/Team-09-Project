@@ -333,6 +333,7 @@ app.get('/logout', (req,res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
         req.session.destroy();
+        res.clearCookie('userData', { httpOnly: true });
         res.redirect('http://localhost:3001');
       });
 });
