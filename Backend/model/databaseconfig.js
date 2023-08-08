@@ -10,12 +10,21 @@ if (os.platform() === 'darwin') {
   // Windows or other platforms
   password = '';
 }
+
+// const pool = mysql.createPool({
+//     host:"localhost",
+//     port:3306,
+//     user:"root",
+//     password:password,
+//     database:"HEAP"
+// });
+
 const pool = mysql.createPool({
-    host:"localhost",
-    port:3306,
-    user:"root",
-    password:password,
-    database:"HEAP"
+  host:"heap.clfa0onn8b8y.ap-southeast-1.rds.amazonaws.com",
+  port:3306,
+  user:"admin",
+  password:"lamchingrou",
+  database:"HEAP"
 });
 
 // Test the database connection
