@@ -42,10 +42,10 @@
     <form action="http://localhost:3000/create-event" method="POST">
       <div class='event_div'>
         <label for="event_name">Event Name:</label>
-        <input type="text" id="event_name" name="event_name">
+        <input type="text" id="event_name" name="event_name" required>
 
         <label for="datePick">Available dates:</label>
-        <input type="text" id="datePick" name="datePick" readonly />
+        <input type="text" id="datePick" name="datePick" required readonly />
       </div>
 
       <div class='create_event_button'>
