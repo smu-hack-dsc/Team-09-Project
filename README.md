@@ -15,13 +15,13 @@ Steps after cloning from github:
 1. Run the database setup in your mysql to create the tables and contents. Check that your SQL server is running on port 3306. If not edit the config under Backend/model/databaseconfig.js
 2. Install nodemon using npm install -g nodemon.
 3. Run npm start for both frontend folder and backend folder in 2 different terminal/consoles. (If frontend npm start is not functional, use node server.js for frontend instead)
-   commands:
-     -cd Yourfilepath/backend
-        npm start
-   
-   New terminal:
-    -cd Yourfilepath/frontend
-      npm start (or node server.js if npm does not work)
+commands:
+cd Yourfilepath/backend
+npm start
+
+New terminal:
+cd Yourfilepath/frontend
+npm start (or node server.js if npm does not work)
 
 
 Wireframe link: https://www.figma.com/file/zuoyCpjDnOFwrtxNaL64uQ/MeetnGo?type=design&node-id=4-6&mode=design&t=WjtzAKiS5iyajR77-0
