@@ -22,7 +22,10 @@ Done By:
 
 **Deployment**: Cloud databases
   * Firestore for backend processing (refer to backend/model/firebaseconfig.js)
-  * MySQL (hosted on AWS RDS) for frontend displays (refer to backend/model/databaseconfig.js)
+  * MySQL hosted on AWS RDS for frontend displays (refer to backend/model/databaseconfig.js)
+
+## User Workflow Diagram
+![image](https://github.com/smu-hack-dsc/Team-09-Project/assets/72553981/f94c1e07-8eb4-48d5-aa52-e47170c562e5)
 
 ## Links
 [Wireframe link](https://www.figma.com/file/zuoyCpjDnOFwrtxNaL64uQ/MeetnGo?type=design&node-id=4-6&mode=design&t=WjtzAKiS5iyajR77-0)
