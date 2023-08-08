@@ -24,7 +24,7 @@ New terminal:
 cd Yourfilepath/frontend  
 npm start (or node server.js if npm does not work)
 
-<u>Encryption of userData cookie</u>
+<b>Encryption of userData cookie</b>
 <ol>
   <li>In the path /Backend/server.js line 71, the userData is encrypted. In line 72, the encrypted cookie is set.</li>
   <li>The encryption and decryption methods are stored in /Backend/encrypt.js</li>
