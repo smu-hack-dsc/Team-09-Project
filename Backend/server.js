@@ -268,16 +268,16 @@ app.get('/filter', async (req,res) => {
         if (data) {
           all_events = await get_all_events(data);
           my_events = await get_my_created_events(email);
+          // Merge listA and listB
+          const mergedList = [...all_events, ...my_events];
+
+          // Remove duplicates based on EventName and EventID
+          result = mergedList.filter((item, index, self) => 
+          index === self.findIndex(i =>
+          i.EventName === item.EventName && i.EventID === item.EventID
+        ));
         }
 
-        // Merge listA and listB
-        const mergedList = [...all_events, ...my_events];
-
-        // Remove duplicates based on EventName and EventID
-        result = mergedList.filter((item, index, self) => 
-        index === self.findIndex(i =>
-        i.EventName === item.EventName && i.EventID === item.EventID
-        ));
         res.json(result);
       })
         
