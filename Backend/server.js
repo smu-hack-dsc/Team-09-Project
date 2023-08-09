@@ -68,9 +68,10 @@ app.get('/auth/failure', (req,res) => {
 
 // adding isLoggedIn middleware function is called before the res is sent.
 app.get('/protected',isLoggedIn, (req,res) => {
-    const encryptedCookie = encrypt.encrypt_cookie(req.user)
+    // const encryptedCookie = encrypt.encrypt_cookie(req.user)
 
-    res.cookie('encryptedUserData', encryptedCookie, { httpOnly: true });
+    // res.cookie('encryptedUserData', encryptedCookie, { httpOnly: true });
+    res.cookie('userData', JSON.stringify(req.user), { httpOnly: true });
 
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
@@ -114,15 +115,23 @@ app.get('/protected',isLoggedIn, (req,res) => {
 });
 
 app.get('/access', (req,res) => {
-  const encryptedCookie = req.cookies.encryptedUserData;
-  const accessToken = encrypt.decrypt_user_data(encryptedCookie,'access');
+  // const encryptedCookie = req.cookies.encryptedUserData;
+  // const accessToken = encrypt.decrypt_user_data(encryptedCookie,'access');
+
+  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+  const accessToken = userData.profile.accessToken;
+
   res.send(accessToken);
 })
 
 
 app.get('/calendar-events', async (req, res) => {
-  const encryptedCookie = req.cookies.encryptedUserData;
-  const accessToken = encrypt.decrypt_user_data(encryptedCookie,'access');
+  // const encryptedCookie = req.cookies.encryptedUserData;
+  // const accessToken = encrypt.decrypt_user_data(encryptedCookie,'access');
+
+  const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+  const accessToken = userData.profile.accessToken;
+
   // console.log(accessToken);
   const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
   
@@ -178,8 +187,12 @@ app.get('/calendar-events', async (req, res) => {
 
 
 app.get('/userData', (req,res) => {
-    const encryptedCookie = req.cookies.encryptedUserData;
-    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+    // const encryptedCookie = req.cookies.encryptedUserData;
+    // const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+
+    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    const email = userData.profile.email;
+
     const data = {'email' : email}
     res.json(data);
 });
@@ -197,8 +210,11 @@ app.post('/create-event', async (req, res) => {
     const date_str = eventData.datePick;
   
     const date_lst = date_func.process_date(date_str);
-    const encryptedCookie = req.cookies.encryptedUserData;
-    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+    // const encryptedCookie = req.cookies.encryptedUserData;
+    // const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+
+    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    const email = userData.profile.email;
   
     try {
       // Check for email
@@ -235,8 +251,11 @@ app.post('/create-event', async (req, res) => {
 app.get('/filter', async (req,res) => {
     const requestedCategory = req.query.category;
 
-    const encryptedCookie = req.cookies.encryptedUserData;
-    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+    // const encryptedCookie = req.cookies.encryptedUserData;
+    // const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+
+    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    const email = userData.profile.email;
 
     if (requestedCategory === 'all') {
       axios.get(`https://meetngo.onrender.com/event/api/${email}`)

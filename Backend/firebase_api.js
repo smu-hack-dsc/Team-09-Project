@@ -19,8 +19,11 @@ const db = firebase.db;
 // POST request to store user availability for an event
 router.post('/api/availability/store/:eventId', (req, res) => {
     const { eventId } = req.params;
-    const encryptedCookie = req.cookies.encryptedUserData;
-    const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+    // const encryptedCookie = req.cookies.encryptedUserData;
+    // const email = encrypt.decrypt_user_data(encryptedCookie,'email');
+
+    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    const email = userData.profile.email;
     // email = '123@gmail.com';
 
     let formData = req.body;
