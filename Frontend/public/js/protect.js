@@ -15,10 +15,12 @@ function removeAccessToken() {
 
 // Main Functions ------------------------
 function isLoggedIn() {
+    console.log("document.cookie", document.cookie)
     axios
         .get('https://meetngo.onrender.com/access', { withCredentials: true })
         .then(res => {
             const accessToken = res.data;
+            console.log('accessToken', accessToken)
             if (accessToken) {
                 console.log('Logged in with token:', accessToken);
             } else {

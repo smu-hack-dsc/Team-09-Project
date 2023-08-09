@@ -75,6 +75,10 @@ app.get('/protected',isLoggedIn, (req,res) => {
     console.log("req.user", req.user)
     res.cookie('userData', JSON.stringify(req.user), { path:'/', domain:'.onrender.com', httpOnly: true, secure: true, sameSite: 'none', });
     res.setHeader('Set-Cookie', 'userData=' + JSON.stringify(req.user) + '; Path=/; Domain=.onrender.com; HttpOnly; Secure; SameSite=None');
+    res.header('Access-Control-Allow-Origin', 'https://meet-n-go.onrender.com');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Credentials', true);
     const cookieValue = JSON.stringify(req.user);
     console.log("cookieValue", cookieValue)
     // res.send("cookie.set")
