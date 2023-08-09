@@ -59,7 +59,7 @@ app.get('/',
 app.get('/google/callback',
     passport.authenticate('google',{
         // successRedirect: '/protected',
-        successRedirect: 'https://meet-n-go.onrender.com/home',
+        successRedirect: 'https://meet-n-go.onrender.com/home.html',
         failureRedirect: '/auth/failure',
     }));
 
