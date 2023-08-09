@@ -71,7 +71,11 @@ app.get('/protected',isLoggedIn, (req,res) => {
     // const encryptedCookie = encrypt.encrypt_cookie(req.user)
 
     // res.cookie('encryptedUserData', encryptedCookie, { httpOnly: true });
+    console.log("req.user", req.user)
     res.cookie('userData', JSON.stringify(req.user), { path:'/', domain:'.onrender.com', httpOnly: true, secure: true, sameSite: 'none', });
+    const cookieValue = JSON.stringify(req.user);
+    console.log("cookieValue", cookieValue)
+    res.send("cookie.set")
 
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
