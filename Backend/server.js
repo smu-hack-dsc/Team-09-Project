@@ -71,7 +71,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
     // const encryptedCookie = encrypt.encrypt_cookie(req.user)
 
     // res.cookie('encryptedUserData', encryptedCookie, { httpOnly: true });
-    res.cookie('userData', JSON.stringify(req.user), { httpOnly: true });
+    res.cookie('userData', JSON.stringify(req.user), { httpOnly: true, secure: true, sameSite: 'none', });
 
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
