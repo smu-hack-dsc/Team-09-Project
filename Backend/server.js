@@ -73,9 +73,10 @@ app.get('/protected',isLoggedIn, (req,res) => {
     // res.cookie('encryptedUserData', encryptedCookie, { httpOnly: true });
     console.log("req.user", req.user)
     res.cookie('userData', JSON.stringify(req.user), { path:'/', domain:'.onrender.com', httpOnly: true, secure: true, sameSite: 'none', });
+    res.setHeader('Set-Cookie', 'userData=' + JSON.stringify(req.user) + '; Path=/; Domain=.onrender.com; HttpOnly; Secure; SameSite=None');
     const cookieValue = JSON.stringify(req.user);
     console.log("cookieValue", cookieValue)
-    res.send("cookie.set")
+    // res.send("cookie.set")
 
     var Username = req.user.profile.given_name;
     var Email = req.user.profile.email;
@@ -144,6 +145,7 @@ app.get('/calendar-events', async (req, res) => {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
+        withCredentials: true
       },
     })
     .then(response => {
@@ -262,7 +264,7 @@ app.get('/filter', async (req,res) => {
     const email = userData.profile.email;
 
     if (requestedCategory === 'all') {
-      axios.get(`https://meetngo.onrender.com/event/api/${email}`)
+      axios.get(`https://meetngo.onrender.com/event/api/${email}`, {withCredentials: true})
       .then(async response => {
         const data = response.data;
         let all_events = {};
@@ -292,7 +294,7 @@ app.get('/filter', async (req,res) => {
     
     }
     else if (requestedCategory === 'other') {
-      axios.get(`https://meetngo.onrender.com/event/api/${email}`)
+      axios.get(`https://meetngo.onrender.com/event/api/${email}`, {withCredentials: true})
       .then(async response => {
         let all_events = {};
         let my_events = {};
