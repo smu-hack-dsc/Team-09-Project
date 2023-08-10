@@ -31,7 +31,7 @@
         <div class="logo_box">
             <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
         </div>
-        <a class="logout" href="https://meetngo.onrender.com/logout"> <img src=" ./logo/logout.png " /> </a>
+        <a class="logout" href="MeetnGo/logout"> <img src=" ./logo/logout.png " /> </a>
     </header>
 
     <script>
@@ -51,13 +51,13 @@
     
             function fetchEvents(category) {
                 // Fetch data based on the selected category using Axios
-                axios.get(`https://meetngo.onrender.com/filter?category=${category}`, { withCredentials: true })
+                axios.get(`MeetnGo/filter?category=${category}`, { withCredentials: true })
                     .then(response => {
                         const data = response.data;
     
                         // Create HTML elements for each fetched item
                         const listHTML = data.map(event => {
-                            const eventURL = `https://meet-n-go.onrender.com/available.html?eventId=${event.EventID}`;
+                            const eventURL = `meet-n-go/available.html?eventId=${event.EventID}`;
                             return `<li class="event-list"><a href=${eventURL}>${event.EventName}</a></li>`;
                         }).join('');
     
@@ -191,7 +191,7 @@
 
         async function getcalendardata(year, month) {
             try {
-                const response = await axios.get('https://meetngo.onrender.com/calendar-events', {withCredentials: true});
+                const response = await axios.get('MeetnGo/calendar-events', {withCredentials: true});
 
               
                 const eventsData = response.data;

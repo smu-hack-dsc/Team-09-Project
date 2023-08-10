@@ -17,25 +17,25 @@ function removeAccessToken() {
 function isLoggedIn() {
     console.log("document.cookie", document.cookie)
     axios
-        .get('https://meetngo.onrender.com/access', { withCredentials: true })
+        .get('MeetnGo/access', { withCredentials: true })
         .then(res => {
             const accessToken = res.data;
             console.log('accessToken', accessToken)
             if (accessToken) {
                 console.log('Logged in with token:', accessToken);
             } else {
-                window.location.href = 'https://meet-n-go.onrender.com';
+                window.location.href = 'meet-n-go';
             }
         })
         .catch(error => {
             console.error('Error checking access token:', error);
-            window.location.href = 'https://meet-n-go.onrender.com'; // Redirect on error
+            window.location.href = 'meet-n-go'; // Redirect on error
         });
 }
 
 function logout() {
     removeAccessToken();
-    window.location.href = 'https://meet-n-go.onrender.com';
+    window.location.href = 'meet-n-go';
 }
 
 

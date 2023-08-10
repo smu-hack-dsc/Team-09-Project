@@ -30,7 +30,7 @@ app.use('/event', availabilityRouter);
 // const apikey=process.env.API_KEY;
 // const { google } = require('googleapis');
 
-app.use(cors({ origin: 'https://meet-n-go.onrender.com', credentials: true }));
+app.use(cors({ origin: 'meet-n-go', credentials: true }));
 app.use(session({
     secret:'cats', // change to .env variable
     resave: false,
@@ -59,12 +59,12 @@ app.get('/',
 app.get('/google/callback',
     passport.authenticate('google',{
         // successRedirect: '/protected',
-        successRedirect: 'https://meet-n-go.onrender.com/home.html',
+        successRedirect: 'meet-n-go/home.html',
         failureRedirect: '/auth/failure',
     }));
 
 app.get('/auth/failure', (req,res) => {
-    res.redirect('https://meet-n-go.onrender.com');
+    res.redirect('meet-n-go');
 });
 
 // adding isLoggedIn middleware function is called before the res is sent.
@@ -75,7 +75,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
     console.log("req.user", req.user)
     res.cookie('userData', JSON.stringify(req.user), { path:'/', domain:'.onrender.com', httpOnly: true, secure: true, sameSite: 'none', });
     res.setHeader('Set-Cookie', 'userData=' + JSON.stringify(req.user) + '; Path=/; Domain=.onrender.com; HttpOnly; Secure; SameSite=None');
-    res.header('Access-Control-Allow-Origin', 'https://meet-n-go.onrender.com');
+    res.header('Access-Control-Allow-Origin', 'meet-n-go');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Credentials', true);
@@ -96,7 +96,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
         if (err) {
           console.error('Error executing SQL query:', err);
           // if error redirect to login
-          res.redirect('https://meet-n-go.onrender.com')
+          res.redirect('meet-n-go')
         }
       
         // Access the count value from the result object
@@ -104,7 +104,7 @@ app.get('/protected',isLoggedIn, (req,res) => {
       
         if (count > 0) {
           // Email already exists, do not create another instance in db
-          res.redirect('https://meet-n-go.onrender.com/home.html');
+          res.redirect('meet-n-go/home.html');
         } 
         else {
           // Email doesn't exist, create a new instance in db
@@ -112,10 +112,10 @@ app.get('/protected',isLoggedIn, (req,res) => {
             if (err) {
               console.error('Error executing SQL query:', err);
               // if error redirect to login
-              res.redirect('https://meet-n-go.onrender.com')
+              res.redirect('meet-n-go')
             }
             else{
-            res.redirect('https://meet-n-go.onrender.com/home.html');
+            res.redirect('meet-n-go/home.html');
             ;}
             
         })
@@ -246,7 +246,7 @@ app.post('/create-event', async (req, res) => {
   
         // Respond to the client
         // res.send('Event created successfully!');
-        const eventURL = `https://meet-n-go.onrender.com/available.html?eventId=${eventId}`;
+        const eventURL = `meet-n-go/available.html?eventId=${eventId}`;
         res.redirect(eventURL);
       } 
       else {
@@ -269,7 +269,7 @@ app.get('/filter', async (req,res) => {
     const email = userData.profile.email;
 
     if (requestedCategory === 'all') {
-      axios.get(`https://meetngo.onrender.com/event/api/${email}`, {withCredentials: true})
+      axios.get(`MeetnGo/event/api/${email}`, {withCredentials: true})
       .then(async response => {
         const data = response.data;
         let all_events = {};
@@ -299,7 +299,7 @@ app.get('/filter', async (req,res) => {
     
     }
     else if (requestedCategory === 'other') {
-      axios.get(`https://meetngo.onrender.com/event/api/${email}`, {withCredentials: true})
+      axios.get(`MeetnGo/event/api/${email}`, {withCredentials: true})
       .then(async response => {
         let all_events = {};
         let my_events = {};
@@ -385,7 +385,7 @@ app.get('/logout', (req,res) => {
         if (err) { return next(err); }
         req.session.destroy();
         res.clearCookie('encryptedUserData', { httpOnly: true });
-        res.redirect('https://meet-n-go.onrender.com');
+        res.redirect('meet-n-go');
       });
 });
 

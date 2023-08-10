@@ -40,7 +40,7 @@
     <div class="logo_box">
       <a href="home.html"><img class="logo" src="./logo/logo.png" alt="logo" /></a>
     </div>
-    <a class="logout" href="https://meetngo.onrender.com/logout"> <img src=" ./logo/logout.png " /> </a>
+    <a class="logout" href="MeetnGo/logout"> <img src=" ./logo/logout.png " /> </a>
   </header>
 
   <div class="availability">
@@ -87,7 +87,7 @@
 
     //get userEmail
     axios
-      .get('https://meetngo.onrender.com/userData',  {withCredentials: true})
+      .get('MeetnGo/userData',  {withCredentials: true})
       .then(function (res) {
         const userData = res.data;
         userEmail = userData.email;
@@ -97,14 +97,14 @@
     // get json data
     axios
       .get(
-        `https://meetngo.onrender.com/event/api/availability/${eventId}`)
+        `MeetnGo/event/api/availability/${eventId}`)
       .then(function (res) {
         data = res.data;
         console.log(data);
 
         axios
           .get(
-            `https://meetngo.onrender.com/available/${eventId}`)
+            `MeetnGo/available/${eventId}`)
           .then(function (res) {
             event = res.data[0];
 
@@ -233,7 +233,7 @@
 
   <script>
     let form = document.getElementById("time_wrap");
-    form.action = `https://meetngo.onrender.com/event/api/availability/store/${eventId}`;
+    form.action = `MeetnGo/event/api/availability/store/${eventId}`;
   </script>
 
   <script src='./js/navbar.js'></script>
