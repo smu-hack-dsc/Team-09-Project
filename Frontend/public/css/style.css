@@ -13,9 +13,13 @@
     src: url('../fonts/gilroy-regular.ttf') format('truetype'), url('../fonts/gilroy-regular.woff') format('woff'), url('../fonts/gilroy-regular.woff2') format('woff2');
 }
 
-html, body {
-    width: 100%;
+html {
     height: 100%;
+}
+
+html,
+body {
+    width: 100%;
     padding: 0px;
     margin: 0px;
     font-family: "Gilroy-Regular";
@@ -23,6 +27,11 @@ html, body {
 }
 
 body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 1rem;
+    min-height: 100%;
+    min-height: 100%;
     position: relative;
     max-width: 100%;
     overflow-x: hidden;
@@ -49,11 +58,13 @@ h3 {
 }
 
 h4 {
+    font-size: 18px;
     font-weight: normal;
 }
 
-p, li {
-    font-size: 14px;
+p,
+li {
+    font-size: 16px;
     line-height: 24px;
     letter-spacing: normal;
 }
@@ -62,7 +73,8 @@ li {
     text-align: left;
 }
 
-ul, ol {
+ul,
+ol {
     margin: 0px;
     padding: 0px;
     list-style-position: outside;
@@ -72,17 +84,150 @@ a {
     text-decoration: none;
 }
 
-footer {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    bottom: 6px;
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
 }
 
-footer > p {
+li,
+a {
+    font-family: Gilroy-Regular;
+    font-size: 1.05rem;
+    color: #213052;
+    text-transform: capitalize;
+    line-height: normal;
+}
+
+button {
+    font-family: "Gilroy-Regular";
+}
+
+header {
+    background-color: #fcefd6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding: 12px 100px;
+}
+
+.logo_box {
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    height: 84px;
+}
+
+nav{
+    justify-self: start;
+}
+
+.hamburger_wrapper {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburger {
+    height: 1px;
+    width: 12px;
+    background-color: black;
+}
+
+.show {
+    display: block;
+}
+
+.nav_links {
+    list-style: none;
+}
+
+.hide:not(.show) {
+    display: none;
+}
+
+.hamburger_popup {
+    position: fixed;
+    width: 100vw;
+    height: 100vw;
+    background-color: white;
+    top: 0;
+    left: 0;
+}
+
+@media screen and (min-width: 1024px) {
+    .hamburger_wrapper {
+        display: none !important;
+    }
+
+    .nav_links {
+        display: block !important;
+    }
+}
+
+.nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a {
+    transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+    color: #1a87d8;
+}
+
+.logo {
+    height: 84px;
+}
+
+.logout {
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    justify-self: flex-end;
+}
+
+.logout>img {
+    height: 21px;
+}
+
+/* .create_event_button>button {
+    width: 11.6875rem;
+    height: 3.375rem;
+    border-radius: 0.9375rem;
+    background: #376CC8;
+    color: #FFF;
+    font-size: 1.4375rem;
+    font-family: Gilroy-Regular;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+} */
+
+footer {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+footer>p {
     font-family: "Gilroy-Light";
     font-size: 10px;
     margin: 2px;
+    color: #667479;
 }
 
 @media screen and (min-width: 1024px) {
@@ -95,10 +240,10 @@ footer > p {
     }
 
     h3 {
-        font-size: 26px;
+        font-size: 24px;
     }
 
-    footer > p {
+    footer>p {
         font-size: 11px;
     }
 }
@@ -108,11 +253,12 @@ footer > p {
         font-size: 42px;
     }
 
-    p, li {
+    p,
+    li {
         font-size: 15px;
     }
 
-    footer > p {
+    footer>p {
         font-size: 12px;
     }
 }
@@ -130,14 +276,15 @@ footer > p {
         font-size: 1.125vw;
     }
 
-    
 
-    p, li {
+
+    p,
+    li {
         font-size: 0.938vw;
         line-height: 1.5vw;
     }
 
-    footer > p {
+    footer>p {
         font-size: 0.75vw;
     }
 }
@@ -154,6 +301,56 @@ footer > p {
     }
 
     h3 {
-        font-size: 16px;
+        font-size: 24px;
     }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .nav_links {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      background-color: #fff;
+      top: 100%;
+      left: 0;
+      padding: 12px;
+    }
+  
+    .nav_links.show {
+      display: flex;
+    }
+  
+    .nav_links a {
+      color: #213052;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+.popup{
+    position: fixed;
+    width: 100vw;
+    height: 100vw;
+    background: #F6EDBF;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+}
+.nav_link_popup_s{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.nav_link_popup{
+    padding-top: 55px;
+}
+
+.nav_link_popup_s:hover{
+    background-color: white;
 }
