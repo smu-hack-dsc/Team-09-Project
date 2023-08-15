@@ -56,15 +56,15 @@ app.get('/',
     app.use(express.static('./public'))
 );
 
-app.get('/home', (req, res) => {
+app.get('/home', isLoggedIn, (req, res) => {
   res.sendFile(__dirname + '/public/home.html'); // Serve a specific HTML file
 });
 
-app.get('/create', (req, res) => {
+app.get('/create', isLoggedIn, (req, res) => {
   res.sendFile(__dirname + '/public/create.html'); // Serve a specific HTML file
 });
 
-app.get('/available', (req, res) => {
+app.get('/available',isLoggedIn, (req, res) => {
   const eventId = req.query.eventId;
   if (eventId) {
     res.sendFile(__dirname + `/public/available.html?eventId=${eventId}`); // Serve a specific HTML file
@@ -80,7 +80,7 @@ app.get('/auth',
 app.get('/google/callback',
     passport.authenticate('google',{
         // successRedirect: '/protected',
-        successRedirect: '/home',
+        successRedirect: '/protected',
         failureRedirect: '/auth/failure',
     }));
 
@@ -93,15 +93,15 @@ app.get('/protected',isLoggedIn, (req,res) => {
     // const encryptedCookie = encrypt.encrypt_cookie(req.user)
 
     // res.cookie('encryptedUserData', encryptedCookie, { httpOnly: true });
-    console.log("req.user", req.user)
-    res.cookie('userData', JSON.stringify(req.user), { path:'/', domain:'.onrender.com', httpOnly: true, sameSite: 'none', });
+    // console.log("req.user", req.user)
+    // res.cookie('userData', JSON.stringify(req.user), { path:'/', domain:'.onrender.com', httpOnly: true, sameSite: 'none', });
     // res.setHeader('Set-Cookie', 'userData=' + JSON.stringify(req.user) + '; Path=/; Domain=.onrender.com; HttpOnly; Secure; SameSite=None');
     // res.header('Access-Control-Allow-Origin', 'meet-n-go');
     // res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     // res.header('Access-Control-Allow-Credentials', true);
     // const cookieValue = JSON.stringify(req.user);
-    console.log("cookieValue", cookieValue)
+    // console.log("cookieValue", cookieValue)
     // res.send("cookie.set")
 
     var Username = req.user.profile.given_name;
@@ -152,8 +152,7 @@ app.get('/access', (req,res) => {
   // const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
   // const accessToken = userData.profile.accessToken;
 
-  const userData = req.user;
-  const accessToken = userData.profile.accessToken;
+  const accessToken = req.user.accessToken;
 
   res.send(accessToken);
 })
@@ -166,8 +165,7 @@ app.get('/calendar-events', async (req, res) => {
   // const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
   // const accessToken = userData.profile.accessToken;
 
-  const userData = req.user;
-  const accessToken = userData.profile.accessToken;
+  const accessToken = req.user.accessToken;
 
   // console.log(accessToken);
   const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
@@ -297,9 +295,11 @@ app.get('/filter', async (req,res) => {
     // const email = encrypt.decrypt_user_data(encryptedCookie,'email');
 
     const userData = req.user;
+    // console.log(userData);
 
     // const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     const email = userData.profile.email;
+    // console.log(email);
 
     if (requestedCategory === 'all') {
       axios.get(`http://localhost:3000/event/api/${email}`, {withCredentials: true})
