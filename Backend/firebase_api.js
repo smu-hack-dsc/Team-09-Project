@@ -12,7 +12,7 @@ router.use(cookieParser());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cors({
-    origin: ['meet-n-go', 'https://meetngo-84f89.firebaseio.com']
+    origin: [ 'https://meetngo-84f89.firebaseio.com']
   }));
 const db = firebase.db;
 
@@ -22,7 +22,9 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     // const encryptedCookie = req.cookies.encryptedUserData;
     // const email = encrypt.decrypt_user_data(encryptedCookie,'email');
 
-    const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
+    const userData = req.user;
+
+    // const userData = req.cookies.userData ? JSON.parse(req.cookies.userData) : null;
     const email = userData.profile.email;
     // email = '123@gmail.com';
 
@@ -30,7 +32,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
     // console.log('Form Data:', formData);
     
         axios
-            .get(`MeetnGo/available/${eventId}`)
+            .get(`/available/${eventId}`)
             .then(async function (res) {
                 const event = res.data[0];
                 const datesArray = event.Dates.split(',');
@@ -77,7 +79,7 @@ router.post('/api/availability/store/:eventId', (req, res) => {
                 res.status(500).json({ error: 'Something went wrong.' });
             });
 
-    res.redirect(`meet-n-go/home.html`);
+    res.redirect(`/home`);
 
 });
 
