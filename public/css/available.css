@@ -1,0 +1,304 @@
+/* Navs */
+.availability {
+  /* width: 90%; */
+  width: 95%;
+  margin: 54px auto;
+}
+
+.title {
+  font-family: "gilroy-regular";
+  margin: 21px;
+  text-align: center;
+}
+
+.date_wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.date_wrap::after {
+  bottom: 0;
+  content: '';
+  width: 150%;
+  margin: 0 auto;
+  display: block;
+  height: 2px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  width: 65%;
+  margin: 0 auto;
+  display: block;
+  height: 2px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06); */
+}
+
+.date_text{
+  color: #213052;
+  font-size: 1.5rem;
+  font-family: Gilroy-Regular;
+}
+
+.dates_outer {
+  display: flex;
+  /* margin: 12px 0; */
+  margin: 6px 0 32px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.btn_date {
+  border: 1px solid black;
+  width: 12.5rem;
+  color: #FFFFFF;
+  background-color: #213052;
+  border-radius: 30px;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  margin: 12px;
+  padding: 21px 32px;
+}
+
+.btn_date:hover, .selected {
+  background-color: #FFFFFF;
+  color: #213052;
+}
+
+.btn_date:first-child {
+  margin-left: 0px;
+}
+
+.btn_date:last-child {
+  margin-right: 0px;
+}
+
+#time_wrap {
+  /* margin: 36px auto; */
+  margin: 32px auto;
+}
+
+#time_flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.time_div {
+  position: relative;
+  /* padding: 40px;
+  width: 50%; */
+  padding: 12px;
+  width: 33%;
+}
+
+.date_selected {
+  color: #213052;
+  /* font-size: 1.8125rem; */
+  font-family: Gilroy-Regular;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  justify-content: space-around;
+}
+
+.time_slots{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.time_display{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px;
+  /* flex-grow: 1;
+  flex-basis: calc(25% - 20px); */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.avail_bar{
+  position: relative;
+  /* width: 77%; */
+  width: 68%;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid #F6F6F6;
+  background-color: #D9D9D9;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer; /* Set cursor to pointer (hand) */
+  transition: background-color 0.3s; /* Add transition effect */
+}
+
+/* @media (max-width: 930px) {
+  .avail_bar{
+    width: 40rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Adjust the max-width value based on your desired breakpoint
+  .avail_bar {
+    width: 30rem; /* Change the width for screens up to 768px
+  }
+}
+
+@media (max-width: 620px) {
+  .avail_bar{
+    width: 20rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust the max-width value based on your desired breakpoint
+  .avail_bar {
+    width: 15rem; /* Change the width for screens up to 480px
+  }
+} */
+
+.shaded_bar {
+  height: 100%;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  /* border: 1px solid #A5B6FA; */
+  background-color: #344ABD;;
+}
+
+.tick {
+  width: 2.0625rem;
+  height: 2.0625rem;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 3px solid #213052;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  clip-path: circle(46% at 50% 50%);
+}
+
+.tick:checked {
+  background-color: #213052;; /* Replace with your desired shaded color */
+  /* Replace with your desired border color */
+}
+
+.tick:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  border: 2px solid #fff; /* Border color to create the checkmark */
+  border-left: none;
+  border-top: none;
+}
+
+.submit_button {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.submit_button > button {
+  padding: 16px 48px;
+  border-radius: 16px;
+  background: #213052;
+  color: #FFF;
+  font-size: 1.4375rem;
+  font-family: "Gilroy-Regular";
+  transition: background-color 0.3s;
+}
+
+/* Change button background color on hover */
+.submit_button > button:hover {
+  background-color: white; /* Replace with your desired hover color */
+  cursor: pointer;
+  color: #213052;
+}
+@media (max-width: 930px) {
+  .btn_date{
+    font-size: 24px;
+  }
+
+  .time_input{
+    font-size: 1.2rem;
+  }
+
+  .avail_bar{
+    height: 1.8rem;
+  }
+
+  .shaded_bar {
+    height: 1.8rem;
+  }
+
+  .tick{
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .btn_date {
+    font-size: 20px;
+  }
+
+  .title{
+    font-size: 28px;
+  }
+
+  .date_text{
+    font-size: 1.5rem;
+  }
+
+  /* .date_selected{
+    font-size: 1.4rem;
+  } */
+}
+
+.avail_bar::after {
+  content: attr(data-content); 
+  position: absolute;
+  top: 100%; /* Position it below the .avail_bar element */
+  left: 50%;
+  transform: translateX(-50%); /* Center the text box horizontally */
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #213052;
+  color: #fff;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  visibility: hidden; /* Hide the text box by default */
+  opacity: 0; /* Initially, the text box is transparent */
+  transition: opacity 0.3s, visibility 0.3s; /* Add transition effect */
+}
+
+/* On hover over .avail_bar, display the text box */
+.avail_bar:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
